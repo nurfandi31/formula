@@ -1,0 +1,135 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import './base.css';
+@import './sop.css';
+
+@layer base, components, utilities;
+
+@theme {
+  /* Premium Palette (Bright Green & White Dominant) */
+  --color-primary: #10b981; /* Bright Emerald Green */
+  --color-primary-dark: #047857; /* Deep Emerald */
+  --color-primary-light: #f0fdf4; /* Ultra Light Green */
+  
+  /* Brand Specifics (Ngampon Portal) */
+  --color-azure: #22c55e; /* Vibrant Bright Green */
+  --color-crystal: #f0fdf4; /* Mint Crystal */
+  --color-royal: #15803d; /* Islamic Green */
+
+  /* Refined Neutrals */
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+
+  /* Typography Colors */
+  --color-text-main: var(--color-slate-900);
+  --color-text-sub: var(--color-slate-500);
+
+  /* Semantic Palettes (Vibrant but Soft) */
+  --color-success-bg: #f0fdf4;
+  --color-success-text: #15803d;
+  --color-warning-bg: #fffbeb;
+  --color-warning-text: #b45309;
+  --color-danger-bg: #fef2f2;
+  --color-danger-text: #b91c1c;
+
+  /* Typography */
+  --font-sans: "DM Sans", "Segoe UI", sans-serif;
+
+  /* Border Radius */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2.5rem;
+  --radius-3xl: 4rem;
+  --radius-full: 9999px;
+
+  /* Spacing System */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+}
+
+.p-select {
+  background-color: #020617 !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.75rem !important;
+  color: #e2e8f0 !important;
+  padding: 0.25rem 0.5rem !important;
+}
+.p-select:focus-within {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 1px #10b981 !important;
+}
+.p-select .p-select-label {
+  color: #e2e8f0 !important;
+}
+
+.p-datepicker {
+  font-family: inherit !important;
+}
+.p-datepicker-input {
+  background-color: #020617 !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.75rem !important;
+  color: #e2e8f0 !important;
+  padding: 0.75rem 1rem !important;
+  width: 100% !important;
+}
+.p-datepicker-input:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 1px #10b981 !important;
+}
+
+.p-inputnumber {
+  width: 100% !important;
+}
+.p-inputnumber-input {
+  background-color: #020617 !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.75rem !important;
+  color: #e2e8f0 !important;
+  padding: 0.75rem 1rem !important;
+  width: 100% !important;
+}
+.p-inputnumber-input:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 1px #10b981 !important;
+}
+
+.p-select-overlay {
+  background-color: #020617 !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 0.75rem !important;
+}
+.p-select-option {
+  color: #e2e8f0 !important;
+  font-size: 0.75rem !important;
+}
+.p-select-option:hover {
+  background-color: #1e293b !important;
+}
+.p-select-option.p-highlight {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+  color: #10b981 !important;
+}
