@@ -4,139 +4,161 @@ import { useFeedStore } from './feed'
 
 export const useAuthStore = defineStore('auth', () => {
   const defaultUsers = {
-    'ahmad@formula.org': {
-      email: 'ahmad@formula.org',
-      role: 'anggota',
-      name: 'Ahmad Fauzi',
-      nickname: 'Ahmad',
-      title: 'Ketua FORMULA',
-      avatar: '/member_portrait_1_1777344189794.png',
-      age: '23 Tahun',
-      hobby: 'Bakti Sosial & Fotografi',
-      quote: 'Maju terus pemuda dusun, aksi nyata lebih bernilai daripada sekadar wacana.',
-      education: 'S1 Teknik Informatika',
-      instagram: '@ahmadfauzi_ngampon',
-      joinedSince: '2022'
-    },
-    'siti@formula.org': {
-      email: 'siti@formula.org',
-      role: 'anggota',
-      name: 'Siti Aminah',
-      nickname: 'Siti',
-      title: 'Sekretaris',
-      avatar: '/member_portrait_2_1777344210087.png',
-      age: '21 Tahun',
-      hobby: 'Membaca & Desain Grafis',
-      quote: 'Setiap goresan tinta kepengurusan adalah bagian dari sejarah kebaikan dusun.',
-      education: 'D3 Administrasi Perkantoran',
-      instagram: '@sitiaminah_am',
-      joinedSince: '2023'
-    },
-    'andi@formula.org': {
-      email: 'andi@formula.org',
-      role: 'anggota',
-      name: 'Andi Pratama',
-      nickname: 'Andi',
-      title: 'Humas & Koordinator Olahraga',
-      avatar: '/member_portrait_3_1777354146065.png',
-      age: '22 Tahun',
-      hobby: 'Futsal & Aransemen Musik',
-      quote: 'Tubuh yang sehat melahirkan pemikiran yang cerdas dan tindakan yang tangguh.',
-      education: 'S1 Pendidikan Jasmani',
-      instagram: '@andipratama_real',
-      joinedSince: '2022'
-    },
-    'laila@formula.org': {
-      email: 'laila@formula.org',
-      role: 'anggota',
-      name: 'Laila Sari',
-      nickname: 'Laila',
-      title: 'Divisi Humas',
-      avatar: '/member_portrait_4_1777354168316.png',
-      age: '20 Tahun',
-      hobby: 'Menulis & Public Speaking',
-      quote: 'Menghubungkan hati, menyebarkan kebaikan, membangun kerukunan warga.',
-      education: 'S1 Ilmu Komunikasi',
-      instagram: '@lailasari_official',
-      joinedSince: '2024'
-    },
     'admin@gmail.com': {
       email: 'admin@gmail.com',
       role: 'admin',
-      name: 'Administrator',
-      nickname: 'Admin',
-      title: 'Sistem Admin',
-      avatar: '/member_portrait_3_1777354146065.png',
+      name: 'Fandi Ahmad',
+      nickname: 'Fandi',
+      title: 'Ketua Umum',
+      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
       age: '25 Tahun',
-      hobby: 'System Management',
+      hobby: 'Organisasi & Teknologi',
       quote: 'Keep the system clean and performant.',
       education: 'S1 Ilmu Komputer',
-      instagram: '@formula_admin',
+      instagram: '@fandi_ngampon',
       joinedSince: '2021'
+    },
+    'adit@formula.org': {
+      email: 'adit@formula.org',
+      role: 'anggota',
+      name: 'Aditya Pratama',
+      nickname: 'Aditya',
+      title: 'Sekretaris I',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
+      age: '22 Tahun',
+      hobby: 'Membaca',
+      quote: 'Tertib administrasi untuk kesuksesan bersama.',
+      education: 'D3 Administrasi',
+      instagram: '@aditya_ngampon',
+      joinedSince: '2023'
+    },
+    'rina@formula.org': {
+      email: 'rina@formula.org',
+      role: 'anggota',
+      name: 'Rina Amalia',
+      nickname: 'Rina',
+      title: 'Bendahara Umum',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina',
+      age: '23 Tahun',
+      hobby: 'Memasak',
+      quote: 'Transparansi keuangan adalah kunci kepercayaan.',
+      education: 'S1 Akuntansi',
+      instagram: '@rina_ngampon',
+      joinedSince: '2022'
     }
   }
 
-  const users = ref(JSON.parse(localStorage.getItem('formula_users')) || defaultUsers)
+  const users = ref(defaultUsers)
   const currentUser = ref(JSON.parse(localStorage.getItem('formula_current_user')) || null)
-
-  watch(users, (val) => {
-    localStorage.setItem('formula_users', JSON.stringify(val))
-  }, { deep: true })
 
   watch(currentUser, (val) => {
     localStorage.setItem('formula_current_user', JSON.stringify(val))
   }, { deep: true })
 
-  const login = (email, password) => {
-    const user = users.value[email.toLowerCase().trim()]
-    if (user) {
-      if (password === 'password' || (user.role === 'admin' && (password === 'admin123' || password === 'adminpassword123'))) {
-        currentUser.value = user
-        return { success: true, user }
+  const API_BASE = 'http://localhost:8000/api'
+
+  const login = async (email, password) => {
+    try {
+      const res = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (data.success) {
+          const m = data.user
+          const fetchedUser = {
+            id: m.id,
+            email: m.email,
+            role: m.role,
+            name: m.name,
+            nickname: m.name.split(' ')[0],
+            title: m.title || (m.role === 'admin' ? 'Ketua Umum' : 'Anggota FORMULA'),
+            avatar: m.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + m.name,
+            age: m.age || (m.role === 'admin' ? '25 Tahun' : '22 Tahun'),
+            hobby: m.hobby || 'Organisasi',
+            quote: m.quote || 'Bersama FORMULA, berkontribusi aktif.',
+            education: m.education || 'Universitas Lokal',
+            instagram: m.instagram || `@${m.name.split(' ')[0].toLowerCase()}_ngampon`,
+            joinedSince: m.joined_since || '2024'
+          }
+          currentUser.value = fetchedUser
+          users.value[fetchedUser.email.toLowerCase().trim()] = fetchedUser
+          return { success: true, user: fetchedUser }
+        }
+      } else {
+        const errData = await res.json().catch(() => ({}))
+        return { success: false, message: errData.message || 'Alamat email atau kata sandi salah.' }
       }
+    } catch (e) {
+      return { success: false, message: 'Gagal menghubungi server. Silakan coba beberapa saat lagi.' }
     }
     return { success: false, message: 'Alamat email atau kata sandi salah.' }
   }
 
-  const register = (name, email, password) => {
-    const lowerEmail = email.toLowerCase().trim()
-    if (users.value[lowerEmail]) {
-      return { success: false, message: 'Alamat email sudah terdaftar.' }
-    }
-
-    const nickname = name.split(' ')[0]
-    const newUser = {
-      email: lowerEmail,
-      role: 'anggota',
-      name,
-      nickname,
-      title: 'Anggota FORMULA',
-      avatar: '/member_portrait_1_1777344189794.png',
-      age: '22 Tahun',
-      hobby: 'Organisasi & Humas',
-      quote: 'Bersama FORMULA, berkontribusi aktif melahirkan kegunaan konkret bagi dusun tercinta.',
-      education: 'S1 Ilmu Komunikasi',
-      instagram: `@${nickname.toLowerCase()}_ngampon`,
-      joinedSince: new Date().getFullYear().toString()
-    }
-
-    users.value[lowerEmail] = newUser
-    currentUser.value = newUser
-
-    const feedStore = useFeedStore()
-    if (!feedStore.stories.some(s => s.name.toLowerCase() === nickname.toLowerCase())) {
-      feedStore.stories.unshift({
-        id: Date.now(),
-        name: nickname,
-        image: newUser.avatar
+  const register = async (name, email, password) => {
+    try {
+      const res = await fetch(`${API_BASE}/members`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role: 'anggota',
+          title: 'Anggota FORMULA'
+        })
       })
-    }
+      if (res.ok) {
+        const data = await res.json()
+        if (data.success) {
+          await fetchMembers()
+          const m = data.user
+          const newUser = {
+            id: m.id,
+            email: m.email,
+            role: m.role,
+            name: m.name,
+            nickname: m.name.split(' ')[0],
+            title: m.title || 'Anggota FORMULA',
+            avatar: m.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + m.name,
+            age: '22 Tahun',
+            hobby: 'Organisasi & Humas',
+            quote: 'Bersama FORMULA, berkontribusi aktif melahirkan kegunaan konkret bagi dusun tercinta.',
+            education: 'Universitas Lokal',
+            instagram: `@${m.name.split(' ')[0].toLowerCase()}_ngampon`,
+            joinedSince: new Date().getFullYear().toString()
+          }
+          currentUser.value = newUser
+          users.value[newUser.email.toLowerCase().trim()] = newUser
 
-    return { success: true, user: newUser }
+          const feedStore = useFeedStore()
+          if (!feedStore.stories.some(s => s.name.toLowerCase() === newUser.nickname.toLowerCase())) {
+            feedStore.stories.unshift({
+              id: Date.now(),
+              name: newUser.nickname,
+              image: newUser.avatar
+            })
+          }
+          return { success: true, user: newUser }
+        }
+      } else {
+        const errData = await res.json().catch(() => ({}))
+        return { success: false, message: errData.message || 'Alamat email sudah terdaftar atau tidak valid.' }
+      }
+    } catch (e) {
+      return { success: false, message: 'Gagal menghubungi server. Silakan coba lagi.' }
+    }
+    return { success: false, message: 'Gagal mendaftar.' }
   }
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await fetch(`${API_BASE}/logout`, { method: 'POST' })
+    } catch (e) {}
     currentUser.value = null
+    localStorage.removeItem('formula_current_user')
   }
 
   const updateProfile = (profileData) => {
@@ -213,24 +235,31 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const API_BASE = 'http://localhost:8000/api'
-
   const fetchMembers = async () => {
     try {
       const res = await fetch(`${API_BASE}/members`)
       if (res.ok) {
         const data = await res.json()
+        const newUsers = {}
         data.forEach(m => {
-          users.value[m.email.toLowerCase().trim()] = {
+          const emailKey = m.email.toLowerCase().trim()
+          newUsers[emailKey] = {
             id: m.id,
             email: m.email,
             role: m.role,
             name: m.name,
             nickname: m.name.split(' ')[0],
-            title: m.title || 'Anggota FORMULA',
-            avatar: m.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + m.name
+            title: m.title || (m.role === 'admin' ? 'Ketua Umum' : 'Anggota FORMULA'),
+            avatar: m.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + m.name,
+            age: m.age || (m.role === 'admin' ? '25 Tahun' : '22 Tahun'),
+            hobby: m.hobby || 'Organisasi',
+            quote: m.quote || 'Bersama FORMULA, berkontribusi aktif.',
+            education: m.education || 'Universitas Lokal',
+            instagram: m.instagram || `@${m.name.split(' ')[0].toLowerCase()}_ngampon`,
+            joinedSince: m.joined_since || '2024'
           }
         })
+        users.value = newUsers
       }
     } catch (e) {}
   }

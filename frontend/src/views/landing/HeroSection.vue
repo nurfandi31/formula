@@ -6,38 +6,45 @@ const emit = defineEmits(['openProfile', 'openRegister'])
 
 const socialStore = useSocialStore()
 
-const boardMembers = [
-  { name: 'Andi Pratama', role: 'Ketua', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Laila Sari', role: 'Sekretaris', image: '/member_portrait_2_1777344210087.png' },
-  { name: 'Rizky Ramadhan', role: 'Humas', image: '/member_portrait_3_1777354146065.png' }
-]
+const boardMembers = computed(() => {
+  const allUsers = Object.values(socialStore.users)
+  if (allUsers.length > 0) {
+    return allUsers.map(u => ({
+      name: u.name,
+      role: u.title || (u.role === 'admin' ? 'Ketua Umum' : 'Anggota FORMULA'),
+      image: u.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + u.name
+    }))
+  }
+  return [
+    { name: 'Fandi Ahmad', role: 'Ketua Umum', image: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin' },
+    { name: 'Aditya Pratama', role: 'Sekretaris I', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya' },
+    { name: 'Rina Amalia', role: 'Bendahara Umum', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina' }
+  ]
+})
 
-const searchRoster = [
-  { name: 'Ahmad Fauzi', role: 'Ketua FORMULA (Generasi 10)', instagram: 'https://instagram.com/ahmadfauzi_ngampon', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Siti Aminah', role: 'Sekretaris (Generasi 10)', instagram: 'https://instagram.com/sitiaminah_am', image: '/member_portrait_2_1777344210087.png' },
-  { name: 'Andi Pratama', role: 'Humas & Olahraga (Generasi 10)', instagram: 'https://instagram.com/andipratama_real', image: '/member_portrait_3_1777354146065.png' },
-  { name: 'Laila Sari', role: 'Divisi Humas (Generasi 10)', instagram: 'https://instagram.com/lailasari_official', image: '/member_portrait_4_1777354168316.png' },
-  { name: 'Rizky Ramadhan', role: 'Anggota Aktif (Generasi 10)', instagram: 'https://instagram.com/rizky_ngampon', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Budi Santoso', role: 'Anggota Aktif (Generasi 10)', instagram: 'https://instagram.com/budi_ngampon', image: '/member_portrait_3_1777354146065.png' },
-  { name: 'Sari Puspita', role: 'Anggota Aktif (Generasi 10)', instagram: 'https://instagram.com/sari_ngampon', image: '/member_portrait_4_1777354168316.png' },
-  { name: 'Zaki Mubarak', role: 'Anggota Aktif (Generasi 10)', instagram: 'https://instagram.com/zaki_ngampon', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'M. Yusuf Efendi', role: 'Ketua Pelopor (Generasi 1)', instagram: 'https://instagram.com/yusuf_ngampon', image: '/member_portrait_3_1777354146065.png' },
-  { name: 'Aris Munandar', role: 'Ketua (Generasi 2)', instagram: 'https://instagram.com/aris_ngampon', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Tri Utomo', role: 'Ketua (Generasi 3)', instagram: 'https://instagram.com/tri_ngampon', image: '/member_portrait_3_1777354146065.png' },
-  { name: 'Heri Prasetyo', role: 'Ketua (Generasi 4)', instagram: 'https://instagram.com/heri_ngampon', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Bagus Setyawan', role: 'Ketua (Generasi 5)', instagram: 'https://instagram.com/bagus_ngampon', image: '/member_portrait_3_1777354146065.png' },
-  { name: 'Wahyu Nugroho', role: 'Ketua (Generasi 6)', instagram: 'https://instagram.com/wahyu_ngampon', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Rian Hidayat', role: 'Ketua (Generasi 7)', instagram: 'https://instagram.com/rian_ngampon', image: '/member_portrait_3_1777354146065.png' },
-  { name: 'Eko Prasetyo', role: 'Ketua (Generasi 8)', instagram: 'https://instagram.com/eko_ngampon', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Fajar Ramadhan', role: 'Ketua (Generasi 9)', instagram: 'https://instagram.com/fajar_ngampon', image: '/member_portrait_3_1777354146065.png' }
-]
+const searchRoster = computed(() => {
+  const allUsers = Object.values(socialStore.users)
+  if (allUsers.length > 0) {
+    return allUsers.map(u => ({
+      name: u.name,
+      role: u.title || (u.role === 'admin' ? 'Ketua Umum' : 'Anggota FORMULA'),
+      instagram: u.instagram || `https://instagram.com/${u.name.split(' ')[0].toLowerCase()}_ngampon`,
+      image: u.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + u.name
+    }))
+  }
+  return [
+    { name: 'Fandi Ahmad', role: 'Ketua Umum', instagram: 'https://instagram.com/fandi_ngampon', image: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin' },
+    { name: 'Aditya Pratama', role: 'Sekretaris I', instagram: 'https://instagram.com/aditya_ngampon', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya' },
+    { name: 'Rina Amalia', role: 'Bendahara Umum', instagram: 'https://instagram.com/rina_ngampon', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina' }
+  ]
+})
 
 const searchQuery = ref('')
 const showSearchResults = ref(false)
 
 const filteredMembers = computed(() => {
   if (searchQuery.value.trim() === '') return []
-  return searchRoster.filter(m => 
+  return searchRoster.value.filter(m => 
     m.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
     m.role.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
@@ -47,12 +54,14 @@ const currentSlide = ref(0)
 let slideInterval = null
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % boardMembers.length
+  if (boardMembers.value.length === 0) return
+  currentSlide.value = (currentSlide.value + 1) % boardMembers.value.length
   resetInterval()
 }
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + boardMembers.length) % boardMembers.length
+  if (boardMembers.value.length === 0) return
+  currentSlide.value = (currentSlide.value - 1 + boardMembers.value.length) % boardMembers.value.length
   resetInterval()
 }
 

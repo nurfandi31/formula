@@ -36,53 +36,41 @@ const handleRegisterSuccess = (data) => {
 }
 
 const memberProfiles = {
-  'ahmad': {
-    name: 'Ahmad Fauzi',
-    nickname: 'Ahmad',
-    role: 'Ketua FORMULA',
-    avatar: '/member_portrait_1_1777344189794.png',
-    age: '23 Tahun',
-    hobby: 'Bakti Sosial & Fotografi',
-    quote: 'Maju terus pemuda dusun, aksi nyata lebih bernilai daripada sekadar wacana.',
-    education: 'S1 Teknik Informatika',
-    instagram: '@ahmadfauzi_ngampon',
-    joinedSince: '2022'
+  'fandi': {
+    name: 'Fandi Ahmad',
+    nickname: 'Fandi',
+    role: 'Ketua Umum',
+    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
+    age: '25 Tahun',
+    hobby: 'Organisasi & Teknologi',
+    quote: 'Keep the system clean and performant.',
+    education: 'S1 Ilmu Komputer',
+    instagram: '@fandi_ngampon',
+    joinedSince: '2021'
   },
-  'siti': {
-    name: 'Siti Aminah',
-    nickname: 'Siti',
-    role: 'Sekretaris',
-    avatar: '/member_portrait_2_1777344210087.png',
-    age: '21 Tahun',
-    hobby: 'Membaca & Desain Grafis',
-    quote: 'Setiap goresan tinta kepengurusan adalah bagian dari sejarah kebaikan dusun.',
-    education: 'D3 Administrasi Perkantoran',
-    instagram: '@sitiaminah_am',
+  'aditya': {
+    name: 'Aditya Pratama',
+    nickname: 'Aditya',
+    role: 'Sekretaris I',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
+    age: '22 Tahun',
+    hobby: 'Membaca',
+    quote: 'Tertib administrasi untuk kesuksesan bersama.',
+    education: 'D3 Administrasi',
+    instagram: '@aditya_ngampon',
     joinedSince: '2023'
   },
-  'andi': {
-    name: 'Andi Pratama',
-    nickname: 'Andi',
-    role: 'Humas & Koordinator Olahraga',
-    avatar: '/member_portrait_3_1777354146065.png',
-    age: '22 Tahun',
-    hobby: 'Futsal & Aransemen Musik',
-    quote: 'Tubuh yang sehat melahirkan pemikiran yang cerdas dan tindakan yang tangguh.',
-    education: 'S1 Pendidikan Jasmani',
-    instagram: '@andipratama_real',
+  'rina': {
+    name: 'Rina Amalia',
+    nickname: 'Rina',
+    role: 'Bendahara Umum',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina',
+    age: '23 Tahun',
+    hobby: 'Memasak',
+    quote: 'Transparansi keuangan adalah kunci kepercayaan.',
+    education: 'S1 Akuntansi',
+    instagram: '@rina_ngampon',
     joinedSince: '2022'
-  },
-  'laila': {
-    name: 'Laila Sari',
-    nickname: 'Laila',
-    role: 'Divisi Humas',
-    avatar: '/member_portrait_4_1777354168316.png',
-    age: '20 Tahun',
-    hobby: 'Menulis & Public Speaking',
-    quote: 'Menghubungkan hati, menyebarkan kebaikan, membangun kerukunan warga.',
-    education: 'S1 Ilmu Komunikasi',
-    instagram: '@lailasari_official',
-    joinedSince: '2024'
   }
 }
 

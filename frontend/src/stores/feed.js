@@ -6,16 +6,16 @@ export const useFeedStore = defineStore('feed', () => {
   const defaultPosts = [
     {
       id: 1,
-      user: 'Ahmad Fauzi',
-      role: 'Ketua FORMULA',
-      avatar: '/member_portrait_1_1777344189794.png',
+      user: 'Fandi Ahmad',
+      role: 'Ketua Umum',
+      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
       image: '/formula_youth_landing_hero_1777344117635.png',
       caption: 'Semangat muda Ngampon! Rapat persiapan kegiatan Ramadhan tahun ini berjalan lancar. Siapkan ide terbaik kalian! ✨ #RamadhanDiNgampon #MudaBerprestasi',
-      likes: 1200,
+      likes: 120,
       hasLiked: false,
       commentsList: [
-        { user: 'Budi', text: 'Keren banget kak, semangat!' },
-        { user: 'Sari', text: 'Mantap, nggak sabar ikutan kegiatan Ramadhan' }
+        { user: 'Aditya', text: 'Keren banget, Kak Fandi! Semangat!' },
+        { user: 'Rina', text: 'Mantap, siap mendukung kegiatan Ramadhan!' }
       ],
       showComments: false,
       newCommentText: '',
@@ -23,16 +23,16 @@ export const useFeedStore = defineStore('feed', () => {
     },
     {
       id: 2,
-      user: 'Siti Aminah',
-      role: 'Sekretaris',
-      avatar: '/member_portrait_2_1777344210087.png',
+      user: 'Aditya Pratama',
+      role: 'Sekretaris I',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
       image: '/ngampon_village_vibes_1777344139732.png',
       caption: 'Keseruan kegiatan akhir pekan lalu di Bakti Sosial Dusun Ngampon. Bangga bisa berkontribusi langsung untuk warga! 🚀 #NgamponCerdas #FormulaBeraksi',
-      likes: 856,
+      likes: 85,
       hasLiked: false,
       commentsList: [
-        { user: 'Andi', text: 'Alhamdulillah bermanfaat bagi sesama' },
-        { user: 'Pratama', text: 'Maju terus pemuda Ngampon!' }
+        { user: 'Rina', text: 'Alhamdulillah sangat bermanfaat bagi sesama.' },
+        { user: 'Fandi', text: 'Maju terus pemuda Ngampon!' }
       ],
       showComments: false,
       newCommentText: '',
@@ -43,8 +43,8 @@ export const useFeedStore = defineStore('feed', () => {
   const defaultStories = [
     { 
       id: 1, 
-      name: 'Ahmad', 
-      image: '/member_portrait_1_1777344189794.png',
+      name: 'Fandi', 
+      image: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
       slides: [
         { id: 101, image: '/formula_youth_landing_hero_1777344117635.png', caption: 'Persiapan baksos pemuda dusun Ngampon pagi ini! 🧹🌿 #SinergiMuda' },
         { id: 102, image: '/ngampon_village_vibes_1777344139732.png', caption: 'Ayo mampir, kopi hangat sudah siap di balai dusun! ☕ #GuyubRukun' }
@@ -52,84 +52,30 @@ export const useFeedStore = defineStore('feed', () => {
     },
     { 
       id: 2, 
-      name: 'Siti', 
-      image: '/member_portrait_2_1777344210087.png',
+      name: 'Aditya', 
+      image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
       slides: [
         { id: 201, image: '/ngampon_village_vibes_1777344139732.png', caption: 'Mengerjakan proposal kegiatan baksos akhir tahun 💻✨ #TertibAdministrasi' }
       ]
     },
     { 
       id: 3, 
-      name: 'Andi', 
-      image: '/member_portrait_3_1777354146065.png',
+      name: 'Rina', 
+      image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina',
       slides: [
         { id: 301, image: '/formula_youth_landing_hero_1777344117635.png', caption: 'Pendaftaran turnamen futsal antar RT resmi dibuka! ⚽🏆 #MudaSehat' }
-      ]
-    },
-    { 
-      id: 4, 
-      name: 'Laila', 
-      image: '/member_portrait_4_1777354168316.png',
-      slides: [
-        { id: 401, image: '/ngampon_village_vibes_1777344139732.png', caption: 'Indahnya sore di Dusun Ngampon, damai tentram! 🌅🏡 #NgamponHarmonis' }
-      ]
-    },
-    { 
-      id: 5, 
-      name: 'Rizky', 
-      image: '/member_portrait_1_1777344189794.png',
-      slides: [
-        { id: 501, image: '/formula_youth_landing_hero_1777344117635.png', caption: 'Dokumentasi rapat koordinasi pengurus semalam. Mantap! 📝🚀' }
-      ]
-    },
-    { 
-      id: 6, 
-      name: 'Fauzi', 
-      image: '/member_portrait_3_1777354146065.png',
-      slides: [
-        { id: 601, image: '/ngampon_village_vibes_1777344139732.png', caption: 'Pagi hari yang cerah di Ngampon, siap beraktivitas! ☀️🌿' }
-      ]
-    },
-    { 
-      id: 7, 
-      name: 'Aminah', 
-      image: '/member_portrait_2_1777344210087.png',
-      slides: [
-        { id: 701, image: '/formula_youth_landing_hero_1777344117635.png', caption: 'Belajar desain publikasi media sosial FORMULA 🎨📱' }
-      ]
-    },
-    { 
-      id: 8, 
-      name: 'Budi', 
-      image: '/member_portrait_1_1777344189794.png',
-      slides: [
-        { id: 801, image: '/ngampon_village_vibes_1777344139732.png', caption: 'Kondisi kebersihan lingkungan pos ronda aman terkendali! 🧹👮' }
-      ]
-    },
-    { 
-      id: 9, 
-      name: 'Sari', 
-      image: '/member_portrait_4_1777354168316.png',
-      slides: [
-        { id: 901, image: '/formula_youth_landing_hero_1777344117635.png', caption: 'Yuk kumpul di warung kopi dusun, diskusi santai! ☕💬' }
       ]
     }
   ]
 
   const defaultMessages = {
-    'ahmad@formula.org': [
+    'adit@formula.org': [
       { id: 1, sender: 'them', text: 'Halo! Ada koordinasi rapat nanti malam jam 19.30 di balai dusun ya. 👍', time: '10:14' },
-      { id: 2, sender: 'me', text: 'Siap Kak Ahmad! Saya akan datang tepat waktu.', time: '10:15' }
+      { id: 2, sender: 'me', text: 'Siap Adit! Saya akan datang tepat waktu.', time: '10:15' }
     ],
-    'siti@formula.org': [
+    'rina@formula.org': [
       { id: 1, sender: 'them', text: 'Format laporan kas bulanan sudah saya kirim ke email ya.', time: 'Kemarin' },
-      { id: 2, sender: 'me', text: 'Oke baik Mbak Siti, akan segera saya rekap.', time: 'Kemarin' }
-    ],
-    'andi@formula.org': [
-      { id: 1, sender: 'them', text: 'Bro, nanti sore jadi futsal kan? Sepatu jangan lupa dibawa.', time: '11:20' }
-    ],
-    'laila@formula.org': [
-      { id: 1, sender: 'them', text: 'Desain pamflet baksos besok lusa sudah disetujui ya.', time: '13:02' }
+      { id: 2, sender: 'me', text: 'Oke baik Mbak Rina, akan segera saya rekap.', time: 'Kemarin' }
     ]
   }
 

@@ -6,9 +6,9 @@ const emit = defineEmits(['openProfile'])
 const socialStore = useSocialStore()
 
 const fallbackMembers = [
-  { name: 'Andi Pratama', role: 'Ketua', image: '/member_portrait_1_1777344189794.png' },
-  { name: 'Laila Sari', role: 'Sekretaris', image: '/member_portrait_2_1777344210087.png' },
-  { name: 'Rizky Ramadhan', role: 'Humas', image: '/member_portrait_3_1777354146065.png' }
+  { name: 'Fandi Ahmad', role: 'Ketua Umum', image: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin' },
+  { name: 'Aditya Pratama', role: 'Sekretaris I', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya' },
+  { name: 'Rina Amalia', role: 'Bendahara Umum', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina' }
 ]
 
 const members = computed(() => {

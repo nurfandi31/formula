@@ -56,8 +56,8 @@ const unpaidMembers = computed(() => {
   allUsers.forEach((user, index) => {
     if (user.role === 'admin') return
 
-    // Deterministically assign realistic dues to HUMAS/new members for demo purposes
-    if (user.name.includes('Andi')) {
+    // Deterministically assign realistic dues to members for demonstration
+    if (index % 2 === 1) {
       list.push({
         id: user.id || index,
         name: user.name,
@@ -67,17 +67,7 @@ const unpaidMembers = computed(() => {
         periode: 'Maret - April 2026',
         lastUpdated: '10 Mei 2026'
       })
-    } else if (user.name.includes('Laila')) {
-      list.push({
-        id: user.id || index,
-        name: user.name,
-        avatar: user.avatar,
-        title: user.title,
-        tunggakan: 10000,
-        periode: 'April 2026',
-        lastUpdated: '12 Mei 2026'
-      })
-    } else if (index % 2 === 0 && !user.name.includes('Ahmad') && !user.name.includes('Siti')) {
+    } else {
       list.push({
         id: user.id || index,
         name: user.name,

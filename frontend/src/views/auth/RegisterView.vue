@@ -65,7 +65,7 @@ const handleRegister = () => {
               type="text" 
               required
               class="w-full pl-10 pr-5 py-3.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 text-xs font-bold text-slate-700 focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" 
-              placeholder="Contoh: Ahmad Fauzi"
+              placeholder="Contoh: Aditya Pratama"
             >
           </div>
         </div>

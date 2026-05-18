@@ -91,10 +91,10 @@ const generations = [
   {
     num: 10,
     year: '2026',
-    leader: 'Ahmad Fauzi',
-    secretary: 'Siti Aminah',
-    treasurer: 'Andi Pratama',
-    activeMembers: ['Laila Sari', 'Rizky Ramadhan', 'Budi', 'Sari', 'Zaki', 'Putri', 'Hidayat', 'Indah'],
+    leader: 'Fandi Ahmad',
+    secretary: 'Aditya Pratama',
+    treasurer: 'Rina Amalia',
+    activeMembers: ['Muhammad Yusuf', 'Budi Santoso', 'Sari Puspita', 'Zaki Mubarak', 'Heri Prasetyo', 'Wahyu Nugroho', 'Eko Prasetyo'],
     story: 'Mencapai era puncak sinergitas aktif, meluncurkan portal interaktif FORMULA untuk menyatukan rekam jejak kepemudaan.'
   }
 ]
