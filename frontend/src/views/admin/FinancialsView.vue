@@ -142,7 +142,7 @@ onMounted(() => {
 <template>
   <AdminLayout>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 print:hidden">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6 lg:col-span-2">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 lg:col-span-2">
         <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Input Dana Kas Baru</h3>
         <div class="space-y-4">
           <div>
@@ -169,7 +169,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6 flex flex-col justify-between">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 flex flex-col justify-between">
         <div>
           <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Struktur Kas</h3>
           <div class="w-full flex items-center justify-center">
@@ -193,7 +193,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="mt-8 bg-slate-900/60 border border-slate-900 rounded-lg overflow-hidden print:border-0 print:bg-transparent print:m-0">
+    <div class="mt-8 bg-slate-900/60 border border-slate-900 rounded-xl overflow-hidden print:border-0 print:bg-transparent print:m-0">
       <div class="p-6 border-b border-slate-800/60 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-slate-900/40 print:hidden">
         <h3 class="text-xs font-black uppercase tracking-widest text-white">Riwayat Arus Kas</h3>
         <div class="flex flex-wrap gap-3 w-full sm:w-auto items-center">
@@ -261,12 +261,3 @@ onMounted(() => {
     </div>
   </AdminLayout>
 </template>
-
-<style>
-@media print {
-  body {
-    background: white !important;
-    color: black !important;
-  }
-}
-</style>

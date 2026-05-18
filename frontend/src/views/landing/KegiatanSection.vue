@@ -56,7 +56,7 @@ const features = computed(() => {
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-        <div v-for="(feat, idx) in features" :key="idx" class="bg-white rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-8 shadow-2xl shadow-emerald-500/15 flex flex-col justify-between group hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/35 transition-all duration-300">
+        <div v-for="(feat, idx) in features" :key="idx" class="bg-white border border-slate-100/80 rounded-xl p-6 sm:p-8 shadow-xl shadow-slate-100 flex flex-col justify-between group hover:-translate-y-2 hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300">
           <div class="space-y-4 sm:space-y-6">
             <div :class="['w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-xl shadow-inner', idx === 0 ? 'bg-rose-50 text-rose-600' : idx === 1 ? 'bg-amber-50 text-amber-600' : 'bg-emerald-50 text-emerald-600']">
               {{ feat.icon }}

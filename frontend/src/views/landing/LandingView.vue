@@ -238,7 +238,7 @@ const handleToast = (message) => {
     <AnggotaSection @open-profile="openMemberProfile" />
 
     <section class="max-w-7xl mx-auto px-4 sm:px-8 pb-16 sm:pb-32 pt-8 sm:pt-16 bg-white">
-      <div class="relative rounded-[2rem] sm:rounded-[4rem] overflow-hidden bg-white p-8 sm:p-16 lg:p-24 text-center group shadow-2xl shadow-emerald-500/25">
+      <div class="relative border border-slate-100/80 rounded-xl overflow-hidden bg-white p-8 sm:p-16 lg:p-24 text-center group shadow-xl shadow-slate-100">
         <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-200 blur-[150px] rounded-full opacity-30 -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-1000"></div>
         <div class="relative z-10 space-y-6 sm:space-y-10">
           <h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-tight">Muda, Beriman, <br/><span class="text-emerald-600 italic">Berprestasi.</span></h2>
@@ -246,10 +246,10 @@ const handleToast = (message) => {
             Mari bergabung dalam pergerakan pemuda Dusun Ngampon yang lebih cerdas dan berdaya.
           </p>
           <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4 sm:pt-6 w-full">
-            <button @click="openRegisterModal" class="px-6 sm:px-12 py-4 sm:py-6 bg-emerald-600 text-white rounded-xl sm:rounded-[2rem] font-black text-sm shadow-2xl shadow-emerald-600/20 hover:scale-105 transition-transform cursor-pointer w-full sm:w-auto">
+            <button @click="openRegisterModal" class="px-6 sm:px-12 py-4 sm:py-5 bg-emerald-600 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-emerald-600/10 hover:scale-105 transition-transform cursor-pointer w-full sm:w-auto">
               DAFTAR SEKARANG
             </button>
-            <button class="px-6 sm:px-12 py-4 sm:py-6 bg-white border border-emerald-200 text-emerald-700 rounded-xl sm:rounded-[2rem] font-black text-sm hover:bg-emerald-50/50 transition-all shadow-sm cursor-pointer w-full sm:w-auto">
+            <button class="px-6 sm:px-12 py-4 sm:py-5 bg-white border border-emerald-200 text-emerald-700 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-emerald-50/50 transition-all shadow-sm cursor-pointer w-full sm:w-auto">
               HUBUNGI KAMI
             </button>
           </div>
@@ -272,73 +272,3 @@ const handleToast = (message) => {
     <RegisterModal :is-open="isRegisterOpen" @close="closeRegisterModal" @submit-success="handleRegisterSuccess" />
   </LandingLayout>
 </template>
-
-<style>
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-bounce-slow {
-  animation: bounce-slow 4s ease-in-out infinite;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.fade-slide-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
-}
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.fade-zoom-enter-active,
-.fade-zoom-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-zoom-enter-active .relative,
-.fade-zoom-leave-active .relative {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.fade-zoom-enter-from,
-.fade-zoom-leave-to {
-  opacity: 0;
-}
-.fade-zoom-enter-from .relative {
-  transform: scale(0.95);
-}
-.fade-zoom-leave-to .relative {
-  transform: scale(0.95);
-}
-</style>

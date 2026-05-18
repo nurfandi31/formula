@@ -124,7 +124,7 @@ const cancelEdit = () => {
 <template>
   <AdminLayout>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
         <h3 class="text-xs font-black uppercase tracking-widest text-white mb-6">
           {{ isEditing ? 'Edit Data Pengurus' : 'Tambah Pengurus Baru' }}
         </h3>
@@ -166,7 +166,7 @@ const cancelEdit = () => {
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6 lg:col-span-2">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 lg:col-span-2">
         <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-800/60">
           <h3 class="text-xs font-black uppercase tracking-widest text-white">Database Pengurus Aktif</h3>
           <input v-model="searchUser" type="text" placeholder="Cari pengurus..." class="px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">

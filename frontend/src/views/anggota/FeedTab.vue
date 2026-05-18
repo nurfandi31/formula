@@ -268,7 +268,7 @@ const shareWidget = (label) => {
         @mouseleave="onMouseLeave"
         @mouseup="onMouseUp"
         @mousemove="onMouseMove"
-        class="bg-slate-900/40 border border-slate-850/50 rounded-[2rem] p-4 flex gap-5 overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing scroll-smooth"
+        class="bg-slate-900/40 border border-slate-850/50 rounded-xl p-4 flex gap-5 overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing scroll-smooth"
       >
         <div class="flex-shrink-0 text-center space-y-1.5 cursor-pointer group relative">
           <div
@@ -309,7 +309,7 @@ const shareWidget = (label) => {
     <div class="space-y-4 px-1">
 
       <!-- WIDGET ABSENSI MANDIRI (MEMBER) -->
-      <div class="bg-gradient-to-tr from-slate-900/80 via-slate-900/60 to-emerald-950/20 border border-emerald-500/20 rounded-[2rem] p-5 shadow-xl shadow-emerald-950/10 relative overflow-hidden mb-6">
+      <div class="bg-gradient-to-tr from-slate-900/80 via-slate-900/60 to-emerald-950/20 border border-emerald-500/20 rounded-xl p-5 shadow-xl shadow-emerald-950/10 relative overflow-hidden mb-6">
         <!-- Background glowing orb -->
         <div class="absolute -right-16 -top-16 w-32 h-32 bg-emerald-500/10 blur-2xl rounded-full"></div>
         
@@ -454,7 +454,7 @@ const shareWidget = (label) => {
       </div>
 
       <!-- WIDGET KAS -->
-      <div class="bg-slate-900/60 border border-slate-800/80 rounded-lg overflow-hidden pb-1">
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden pb-1">
         <div class="space-y-2 p-1">
           <div class="flex items-center justify-between px-1">
             <div class="flex items-center gap-1.5">
@@ -530,7 +530,7 @@ const shareWidget = (label) => {
       </div>
 
       <!-- WIDGET HASIL RAPAT -->
-      <div class="bg-slate-900/60 border border-slate-800/80 rounded-lg overflow-hidden pb-1">
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden pb-1">
         <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800/60">
           <div class="flex items-center gap-2">
             <span class="text-lg">📋</span>
@@ -589,7 +589,7 @@ const shareWidget = (label) => {
       </div>
 
       <!-- WIDGET AGENDA -->
-      <div class="bg-slate-900/60 border border-slate-800/80 rounded-lg overflow-hidden pb-1">
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden pb-1">
         <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-800/60">
           <span class="text-lg">📅</span>
           <span class="text-[12px] font-black text-white uppercase tracking-wider">Agenda Kegiatan</span>

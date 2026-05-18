@@ -147,7 +147,7 @@ const deleteRapat = (id) => {
 <template>
   <AdminLayout>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
         <h3 class="text-xs font-black uppercase tracking-widest text-white mb-6">Tambah Agenda Kegiatan Baru</h3>
         <div class="space-y-4">
           <div>
@@ -184,7 +184,7 @@ const deleteRapat = (id) => {
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
         <h3 class="text-xs font-black uppercase tracking-widest text-white mb-6">Input Hasil Rapat Pengurus</h3>
         <div class="space-y-4">
           <div>
@@ -223,7 +223,7 @@ const deleteRapat = (id) => {
     </div>
 
     <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
         <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Agenda Terpublikasi</h3>
         <div class="divide-y divide-slate-800/40">
           <div v-for="agenda in socialStore.agendaKegiatan" :key="agenda.id" class="py-3 flex justify-between items-center">
@@ -238,7 +238,7 @@ const deleteRapat = (id) => {
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6">
+      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
         <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Hasil Rapat Terpublikasi</h3>
         <div class="divide-y divide-slate-800/40">
           <div v-for="rapat in socialStore.hasilRapat" :key="rapat.id" class="py-3 flex justify-between items-center">

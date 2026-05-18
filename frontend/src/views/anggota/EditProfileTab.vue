@@ -22,7 +22,7 @@ const emit = defineEmits([
       <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-2">Sesuaikan Profil Media Sosial FORMULA Anda</p>
     </div>
 
-    <form @submit.prevent="emit('save')" class="bg-slate-900/30 border border-slate-850 rounded-[2.5rem] p-6 space-y-5 shadow-2xl">
+    <form @submit.prevent="emit('save')" class="bg-slate-900/30 border border-slate-850 rounded-xl p-6 space-y-5 shadow-2xl">
       <div class="space-y-3">
         <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Pilih Foto Profil (Avatar)</label>
         <div class="flex justify-center gap-4 py-2">

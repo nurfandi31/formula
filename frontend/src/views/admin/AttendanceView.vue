@@ -98,7 +98,7 @@ const printAttendance = () => {
 
 <template>
   <AdminLayout>
-    <div class="bg-slate-900/60 border border-slate-900 rounded-lg p-6 print:border-0 print:bg-transparent print:p-0">
+    <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 print:border-0 print:bg-transparent print:p-0">
       <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 mb-6 pb-6 border-b border-slate-800/60 print:hidden">
         <div>
           <h3 class="text-xs font-black uppercase tracking-widest text-white">Sistem Presensi Kehadiran</h3>
@@ -126,7 +126,7 @@ const printAttendance = () => {
         <div 
           v-for="(member, index) in filteredMembersList" 
           :key="member.email" 
-          class="bg-slate-950/40 border border-slate-850/80 rounded-[2rem] p-5 space-y-4"
+          class="bg-slate-950/40 border border-slate-850/80 rounded-xl p-5 space-y-4"
         >
           <div class="flex items-center gap-3">
             <img :src="member.avatar" class="w-10 h-10 rounded-full object-cover border border-slate-800 flex-shrink-0">

@@ -1,4 +1,101 @@
-/* SOP Styles */
-@layer components {
-  /* Add your custom components here */
+.logo-cursive {
+  font-family: 'Grand Hotel', cursive;
+  font-size: 30px;
+  font-weight: normal;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-zoom-enter-active,
+.fade-zoom-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-zoom-enter-active .relative,
+.fade-zoom-leave-active .relative {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-zoom-enter-from,
+.fade-zoom-leave-to {
+  opacity: 0;
+}
+.fade-zoom-enter-from .relative {
+  transform: scale(0.95);
+}
+.fade-zoom-leave-to .relative {
+  transform: scale(0.95);
+}
+
+.toast-anim-enter-active,
+.toast-anim-leave-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast-anim-enter-from {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+.toast-anim-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
 }

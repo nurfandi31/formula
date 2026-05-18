@@ -117,7 +117,7 @@ const generations = [
       </div>
 
       <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-        <div class="lg:col-span-5 bg-linear-to-b from-emerald-50/20 to-white rounded-[2rem] p-6 sm:p-10 border border-emerald-100/30 flex flex-col justify-between shadow-xl shadow-emerald-500/5">
+        <div class="lg:col-span-5 bg-linear-to-b from-emerald-50/20 to-white rounded-xl p-6 sm:p-10 border border-emerald-100/30 flex flex-col justify-between shadow-xl shadow-emerald-500/5">
           <div class="space-y-6 sm:space-y-8">
             <div class="flex items-center gap-4">
               <span class="text-3xl">🕌</span>
@@ -160,13 +160,13 @@ const generations = [
             </div>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-emerald-100/50 bg-emerald-600 text-white rounded-2xl p-5 shadow-xl shadow-emerald-500/10">
+          <div class="mt-8 pt-6 border-t border-emerald-100/50 bg-emerald-600 text-white rounded-xl p-5 shadow-xl shadow-emerald-500/10">
             <p class="text-[10px] font-black uppercase tracking-widest text-emerald-200">Warisan Perjuangan</p>
             <p class="text-xs font-medium leading-relaxed mt-1">"Bagi anak-anak baru, silsilah ini adalah bukti dedikasi tanpa pamrih. Lanjutkan api perjuangan demi harumnya nama Dusun Ngampon!"</p>
           </div>
         </div>
 
-        <div class="lg:col-span-7 bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-2xl shadow-emerald-500/15 border border-slate-50 flex flex-col justify-between">
+        <div class="lg:col-span-7 bg-white rounded-xl p-6 sm:p-10 shadow-xl shadow-slate-100 border border-slate-100/80 flex flex-col justify-between">
           <div class="space-y-6 sm:space-y-8">
             <div class="space-y-2">
               <h3 class="text-lg sm:text-xl font-black text-slate-900 leading-tight">Pilih Generasi Kepengurusan</h3>
@@ -199,15 +199,15 @@ const generations = [
               </p>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="p-4 bg-emerald-50/30 rounded-2xl border border-emerald-100/20 space-y-1">
+                <div class="p-4 bg-emerald-50/30 rounded-xl border border-emerald-100/20 space-y-1">
                   <span class="text-[9px] font-black text-emerald-600 uppercase tracking-wider">Ketua Generasi</span>
                   <p class="text-xs font-black text-slate-800">{{ generations[activeGenIndex].leader }}</p>
                 </div>
-                <div class="p-4 bg-emerald-50/30 rounded-2xl border border-emerald-100/20 space-y-1">
+                <div class="p-4 bg-emerald-50/30 rounded-xl border border-emerald-100/20 space-y-1">
                   <span class="text-[9px] font-black text-emerald-600 uppercase tracking-wider">Sekretaris</span>
                   <p class="text-xs font-black text-slate-800">{{ generations[activeGenIndex].secretary }}</p>
                 </div>
-                <div class="p-4 bg-emerald-50/30 rounded-2xl border border-emerald-100/20 space-y-1">
+                <div class="p-4 bg-emerald-50/30 rounded-xl border border-emerald-100/20 space-y-1">
                   <span class="text-[9px] font-black text-emerald-600 uppercase tracking-wider">Bendahara</span>
                   <p class="text-xs font-black text-slate-800">{{ generations[activeGenIndex].treasurer }}</p>
                 </div>
