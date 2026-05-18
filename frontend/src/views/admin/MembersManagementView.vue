@@ -173,20 +173,20 @@ const cancelEdit = () => {
         </div>
 
         <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
-          <div v-for="user in filteredMembers" :key="user.email" class="p-4 bg-slate-950 border border-slate-900 rounded-xl flex justify-between items-center hover:border-slate-800 transition-colors">
-            <div class="flex items-center gap-4">
-              <img :src="user.avatar" class="w-10 h-10 rounded-xl object-cover border border-slate-800">
-              <div>
-                <h4 class="text-xs font-black text-white leading-tight uppercase">{{ user.name }}</h4>
+          <div v-for="user in filteredMembers" :key="user.email" class="p-4 bg-slate-950 border border-slate-900 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-slate-800 transition-colors">
+            <div class="flex items-center gap-4 w-full">
+              <img :src="user.avatar" class="w-10 h-10 rounded-xl object-cover border border-slate-800 flex-shrink-0">
+              <div class="truncate">
+                <h4 class="text-xs font-black text-white leading-tight uppercase truncate">{{ user.name }}</h4>
                 <p class="text-[9px] font-black text-emerald-500 mt-1 uppercase tracking-wider">{{ user.title }}</p>
-                <p class="text-[9px] text-slate-500 mt-0.5">{{ user.email }}</p>
+                <p class="text-[9px] text-slate-500 mt-0.5 truncate">{{ user.email }}</p>
               </div>
             </div>
-            <div class="flex gap-2">
-              <button @click="handleEdit(user)" class="p-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all cursor-pointer">
+            <div class="flex gap-2 w-full sm:w-auto justify-end border-t border-slate-900/60 pt-3 sm:pt-0 sm:border-0">
+              <button @click="handleEdit(user)" class="p-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all cursor-pointer flex items-center justify-center">
                 <font-awesome-icon icon="edit" />
               </button>
-              <button @click="handleDelete(user.email)" class="p-2.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl hover:bg-rose-500 hover:text-white transition-all cursor-pointer">
+              <button @click="handleDelete(user.email)" class="p-2.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl hover:bg-rose-500 hover:text-white transition-all cursor-pointer flex items-center justify-center">
                 <font-awesome-icon icon="trash" />
               </button>
             </div>

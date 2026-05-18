@@ -15,6 +15,7 @@ const isMobileOpen = ref(false)
     <AdminSidebar 
       :is-collapsed="isCollapsed" 
       :is-mobile-open="isMobileOpen" 
+      @close-mobile="isMobileOpen = false"
     />
 
     <main :class="['flex-1 min-h-screen relative overflow-hidden bg-slate-950 pb-12 transition-all duration-300 ease-in-out flex flex-col', isCollapsed ? 'md:ml-20' : 'md:ml-72']">

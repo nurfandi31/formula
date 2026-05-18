@@ -1,9 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useSocialStore } from '../../stores/social'
 
 const emit = defineEmits(['openGallery'])
 
-const galleryItems = ref([
+const socialStore = useSocialStore()
+
+const fallbackGallery = [
   {
     id: 1,
     title: 'Rapat Persiapan Kepengurusan FORMULA Ngampon',
@@ -37,7 +40,24 @@ const galleryItems = ref([
     location: 'Dusun Ngampon Wilayah Barat',
     tags: ['Sosial', 'Bantuan Warga', 'Bakti Sosial']
   }
-])
+]
+
+const galleryItems = computed(() => {
+  if (socialStore.landingGallery && socialStore.landingGallery.length > 0) {
+    return socialStore.landingGallery.map(item => ({
+      id: item.id,
+      title: item.title,
+      category: item.category || 'Kegiatan',
+      image: item.image_url,
+      date: item.event_date || 'Mei 2026',
+      author: 'Pengurus FORMULA',
+      description: item.description || item.title,
+      location: 'Dusun Ngampon',
+      tags: [item.category || 'Kegiatan', 'Aksi Sosial']
+    }))
+  }
+  return fallbackGallery
+})
 </script>
 
 <template>

@@ -1,24 +1,40 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useSocialStore } from '../../stores/social'
 
 const emit = defineEmits(['openProfile'])
+const socialStore = useSocialStore()
 
-const members = [
+const fallbackMembers = [
   { name: 'Andi Pratama', role: 'Ketua', image: '/member_portrait_1_1777344189794.png' },
   { name: 'Laila Sari', role: 'Sekretaris', image: '/member_portrait_2_1777344210087.png' },
   { name: 'Rizky Ramadhan', role: 'Humas', image: '/member_portrait_3_1777354146065.png' }
 ]
 
+const members = computed(() => {
+  const allUsers = Object.values(socialStore.users)
+  if (allUsers.length > 0) {
+    return allUsers.map(u => ({
+      name: u.name,
+      role: u.title || (u.role === 'admin' ? 'Administrator' : 'Anggota FORMULA'),
+      image: u.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + u.name
+    }))
+  }
+  return fallbackMembers
+})
+
 const currentSlide = ref(0)
 let slideInterval = null
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % members.length
+  if (members.value.length === 0) return
+  currentSlide.value = (currentSlide.value + 1) % members.value.length
   resetInterval()
 }
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + members.length) % members.length
+  if (members.value.length === 0) return
+  currentSlide.value = (currentSlide.value - 1 + members.value.length) % members.value.length
   resetInterval()
 }
 

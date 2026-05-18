@@ -13,6 +13,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('date');
             $table->string('type');
+            $table->string('status')->default('scheduled'); // scheduled, active, completed
+            $table->string('passcode', 6)->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->json('decisions')->nullable();
             $table->timestamps();
         });

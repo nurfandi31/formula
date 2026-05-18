@@ -8,6 +8,8 @@ const props = defineProps({
   isMobileOpen: Boolean
 })
 
+const emit = defineEmits(['closeMobile'])
+
 const route = useRoute()
 const router = useRouter()
 const socialStore = useSocialStore()
@@ -36,7 +38,7 @@ const handleLogout = () => {
     isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
   ]">
     <div :class="['flex items-center gap-3', isCollapsed ? 'mb-8' : 'mb-10']">
-      <router-link to="/" class="flex items-center gap-2 group">
+      <router-link to="/" @click="emit('closeMobile')" class="flex items-center gap-2 group">
         <div class="w-10 h-10 bg-gradient-to-tr from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
           <span class="text-white text-base">🌿</span>
         </div>
@@ -52,6 +54,7 @@ const handleLogout = () => {
         v-for="item in menuItems" 
         :key="item.path" 
         :to="item.path"
+        @click="emit('closeMobile')"
         :class="[
           'flex items-center gap-4 rounded-2xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer border',
           isCollapsed ? 'w-12 h-12 justify-center mx-auto' : 'w-full px-4 py-3.5',

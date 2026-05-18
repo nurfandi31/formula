@@ -12,7 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('activity_name');
             $table->string('user_email');
-            $table->string('status');
+            $table->string('status'); // Hadir, Izin, Sakit, Alfa
+            $table->text('notes')->nullable(); // Alasan izin/sakit
+            $table->text('attachment')->nullable(); // Foto lampiran bukti
+            $table->timestamp('checked_in_at')->nullable(); // Waktu check-in mandiri
             $table->timestamps();
         });
     }

@@ -1,3 +1,32 @@
+<script setup>
+import { computed } from 'vue'
+import { useSocialStore } from '../../stores/social'
+
+const socialStore = useSocialStore()
+
+const aboutData = computed(() => {
+  const aboutSection = socialStore.landingSections.find(s => s.key === 'about')
+  if (aboutSection && aboutSection.content) {
+    return {
+      visi: aboutSection.content.visi || 'Mewujudkan generasi muda Dusun Ngampon yang berkarakter islami, berintegritas tinggi, kreatif, inovatif, dan berdaya saing secara global demi kemaslahatan bersama.',
+      misi: aboutSection.content.misi || [
+        'Membina kepribadian yang mulia, religius, dan berakhlakul karimah lewat kajian serta kepanitiaan hari besar Islam.',
+        'Mendorong peningkatan skill pemuda di bidang teknologi informasi, seni, kebudayaan, serta minat kewirausahaan dusun.',
+        'Menumbuhkan kepekaan sosial serta kebersamaan melalui bakti kemanusiaan rutin demi melayani sesama warga dusun.'
+      ]
+    }
+  }
+  return {
+    visi: 'Mewujudkan generasi muda Dusun Ngampon yang berkarakter islami, berintegritas tinggi, kreatif, inovatif, dan berdaya saing secara global demi kemaslahatan bersama.',
+    misi: [
+      'Membina kepribadian yang mulia, religius, dan berakhlakul karimah lewat kajian serta kepanitiaan hari besar Islam.',
+      'Mendorong peningkatan skill pemuda di bidang teknologi informasi, seni, kebudayaan, serta minat kewirausahaan dusun.',
+      'Menumbuhkan kepekaan sosial serta kebersamaan melalui bakti kemanusiaan rutin demi melayani sesama warga dusun.'
+    ]
+  }
+})
+</script>
+
 <template>
   <section id="about" class="scroll-mt-28 relative overflow-hidden bg-linear-to-b from-white via-emerald-50/15 to-white">
     <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.05),transparent_40%)]"></div>
@@ -22,23 +51,15 @@
             <div class="space-y-3 sm:space-y-4">
               <h3 class="text-xl sm:text-2xl font-black text-slate-900">Visi Kami</h3>
               <p class="text-slate-500 font-medium leading-relaxed text-sm sm:text-base">
-                Mewujudkan generasi muda Dusun Ngampon yang berkarakter islami, berintegritas tinggi, kreatif, inovatif, dan berdaya saing secara global demi kemaslahatan bersama.
+                {{ aboutData.visi }}
               </p>
             </div>
             <div class="space-y-3 sm:space-y-4">
               <h4 class="text-lg sm:text-xl font-black text-slate-900">Misi Kami</h4>
               <ul class="space-y-3 sm:space-y-4 font-medium text-slate-500 text-sm sm:text-base">
-                <li class="flex items-start gap-3">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></span>
-                  <span>Membina kepribadian yang mulia, religius, dan berakhlakul karimah lewat kajian serta kepanitiaan hari besar Islam.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="w-2.5 h-2.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></span>
-                  <span>Mendorong peningkatan skill pemuda di bidang teknologi informasi, seni, kebudayaan, serta minat kewirausahaan dusun.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="w-2.5 h-2.5 rounded-full bg-teal-500 mt-2 flex-shrink-0"></span>
-                  <span>Menumbuhkan kepekaan sosial serta kebersamaan melalui bakti kemanusiaan rutin demi melayani sesama warga dusun.</span>
+                <li v-for="(misi, idx) in aboutData.misi" :key="idx" class="flex items-start gap-3">
+                  <span :class="['w-2.5 h-2.5 rounded-full mt-2 flex-shrink-0', idx === 0 ? 'bg-emerald-500' : idx === 1 ? 'bg-green-500' : 'bg-teal-500']"></span>
+                  <span>{{ misi }}</span>
                 </li>
               </ul>
             </div>

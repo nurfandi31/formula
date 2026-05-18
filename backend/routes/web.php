@@ -19,6 +19,16 @@ Route::prefix('api')->group(function () {
 
     Route::get('/landing', [LandingController::class, 'show']);
     Route::post('/landing', [LandingController::class, 'update']);
+    Route::post('/landing/sections/{key}', [LandingController::class, 'saveSection']);
+    Route::post('/landing/settings', [LandingController::class, 'saveSettings']);
+    Route::post('/landing/features', [LandingController::class, 'storeFeature']);
+    Route::delete('/landing/features/{id}', [LandingController::class, 'destroyFeature']);
+    Route::post('/landing/gallery', [LandingController::class, 'storeGallery']);
+    Route::delete('/landing/gallery/{id}', [LandingController::class, 'destroyGallery']);
+    Route::post('/landing/faqs', [LandingController::class, 'storeFaq']);
+    Route::delete('/landing/faqs/{id}', [LandingController::class, 'destroyFaq']);
+    Route::post('/landing/social-links', [LandingController::class, 'storeSocialLink']);
+    Route::delete('/landing/social-links/{id}', [LandingController::class, 'destroySocialLink']);
 
     Route::get('/kas', [KasController::class, 'index']);
     Route::post('/kas', [KasController::class, 'store']);

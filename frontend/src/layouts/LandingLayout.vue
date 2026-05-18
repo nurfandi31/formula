@@ -1,18 +1,51 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useSocialStore } from '../stores/social'
 
 const isMobileMenuOpen = ref(false)
 const activeSection = ref('home')
+const socialStore = useSocialStore()
 
-const menuItems = [
-  { name: 'Home', id: 'home' },
-  { name: 'About', id: 'about' },
-  { name: 'Sejarah', id: 'sejarah' },
-  { name: 'Kegiatan', id: 'kegiatan' },
-  { name: 'Galeri', id: 'galeri' },
-  { name: 'Sosial', id: 'sosial' },
-  { name: 'Anggota', id: 'anggota' }
-]
+const brandName = computed(() => {
+  const setting = socialStore.landingSettings?.find(s => s.key === 'brand_name')
+  return setting ? setting.value : 'FORMULA'
+})
+
+const menuItems = computed(() => {
+  if (socialStore.landingNavbars && socialStore.landingNavbars.length > 0) {
+    return socialStore.landingNavbars.map(nav => {
+      let id = nav.url_path.replace('/#', '')
+      if (id === 'hero') id = 'home' // map hero to home anchor
+      return {
+        name: nav.label,
+        id: id
+      }
+    })
+  }
+  return [
+    { name: 'Home', id: 'home' },
+    { name: 'About', id: 'about' },
+    { name: 'Sejarah', id: 'sejarah' },
+    { name: 'Kegiatan', id: 'kegiatan' },
+    { name: 'Galeri', id: 'galeri' },
+    { name: 'Sosial', id: 'sosial' },
+    { name: 'Anggota', id: 'anggota' }
+  ]
+})
+
+const socialMediaLinks = computed(() => {
+  if (socialStore.landingSocialLinks && socialStore.landingSocialLinks.length > 0) {
+    return socialStore.landingSocialLinks.map(link => ({
+      platform: link.platform.charAt(0).toUpperCase() + link.platform.slice(1),
+      url: link.url
+    }))
+  }
+  return [
+    { platform: 'Instagram', url: 'https://instagram.com/formula_ngampon' },
+    { platform: 'YouTube', url: 'https://youtube.com/formula_ngampon' },
+    { platform: 'WhatsApp', url: 'https://wa.me/628123456789' }
+  ]
+})
 
 const scrollToSection = (id) => {
   isMobileMenuOpen.value = false
@@ -24,8 +57,8 @@ const scrollToSection = (id) => {
 }
 
 const handleScroll = () => {
-  const sections = ['home', 'about', 'sejarah', 'kegiatan', 'galeri', 'sosial', 'anggota']
-  let current = 'home'
+  const sections = menuItems.value.map(item => item.id)
+  let current = sections[0] || 'home'
   
   for (const section of sections) {
     const el = document.getElementById(section)
@@ -43,6 +76,14 @@ onMounted(() => {
   document.documentElement.classList.remove('dark')
   window.addEventListener('scroll', handleScroll)
   handleScroll()
+  
+  // Dynamic color injection into document root!
+  if (socialStore.landingSettings) {
+    const primary = socialStore.landingSettings.find(s => s.key === 'primary_color')?.value
+    const secondary = socialStore.landingSettings.find(s => s.key === 'secondary_color')?.value
+    if (primary) document.documentElement.style.setProperty('--primary-color', primary)
+    if (secondary) document.documentElement.style.setProperty('--secondary-color', secondary)
+  }
 })
 
 onUnmounted(() => {
@@ -61,7 +102,7 @@ onUnmounted(() => {
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
             </div>
             <div>
-              <span class="text-2xl font-black tracking-tight text-emerald-600 block leading-none">FORMULA</span>
+              <span class="text-2xl font-black tracking-tight text-emerald-600 block leading-none">{{ brandName }}</span>
               <span class="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase">Ngampon Youth</span>
             </div>
           </router-link>
@@ -132,7 +173,7 @@ onUnmounted(() => {
                <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
                </div>
-               <span class="text-xl font-black text-slate-900">FORMULA NGAMPON</span>
+               <span class="text-xl font-black text-slate-900">{{ brandName }} NGAMPON</span>
             </div>
             <p class="text-slate-500 max-w-sm leading-relaxed font-medium">Wadah kreatifitas dan kolaborasi pemuda-pemudi Dusun Ngampon untuk membangun desa yang modern dan religius.</p>
           </div>
@@ -149,9 +190,9 @@ onUnmounted(() => {
           <div>
             <h4 class="font-black text-slate-900 uppercase tracking-widest text-xs mb-6">Sosial Media</h4>
             <ul class="space-y-4 text-sm font-bold text-slate-400">
-              <li><a href="#" class="hover:text-emerald-600 transition-colors">Instagram</a></li>
-              <li><a href="#" class="hover:text-emerald-600 transition-colors">Facebook</a></li>
-              <li><a href="#" class="hover:text-emerald-600 transition-colors">YouTube</a></li>
+              <li v-for="link in socialMediaLinks" :key="link.platform">
+                <a :href="link.url" target="_blank" class="hover:text-emerald-600 transition-colors">{{ link.platform }}</a>
+              </li>
             </ul>
           </div>
         </div>
