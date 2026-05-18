@@ -9,7 +9,7 @@ const isMobileOpen = ref(false)
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-950 text-slate-100 flex font-sans select-none antialiased">
+  <div class="min-h-screen bg-slate-50 text-slate-800 flex font-sans select-none antialiased">
     <div v-if="isMobileOpen" @click="isMobileOpen = false" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-20 md:hidden transition-opacity duration-300"></div>
 
     <AdminSidebar 
@@ -18,9 +18,9 @@ const isMobileOpen = ref(false)
       @close-mobile="isMobileOpen = false"
     />
 
-    <main :class="['flex-1 min-h-screen relative overflow-hidden bg-slate-950 pb-12 transition-all duration-300 ease-in-out flex flex-col', isCollapsed ? 'md:ml-20' : 'md:ml-72']">
-      <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-[120px] rounded-full -z-10"></div>
-      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-teal-500/5 blur-[120px] rounded-full -z-10"></div>
+    <main :class="['flex-1 min-h-screen relative overflow-hidden bg-slate-50 pb-12 transition-all duration-300 ease-in-out flex flex-col', isCollapsed ? 'md:ml-20' : 'md:ml-72']">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 blur-[120px] rounded-full -z-10"></div>
+      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-teal-500/10 blur-[120px] rounded-full -z-10"></div>
 
       <AdminNavbar 
         :is-collapsed="isCollapsed" 

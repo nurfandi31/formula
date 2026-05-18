@@ -147,35 +147,35 @@ const deleteRapat = (id) => {
 <template>
   <AdminLayout>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
-        <h3 class="text-xs font-black uppercase tracking-widest text-white mb-6">Tambah Agenda Kegiatan Baru</h3>
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 shadow-xs">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-6">Tambah Agenda Kegiatan Baru</h3>
         <div class="space-y-4">
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Judul Kegiatan</label>
-            <input v-model="agendaJudul" type="text" placeholder="Contoh: Bakti Sosial Kebersihan Dusun" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="agendaJudul" type="text" placeholder="Contoh: Bakti Sosial Kebersihan Dusun" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Tanggal Kegiatan</label>
-              <DatePicker v-model="agendaTanggal" class="w-full text-xs" dateFormat="dd/mm/yy" placeholder="Pilih Tanggal" />
+              <DatePicker v-model="agendaTanggal" class="w-full text-xs font-bold" dateFormat="dd/mm/yy" placeholder="Pilih Tanggal" />
             </div>
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Waktu / Jam</label>
-              <input v-model="agendaJam" type="text" placeholder="Contoh: 08:00 - Selesai" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              <input v-model="agendaJam" type="text" placeholder="Contoh: 08:00 - Selesai" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Lokasi Kegiatan</label>
-            <input v-model="agendaLokasi" type="text" placeholder="Contoh: Balai Dusun Ngampon" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="agendaLokasi" type="text" placeholder="Contoh: Balai Dusun Ngampon" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Kategori</label>
-              <Select v-model="agendaKategori" :options="kategoriOptions" optionLabel="label" optionValue="value" placeholder="Pilih Kategori" class="w-full text-xs" />
+              <Select v-model="agendaKategori" :options="kategoriOptions" optionLabel="label" optionValue="value" placeholder="Pilih Kategori" class="w-full text-xs font-bold" />
             </div>
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Warna Aksen</label>
-              <Select v-model="agendaWarna" :options="warnaOptions" optionLabel="label" optionValue="value" placeholder="Pilih Warna" class="w-full text-xs" />
+              <Select v-model="agendaWarna" :options="warnaOptions" optionLabel="label" optionValue="value" placeholder="Pilih Warna" class="w-full text-xs font-bold" />
             </div>
           </div>
           <button @click="addAgenda" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
@@ -184,34 +184,34 @@ const deleteRapat = (id) => {
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
-        <h3 class="text-xs font-black uppercase tracking-widest text-white mb-6">Input Hasil Rapat Pengurus</h3>
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 shadow-xs">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-6">Input Hasil Rapat Pengurus</h3>
         <div class="space-y-4">
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Judul Rapat</label>
-            <input v-model="rapatJudul" type="text" placeholder="Contoh: Rapat Persiapan Baksos Tahunan" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="rapatJudul" type="text" placeholder="Contoh: Rapat Persiapan Baksos Tahunan" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Tanggal Rapat</label>
-              <DatePicker v-model="rapatTanggal" class="w-full text-xs" dateFormat="dd/mm/yy" placeholder="Pilih Tanggal" />
+              <DatePicker v-model="rapatTanggal" class="w-full text-xs font-bold" dateFormat="dd/mm/yy" placeholder="Pilih Tanggal" />
             </div>
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Jumlah Kehadiran</label>
-              <input v-model.number="rapatPesertaCount" type="number" placeholder="15" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              <input v-model.number="rapatPesertaCount" type="number" placeholder="15" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Butir Keputusan Rapat</label>
             <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
               <div v-for="(keputusan, index) in rapatKeputusanList" :key="index" class="flex gap-2">
-                <input v-model="rapatKeputusanList[index]" type="text" :placeholder="'Keputusan ' + (index + 1)" class="flex-1 px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                <button @click="removeKeputusanInput(index)" class="p-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl hover:bg-rose-500 hover:text-white transition-all cursor-pointer">
+                <input v-model="rapatKeputusanList[index]" type="text" :placeholder="'Keputusan ' + (index + 1)" class="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                <button @click="removeKeputusanInput(index)" class="p-2 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl hover:bg-rose-650 hover:text-white transition-all cursor-pointer">
                   <font-awesome-icon icon="trash" />
                 </button>
               </div>
             </div>
-            <button @click="addKeputusanInput" class="mt-2 text-[10px] font-black uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer">
+            <button @click="addKeputusanInput" class="mt-2 text-[10px] font-black uppercase tracking-wider text-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer">
               + Tambah Keputusan
             </button>
           </div>
@@ -223,30 +223,30 @@ const deleteRapat = (id) => {
     </div>
 
     <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
-        <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Agenda Terpublikasi</h3>
-        <div class="divide-y divide-slate-800/40">
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 shadow-xs">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-4">Agenda Terpublikasi</h3>
+        <div class="divide-y divide-slate-150">
           <div v-for="agenda in socialStore.agendaKegiatan" :key="agenda.id" class="py-3 flex justify-between items-center">
             <div>
-              <p class="text-xs font-black text-white leading-tight uppercase">{{ agenda.judul }}</p>
+              <p class="text-xs font-black text-slate-800 leading-tight uppercase">{{ agenda.judul }}</p>
               <p class="text-[10px] text-slate-500 mt-1">📅 {{ agenda.tanggal }} | 🕐 {{ agenda.jam }}</p>
             </div>
-            <button @click="deleteAgenda(agenda.id)" class="p-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 hover:bg-rose-500 hover:text-white rounded-xl transition-all cursor-pointer">
+            <button @click="deleteAgenda(agenda.id)" class="p-2 bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-600 hover:text-white rounded-xl transition-all cursor-pointer">
               <font-awesome-icon icon="trash" />
             </button>
           </div>
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
-        <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Hasil Rapat Terpublikasi</h3>
-        <div class="divide-y divide-slate-800/40">
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 shadow-xs">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-4">Hasil Rapat Terpublikasi</h3>
+        <div class="divide-y divide-slate-150">
           <div v-for="rapat in socialStore.hasilRapat" :key="rapat.id" class="py-3 flex justify-between items-center">
             <div>
-              <p class="text-xs font-black text-white leading-tight uppercase">{{ rapat.judul }}</p>
+              <p class="text-xs font-black text-slate-800 leading-tight uppercase">{{ rapat.judul }}</p>
               <p class="text-[10px] text-slate-500 mt-1">📅 Rapat {{ rapat.tanggal }} | 👥 {{ rapat.peserta }} Peserta</p>
             </div>
-            <button @click="deleteRapat(rapat.id)" class="p-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 hover:bg-rose-500 hover:text-white rounded-xl transition-all cursor-pointer">
+            <button @click="deleteRapat(rapat.id)" class="p-2 bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-600 hover:text-white rounded-xl transition-all cursor-pointer">
               <font-awesome-icon icon="trash" />
             </button>
           </div>

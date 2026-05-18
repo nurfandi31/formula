@@ -94,7 +94,7 @@ const sharePost = (post) => {
 
       <div class="grid lg:grid-cols-12 gap-8 lg:gap-12">
         <div class="lg:col-span-8 space-y-8 lg:space-y-12">
-          <article v-for="post in postsData" :key="post.id" :id="'sosial-post-' + post.id" class="bg-white border border-slate-100/80 rounded-xl shadow-xl shadow-slate-100 overflow-hidden group">
+          <article v-for="post in postsData" :key="post.id" :id="'sosial-post-' + post.id" class="bg-white border border-slate-100/80 rounded-lg shadow-xl shadow-slate-100 overflow-hidden group">
             <div class="p-6 sm:p-8 flex items-center justify-between">
               <div class="flex items-center gap-4 sm:gap-5 cursor-pointer" @click="emit('openProfile', post)">
                 <img :src="post.avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-cover border border-slate-50 shadow-md">
@@ -107,7 +107,7 @@ const sharePost = (post) => {
             </div>
             
             <div class="px-4 sm:px-8">
-              <div class="aspect-square md:aspect-video rounded-xl overflow-hidden bg-slate-100 shadow-inner group-hover:shadow-2xl transition-all duration-500">
+              <div class="aspect-square md:aspect-video rounded-lg overflow-hidden bg-slate-100 shadow-inner group-hover:shadow-2xl transition-all duration-500">
                 <img :src="post.image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
               </div>
             </div>
@@ -161,7 +161,7 @@ const sharePost = (post) => {
         </div>
 
         <div class="lg:col-span-4">
-          <div class="bg-white border border-slate-100/80 rounded-xl p-6 sm:p-10 shadow-xl shadow-slate-100 sticky top-28">
+          <div class="bg-white border border-slate-100/80 rounded-lg p-6 sm:p-10 shadow-xl shadow-slate-100 sticky top-28">
             <div class="w-12 h-1 bg-emerald-600 rounded-full mb-6 sm:mb-8"></div>
             <h3 class="text-xl sm:text-2xl font-black text-slate-900 mb-6 sm:mb-10 flex items-center justify-between">
               Statistik Aksi

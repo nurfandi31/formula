@@ -78,7 +78,7 @@ const galleryItems = computed(() => {
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
         <div v-for="item in galleryItems" :key="item.id" 
              @click="emit('openGallery', item)"
-             class="group relative overflow-hidden border border-slate-100/80 rounded-xl aspect-video md:aspect-[4/5] bg-slate-50 shadow-xl shadow-slate-100 cursor-pointer">
+             class="group relative overflow-hidden border border-slate-100/80 rounded-lg aspect-video md:aspect-[4/5] bg-slate-50 shadow-xl shadow-slate-100 cursor-pointer">
           <img :src="item.image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" :alt="item.title">
           <div class="absolute inset-0 bg-emerald-950/80 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 sm:p-8">
             <span class="text-xs text-emerald-300 font-black uppercase tracking-widest mb-1">{{ item.category }}</span>

@@ -238,7 +238,7 @@ const handleToast = (message) => {
     <AnggotaSection @open-profile="openMemberProfile" />
 
     <section class="max-w-7xl mx-auto px-4 sm:px-8 pb-16 sm:pb-32 pt-8 sm:pt-16 bg-white">
-      <div class="relative border border-slate-100/80 rounded-xl overflow-hidden bg-white p-8 sm:p-16 lg:p-24 text-center group shadow-xl shadow-slate-100">
+      <div class="relative border border-slate-100/80 rounded-lg overflow-hidden bg-white p-8 sm:p-16 lg:p-24 text-center group shadow-xl shadow-slate-100">
         <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-200 blur-[150px] rounded-full opacity-30 -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-1000"></div>
         <div class="relative z-10 space-y-6 sm:space-y-10">
           <h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-tight">Muda, Beriman, <br/><span class="text-emerald-600 italic">Berprestasi.</span></h2>

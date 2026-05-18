@@ -142,26 +142,26 @@ onMounted(() => {
 <template>
   <AdminLayout>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 print:hidden">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 lg:col-span-2">
-        <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Input Dana Kas Baru</h3>
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 lg:col-span-2 shadow-xs">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-4">Input Dana Kas Baru</h3>
         <div class="space-y-4">
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Keterangan Transaksi</label>
-            <input v-model="transactionLabel" type="text" placeholder="Contoh: Konsumsi Rapat Bulanan" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="transactionLabel" type="text" placeholder="Contoh: Konsumsi Rapat Bulanan" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Jenis Transaksi</label>
-              <Select v-model="transactionType" :options="typeOptions" optionLabel="label" optionValue="value" placeholder="Pilih Jenis" class="w-full text-xs" />
+              <Select v-model="transactionType" :options="typeOptions" optionLabel="label" optionValue="value" placeholder="Pilih Jenis" class="w-full text-xs font-bold" />
             </div>
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Nominal (Rupiah)</label>
-              <InputNumber v-model="transactionNominal" class="w-full text-xs" mode="currency" currency="IDR" locale="id-ID" placeholder="Rp 0" />
+              <InputNumber v-model="transactionNominal" class="w-full text-xs font-bold" mode="currency" currency="IDR" locale="id-ID" placeholder="Rp 0" />
             </div>
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Icon Kategori</label>
-            <Select v-model="transactionIcon" :options="iconOptions" optionLabel="label" optionValue="value" placeholder="Pilih Kategori" class="w-full text-xs" />
+            <Select v-model="transactionIcon" :options="iconOptions" optionLabel="label" optionValue="value" placeholder="Pilih Kategori" class="w-full text-xs font-bold" />
           </div>
           <button @click="addTransaction" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
             <font-awesome-icon icon="plus" class="mr-2" /> Input Transaksi
@@ -169,40 +169,40 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 flex flex-col justify-between">
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 flex flex-col justify-between shadow-xs">
         <div>
-          <h3 class="text-xs font-black uppercase tracking-widest text-white mb-4">Struktur Kas</h3>
+          <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-4">Struktur Kas</h3>
           <div class="w-full flex items-center justify-center">
             <Chart type="doughnut" :data="chartData" :options="chartOptions" class="w-48 h-48" />
           </div>
         </div>
-        <div class="mt-6 border-t border-slate-800/60 pt-4 space-y-2">
+        <div class="mt-6 border-t border-slate-150 pt-4 space-y-2">
           <div class="flex justify-between text-xs">
             <span class="text-slate-500">Total Pemasukan:</span>
-            <span class="text-emerald-400 font-bold">{{ formatRupiah(socialStore.kasData.pemasukan) }}</span>
+            <span class="text-emerald-600 font-bold">{{ formatRupiah(socialStore.kasData.pemasukan) }}</span>
           </div>
           <div class="flex justify-between text-xs">
             <span class="text-slate-500">Total Pengeluaran:</span>
-            <span class="text-rose-400 font-bold">{{ formatRupiah(socialStore.kasData.pengeluaran) }}</span>
+            <span class="text-rose-600 font-bold">{{ formatRupiah(socialStore.kasData.pengeluaran) }}</span>
           </div>
-          <div class="flex justify-between text-xs border-t border-slate-800/40 pt-2 font-bold">
-            <span class="text-slate-300">Saldo Akhir:</span>
-            <span class="text-white">{{ formatRupiah(socialStore.kasData.saldo) }}</span>
+          <div class="flex justify-between text-xs border-t border-slate-150 pt-2 font-bold">
+            <span class="text-slate-650">Saldo Akhir:</span>
+            <span class="text-slate-900">{{ formatRupiah(socialStore.kasData.saldo) }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="mt-8 bg-slate-900/60 border border-slate-900 rounded-xl overflow-hidden print:border-0 print:bg-transparent print:m-0">
-      <div class="p-6 border-b border-slate-800/60 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-slate-900/40 print:hidden">
-        <h3 class="text-xs font-black uppercase tracking-widest text-white">Riwayat Arus Kas</h3>
+    <div class="mt-8 bg-white border border-slate-200/70 rounded-lg overflow-hidden print:border-0 print:bg-transparent print:m-0 shadow-xs">
+      <div class="p-6 border-b border-slate-150 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-slate-50/50 print:hidden">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-800">Riwayat Arus Kas</h3>
         <div class="flex flex-wrap gap-3 w-full sm:w-auto items-center">
           <div class="flex items-center gap-2">
             <span class="text-[10px] font-black uppercase tracking-wider text-slate-500">Tampilkan</span>
-            <Select v-model="perPage" :options="[5, 10, 25, 50, 100]" class="w-20 text-xs" />
+            <Select v-model="perPage" :options="[5, 10, 25, 50, 100]" class="w-20 text-xs font-bold" />
           </div>
-          <input v-model="searchQuery" type="text" placeholder="Cari keterangan..." class="px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500 w-full sm:w-48">
-          <button @click="printReport" class="px-4 py-2 bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer flex items-center gap-2">
+          <input v-model="searchQuery" type="text" placeholder="Cari keterangan..." class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 w-full sm:w-48">
+          <button @click="printReport" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-800 rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer flex items-center gap-2">
             <font-awesome-icon icon="print" /> Cetak Laporan
           </button>
         </div>
@@ -230,7 +230,7 @@ onMounted(() => {
       <div class="p-2 print:p-0 overflow-x-auto">
         <table class="w-full text-left text-xs border-collapse min-w-[600px] md:min-w-0">
           <thead>
-            <tr class="text-slate-500 uppercase font-black text-[9px] tracking-widest border-b border-slate-800/40 print:text-slate-700 print:border-slate-300">
+            <tr class="text-slate-500 uppercase font-black text-[9px] tracking-widest border-b border-slate-200/75 print:text-slate-700 print:border-slate-300">
               <th class="p-4 print:py-2">No</th>
               <th class="p-4 print:py-2">Keterangan</th>
               <th class="p-4 print:py-2">Tanggal</th>
@@ -238,19 +238,19 @@ onMounted(() => {
               <th class="p-4 print:py-2 text-right print:hidden">Aksi</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800/40 print:divide-slate-300 print:text-slate-900">
-            <tr v-for="(item, index) in filteredTransactions" :key="index" class="hover:bg-slate-800/10 transition-colors">
-              <td class="p-4 print:py-2">{{ index + 1 }}</td>
+          <tbody class="divide-y divide-slate-150 print:divide-slate-300 print:text-slate-900">
+            <tr v-for="(item, index) in filteredTransactions" :key="index" class="hover:bg-slate-50 transition-colors">
+              <td class="p-4 print:py-2 text-slate-500">{{ index + 1 }}</td>
               <td class="p-4 print:py-2">
                 <span class="mr-2">{{ item.icon }}</span>
-                <span class="font-bold text-slate-200 print:text-slate-950">{{ item.label }}</span>
+                <span class="font-bold text-slate-800 print:text-slate-950">{{ item.label }}</span>
               </td>
-              <td class="p-4 print:py-2 text-slate-400 print:text-slate-700">{{ item.tanggal }}</td>
-              <td class="p-4 print:py-2 text-right font-black" :class="item.type === 'pemasukan' ? 'text-emerald-400 print:text-emerald-700' : 'text-rose-400 print:text-rose-700'">
+              <td class="p-4 print:py-2 text-slate-600 print:text-slate-700">{{ item.tanggal }}</td>
+              <td class="p-4 print:py-2 text-right font-black" :class="item.type === 'pemasukan' ? 'text-emerald-600 print:text-emerald-700' : 'text-rose-600 print:text-rose-700'">
                 {{ item.type === 'pemasukan' ? '+' : '-' }}{{ formatRupiah(item.nominal) }}
               </td>
               <td class="p-4 print:py-2 text-right print:hidden">
-                <button @click="deleteTransaction(index)" class="p-2 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-400 hover:bg-rose-500 hover:text-white transition-all cursor-pointer">
+                <button @click="deleteTransaction(index)" class="p-2 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 hover:bg-rose-600 hover:text-white transition-all cursor-pointer">
                   <font-awesome-icon icon="trash" />
                 </button>
               </td>

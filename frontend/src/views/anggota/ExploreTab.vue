@@ -29,7 +29,7 @@ const search = ref('')
         v-for="user in exploreUsers"
         :key="user.email"
         @click="emit('viewProfile', user)"
-        class="p-5 bg-slate-900/20 border border-slate-850 rounded-xl flex items-center gap-4 hover:border-emerald-500/20 hover:bg-slate-900/40 transition-all cursor-pointer group"
+        class="p-5 bg-slate-900/20 border border-slate-850 rounded-lg flex items-center gap-4 hover:border-emerald-500/20 hover:bg-slate-900/40 transition-all cursor-pointer group"
       >
         <img :src="user.avatar" class="w-12 h-12 rounded-xl object-cover border border-slate-800 group-hover:scale-105 transition-transform">
         <div class="flex-1 truncate">

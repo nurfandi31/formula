@@ -8,7 +8,7 @@ const emit = defineEmits(['editProfile', 'logout', 'editPost', 'goCreate'])
 
 <template>
   <div class="space-y-8 animate-in fade-in duration-300">
-    <div class="bg-slate-900/20 border border-slate-850 rounded-xl p-6 sm:p-10 flex flex-col md:flex-row gap-6 md:gap-10 items-center">
+    <div class="bg-slate-900/20 border border-slate-850 rounded-lg p-6 sm:p-10 flex flex-col md:flex-row gap-6 md:gap-10 items-center">
       <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-linear-to-tr from-emerald-500 via-green-500 to-teal-500">
         <div class="w-full h-full rounded-full border-4 border-slate-950 overflow-hidden bg-slate-900 shadow-xl">
           <img :src="currentUser?.avatar" class="w-full h-full object-cover">
@@ -59,7 +59,7 @@ const emit = defineEmits(['editProfile', 'logout', 'editPost', 'goCreate'])
         </div>
       </div>
 
-      <div v-if="myPosts.length === 0" class="text-center py-16 bg-slate-900/10 border border-dashed border-slate-850 rounded-xl space-y-4">
+      <div v-if="myPosts.length === 0" class="text-center py-16 bg-slate-900/10 border border-dashed border-slate-850 rounded-lg space-y-4">
         <span class="text-4xl">📸</span>
         <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Belum Ada Kiriman Foto</h4>
         <p class="text-[10px] text-slate-500 max-w-xs mx-auto leading-normal">Karya, kegiatan, dan ungkapan batin Anda di dusun Ngampon akan terekam di sini.</p>

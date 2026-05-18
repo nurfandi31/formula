@@ -425,13 +425,13 @@ onMounted(() => {
     <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="handleImageUpload">
 
     <div v-if="editingPost" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
-      <div class="bg-slate-900 border border-slate-800 rounded-[2.5rem] w-full max-w-xl overflow-hidden relative shadow-2xl animate-in zoom-in-95 duration-300">
+      <div class="bg-slate-900 border border-slate-800 rounded-lg w-full max-w-xl overflow-hidden relative shadow-2xl animate-in zoom-in-95 duration-300">
         <div class="p-6 border-b border-slate-850 flex justify-between items-center bg-slate-900/60">
           <h3 class="text-sm font-black uppercase tracking-wider text-white">Detail & Edit Kiriman</h3>
           <button @click="editingPost = null" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-750 flex items-center justify-center text-slate-300 hover:text-white font-bold cursor-pointer text-xs">✕</button>
         </div>
         <div class="p-6 space-y-6">
-          <div class="aspect-video rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
+          <div class="aspect-video rounded-lg overflow-hidden border border-slate-800 bg-slate-950">
             <img :src="editingPost.image" class="w-full h-full object-cover">
           </div>
           <div class="space-y-1.5">
@@ -447,7 +447,7 @@ onMounted(() => {
     </div>
 
     <div v-if="viewingMember" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
-      <div class="bg-slate-900 border border-slate-800 rounded-[2.5rem] w-full max-w-md overflow-hidden relative shadow-2xl animate-in zoom-in-95 duration-300">
+      <div class="bg-slate-900 border border-slate-800 rounded-lg w-full max-w-md overflow-hidden relative shadow-2xl animate-in zoom-in-95 duration-300">
         <div class="p-6 border-b border-slate-850 flex justify-between items-center bg-slate-900/60">
           <h3 class="text-sm font-black uppercase tracking-wider text-white">Profil Pengurus</h3>
           <button @click="closeMemberView" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-750 flex items-center justify-center text-slate-300 hover:text-white font-bold cursor-pointer text-xs">✕</button>
@@ -484,15 +484,15 @@ onMounted(() => {
 
           <p class="text-xs text-slate-400 italic max-w-sm mx-auto leading-relaxed">"{{ viewingMember.quote || 'Bersama FORMULA, berkontribusi aktif melahirkan kegunaan konkret bagi dusun tercinta.' }}"</p>
           <div class="grid grid-cols-2 gap-3 pt-2 font-bold text-[10px] uppercase tracking-wider text-slate-500 text-left border-t border-slate-850">
-            <div class="space-y-1 bg-slate-950/50 p-3.5 rounded-xl border border-slate-850">
+            <div class="space-y-1 bg-slate-950/50 p-3.5 rounded-lg border border-slate-850">
               <span class="text-[8px] font-black text-slate-600 block mb-0.5">🎓 PENDIDIKAN</span>
               <span class="text-slate-300">{{ viewingMember.education || 'S1 Pendidikan' }}</span>
             </div>
-            <div class="space-y-1 bg-slate-950/50 p-3.5 rounded-xl border border-slate-850">
+            <div class="space-y-1 bg-slate-950/50 p-3.5 rounded-lg border border-slate-850">
               <span class="text-[8px] font-black text-slate-600 block mb-0.5">🏆 HOBI & MINAT</span>
               <span class="text-slate-300">{{ viewingMember.hobby || 'Organisasi' }}</span>
             </div>
-            <div class="col-span-2 space-y-1 bg-slate-950/50 p-3.5 rounded-xl border border-slate-850 text-center">
+            <div class="col-span-2 space-y-1 bg-slate-950/50 p-3.5 rounded-lg border border-slate-850 text-center">
               <span class="text-[8px] font-black text-slate-600 block mb-0.5">📱 SOSIAL MEDIA</span>
               <a href="#" class="text-emerald-400 font-black hover:underline tracking-widest text-xs inline-block">{{ viewingMember.instagram || '@formula_ngampon' }}</a>
             </div>
@@ -502,7 +502,7 @@ onMounted(() => {
     </div>
 
     <div v-if="showNotifications" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs flex items-start justify-center p-4 pt-20 z-50 animate-in fade-in duration-200">
-      <div class="bg-slate-900 border border-slate-800 rounded-[2rem] w-full max-w-md overflow-hidden relative shadow-2xl animate-in slide-in-from-top-4 duration-300">
+      <div class="bg-slate-900 border border-slate-800 rounded-lg w-full max-w-md overflow-hidden relative shadow-2xl animate-in slide-in-from-top-4 duration-300">
         <div class="p-5 border-b border-slate-850 flex justify-between items-center bg-slate-900/60">
           <div class="flex items-center gap-2">
             <span class="text-lg">❤️</span>

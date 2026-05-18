@@ -14,7 +14,7 @@ const emit = defineEmits(['update:selectedImage', 'update:captionText', 'publish
       <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-2">Bagikan Kegiatan Anda di Dusun Ngampon</p>
     </div>
 
-    <div class="bg-slate-900/30 border border-slate-850 rounded-xl p-6 space-y-6 shadow-2xl relative overflow-hidden">
+    <div class="bg-slate-900/30 border border-slate-850 rounded-lg p-6 space-y-6 shadow-2xl relative overflow-hidden">
       <div class="space-y-2">
         <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Unggah Foto Kiriman</label>
         <div class="aspect-video rounded-2xl overflow-hidden bg-slate-950 border border-slate-850 relative group">

@@ -69,7 +69,7 @@ onUnmounted(() => {
       </div>
 
       <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-        <div class="lg:col-span-8 bg-white border border-slate-100/80 rounded-xl p-4 sm:p-8 md:p-12 shadow-xl shadow-slate-100 flex flex-col justify-between">
+        <div class="lg:col-span-8 bg-white border border-slate-100/80 rounded-lg p-4 sm:p-8 md:p-12 shadow-xl shadow-slate-100 flex flex-col justify-between">
           <div class="max-w-md mx-auto w-full">
             <h3 class="text-xl sm:text-2xl font-black text-slate-900 mb-6 sm:mb-8">Barisan Pengurus</h3>
             
@@ -108,7 +108,7 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <div class="lg:col-span-4 bg-white border border-slate-100/80 rounded-xl p-6 sm:p-10 shadow-xl shadow-slate-100 flex flex-col justify-between">
+        <div class="lg:col-span-4 bg-white border border-slate-100/80 rounded-lg p-6 sm:p-10 shadow-xl shadow-slate-100 flex flex-col justify-between">
           <div>
             <div class="w-12 h-1 bg-emerald-600 rounded-full mb-6 sm:mb-8"></div>
             <h3 class="text-xl sm:text-2xl font-black text-slate-900 mb-6 sm:mb-10 flex items-center justify-between">

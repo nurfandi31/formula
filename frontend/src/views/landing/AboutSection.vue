@@ -43,7 +43,7 @@ const aboutData = computed(() => {
       </div>
 
       <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-        <div class="bg-white border border-slate-100/80 rounded-xl p-6 sm:p-10 md:p-12 shadow-xl shadow-slate-100 flex flex-col justify-between group hover:scale-[1.01] hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300">
+        <div class="bg-white border border-slate-100/80 rounded-lg p-6 sm:p-10 md:p-12 shadow-xl shadow-slate-100 flex flex-col justify-between group hover:scale-[1.01] hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300">
           <div class="space-y-6 sm:space-y-8">
             <div class="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2 2c-.8-.8-2.2-.8-3 0-.8.8-.8 2.2 0 3l2-2"/><path d="M11.3 15.3c-.3.3-.7.4-1 .3-.3-.1-.5-.3-.6-.6-.1-.3 0-.7.3-1l3.5-3.5"/></svg>
@@ -74,25 +74,25 @@ const aboutData = computed(() => {
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              <div class="p-5 sm:p-6 rounded-xl border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
+              <div class="p-5 sm:p-6 rounded-lg border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
                 <span class="text-2xl">🌱</span>
                 <h4 class="text-lg font-black text-slate-900">Muda</h4>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">Menjiwai karakter bersemangat, energik, berani mengambil langkah kreatif, serta tangguh menghadapi tantangan.</p>
               </div>
               
-              <div class="p-5 sm:p-6 rounded-xl border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
+              <div class="p-5 sm:p-6 rounded-lg border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
                 <span class="text-2xl">🕌</span>
                 <h4 class="text-lg font-black text-slate-900">Beriman</h4>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">Senantiasa mendasarkan segala ucapan, perbuatan, serta rancangan kegiatan pada ajaran suci agama Islam.</p>
               </div>
 
-              <div class="p-5 sm:p-6 rounded-xl border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
+              <div class="p-5 sm:p-6 rounded-lg border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
                 <span class="text-2xl">🏆</span>
                 <h4 class="text-lg font-black text-slate-900">Berprestasi</h4>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">Berkomitmen melahirkan prestasi, berpendidikan yang andal, serta mendatangkan kegunaan konkret bagi dusun.</p>
               </div>
 
-              <div class="p-5 sm:p-6 rounded-xl border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
+              <div class="p-5 sm:p-6 rounded-lg border border-slate-100/80 bg-white shadow-xl shadow-slate-100 space-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/20 transition-all duration-300 hover:-translate-y-1">
                 <span class="text-2xl">🤝</span>
                 <h4 class="text-lg font-black text-slate-900">Sinergitas</h4>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">Melangkah beriringan bersama seluruh lapisan masyarakat, pengurus RT, serta jajaran sesepuh dusun.</p>

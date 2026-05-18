@@ -124,69 +124,69 @@ const cancelEdit = () => {
 <template>
   <AdminLayout>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6">
-        <h3 class="text-xs font-black uppercase tracking-widest text-white mb-6">
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 shadow-xs">
+        <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-6">
           {{ isEditing ? 'Edit Data Pengurus' : 'Tambah Pengurus Baru' }}
         </h3>
         <div class="space-y-4">
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Nama Lengkap</label>
-            <input v-model="name" type="text" placeholder="Nama Lengkap" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="name" type="text" placeholder="Nama Lengkap" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Alamat Email</label>
-            <input v-model="email" type="email" placeholder="Alamat Email" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="email" type="email" placeholder="Alamat Email" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Jabatan / Divisi</label>
-            <input v-model="title" type="text" placeholder="Contoh: Divisi Humas" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="title" type="text" placeholder="Contoh: Divisi Humas" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Umur</label>
-              <input v-model="age" type="text" placeholder="22 Tahun" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              <input v-model="age" type="text" placeholder="22 Tahun" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Hobi</label>
-              <input v-model="hobby" type="text" placeholder="Hobi" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              <input v-model="hobby" type="text" placeholder="Hobi" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Quote Pengurus</label>
-            <textarea v-model="quote" placeholder="Quote" rows="3" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none"></textarea>
+            <textarea v-model="quote" placeholder="Quote" rows="3" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none"></textarea>
           </div>
           <div class="flex gap-3">
             <button @click="handleSave" class="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
               {{ isEditing ? 'Simpan Perubahan' : 'Daftarkan Pengurus' }}
             </button>
-            <button v-if="isEditing" @click="cancelEdit" class="px-4 py-3.5 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
+            <button v-if="isEditing" @click="cancelEdit" class="px-4 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
               Batal
             </button>
           </div>
         </div>
       </div>
 
-      <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 lg:col-span-2">
-        <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-800/60">
-          <h3 class="text-xs font-black uppercase tracking-widest text-white">Database Pengurus Aktif</h3>
-          <input v-model="searchUser" type="text" placeholder="Cari pengurus..." class="px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+      <div class="bg-white border border-slate-200/70 rounded-lg p-6 lg:col-span-2 shadow-xs">
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-150">
+          <h3 class="text-xs font-black uppercase tracking-widest text-slate-800">Database Pengurus Aktif</h3>
+          <input v-model="searchUser" type="text" placeholder="Cari pengurus..." class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
         </div>
 
         <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
-          <div v-for="user in filteredMembers" :key="user.email" class="p-4 bg-slate-950 border border-slate-900 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-slate-800 transition-colors">
+          <div v-for="user in filteredMembers" :key="user.email" class="p-4 bg-slate-50/50 border border-slate-200/60 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-slate-300 transition-colors">
             <div class="flex items-center gap-4 w-full">
-              <img :src="user.avatar" class="w-10 h-10 rounded-xl object-cover border border-slate-800 flex-shrink-0">
+              <img :src="user.avatar" class="w-10 h-10 rounded-xl object-cover border border-slate-200 flex-shrink-0">
               <div class="truncate">
-                <h4 class="text-xs font-black text-white leading-tight uppercase truncate">{{ user.name }}</h4>
-                <p class="text-[9px] font-black text-emerald-500 mt-1 uppercase tracking-wider">{{ user.title }}</p>
+                <h4 class="text-xs font-black text-slate-800 leading-tight uppercase truncate">{{ user.name }}</h4>
+                <p class="text-[9px] font-black text-emerald-600 mt-1 uppercase tracking-wider">{{ user.title }}</p>
                 <p class="text-[9px] text-slate-500 mt-0.5 truncate">{{ user.email }}</p>
               </div>
             </div>
-            <div class="flex gap-2 w-full sm:w-auto justify-end border-t border-slate-900/60 pt-3 sm:pt-0 sm:border-0">
-              <button @click="handleEdit(user)" class="p-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all cursor-pointer flex items-center justify-center">
+            <div class="flex gap-2 w-full sm:w-auto justify-end border-t border-slate-200/60 pt-3 sm:pt-0 sm:border-0">
+              <button @click="handleEdit(user)" class="p-2.5 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl hover:bg-emerald-600 hover:text-white transition-all cursor-pointer flex items-center justify-center">
                 <font-awesome-icon icon="edit" />
               </button>
-              <button @click="handleDelete(user.email)" class="p-2.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl hover:bg-rose-500 hover:text-white transition-all cursor-pointer flex items-center justify-center">
+              <button @click="handleDelete(user.email)" class="p-2.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl hover:bg-rose-600 hover:text-white transition-all cursor-pointer flex items-center justify-center">
                 <font-awesome-icon icon="trash" />
               </button>
             </div>

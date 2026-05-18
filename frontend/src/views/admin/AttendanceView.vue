@@ -98,21 +98,21 @@ const printAttendance = () => {
 
 <template>
   <AdminLayout>
-    <div class="bg-slate-900/60 border border-slate-900 rounded-xl p-6 print:border-0 print:bg-transparent print:p-0">
-      <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 mb-6 pb-6 border-b border-slate-800/60 print:hidden">
+    <div class="bg-white border border-slate-200/70 rounded-lg p-6 print:border-0 print:bg-transparent print:p-0 shadow-xs">
+      <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 mb-6 pb-6 border-b border-slate-150 print:hidden">
         <div>
-          <h3 class="text-xs font-black uppercase tracking-widest text-white">Sistem Presensi Kehadiran</h3>
+          <h3 class="text-xs font-black uppercase tracking-widest text-slate-800">Sistem Presensi Kehadiran</h3>
           <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Pilih Kegiatan untuk Mencatat Absensi</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-3 w-full xl:w-auto items-center">
-          <div class="flex items-center justify-between sm:justify-start gap-2 bg-slate-950/60 border border-slate-850 px-3 py-2.5 rounded-xl">
+          <div class="flex items-center justify-between sm:justify-start gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-xl">
             <span class="text-[10px] font-black uppercase tracking-wider text-slate-500">Tampilkan</span>
-            <Select v-model="perPage" :options="[5, 10, 25, 50, 100]" class="w-16 text-xs bg-transparent border-none text-slate-300" />
+            <Select v-model="perPage" :options="[5, 10, 25, 50, 100]" class="w-16 text-xs bg-transparent border-none text-slate-700 font-bold" />
           </div>
-          <input v-model="searchQuery" type="text" placeholder="Cari pengurus..." class="px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500 w-full lg:w-40">
-          <Select v-model="currentActivity" :options="activityOptions" optionLabel="label" optionValue="value" class="w-full lg:w-64 text-xs bg-slate-950 border border-slate-800 rounded-xl" />
-          <button @click="printAttendance" class="px-4 py-3.5 bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2 w-full lg:w-auto">
-            <font-awesome-icon icon="print" /> Cetak Absensi
+          <input v-model="searchQuery" type="text" placeholder="Cari pengurus..." class="px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 w-full lg:w-40">
+          <Select v-model="currentActivity" :options="activityOptions" optionLabel="label" optionValue="value" class="w-full lg:w-64 text-xs bg-white border border-slate-200 rounded-xl font-bold" />
+          <button @click="printAttendance" class="px-4 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2 w-full lg:w-auto">
+            <font-awesome-icon :icon="['fas', 'print']" /> Cetak Absensi
           </button>
         </div>
       </div>
@@ -126,24 +126,24 @@ const printAttendance = () => {
         <div 
           v-for="(member, index) in filteredMembersList" 
           :key="member.email" 
-          class="bg-slate-950/40 border border-slate-850/80 rounded-xl p-5 space-y-4"
+          class="bg-slate-50/50 border border-slate-200/80 rounded-xl p-5 space-y-4 shadow-2xs"
         >
           <div class="flex items-center gap-3">
-            <img :src="member.avatar" class="w-10 h-10 rounded-full object-cover border border-slate-800 flex-shrink-0">
+            <img :src="member.avatar" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
             <div class="min-w-0">
-              <span class="font-black text-xs text-slate-200 block truncate">{{ member.name }}</span>
+              <span class="font-black text-xs text-slate-800 block truncate">{{ member.name }}</span>
               <span class="text-[9px] text-slate-500 block truncate">{{ member.email }}</span>
-              <span class="inline-block px-2 py-0.5 mt-1 bg-slate-900 border border-slate-850 text-slate-400 rounded-md text-[9px] font-bold uppercase tracking-wider">{{ member.title }}</span>
+              <span class="inline-block px-2 py-0.5 mt-1 bg-slate-100 border border-slate-200 text-slate-600 rounded-md text-[9px] font-bold uppercase tracking-wider">{{ member.title }}</span>
             </div>
-            <span class="ml-auto text-xs font-bold text-slate-600">#{{ index + 1 }}</span>
+            <span class="ml-auto text-xs font-bold text-slate-400">#{{ index + 1 }}</span>
           </div>
 
-          <div class="grid grid-cols-4 gap-1.5 pt-2 border-t border-slate-900">
+          <div class="grid grid-cols-4 gap-1.5 pt-2 border-t border-slate-150">
             <button 
               v-for="status in ['Hadir', 'Sakit', 'Izin', 'Alfa']" 
               :key="status" 
               @click="setStatus(member.email, status)"
-              :class="['py-2.5 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer text-center', getStatus(member.email) === status ? (status === 'Hadir' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : status === 'Alfa' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30') : 'bg-slate-950 text-slate-600 border border-slate-900 hover:text-slate-400']"
+              :class="['py-2.5 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer text-center border', getStatus(member.email) === status ? (status === 'Hadir' ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : status === 'Alfa' ? 'bg-rose-50 text-rose-700 border-rose-300' : 'bg-amber-50 text-amber-700 border-amber-300') : 'bg-slate-50 text-slate-400 border-slate-200/60 hover:text-slate-700 hover:bg-slate-100']"
             >
               {{ status }}
             </button>
@@ -154,31 +154,31 @@ const printAttendance = () => {
       <div class="p-2 print:p-0 overflow-x-auto hidden md:block print:block">
         <table class="w-full text-left text-xs border-collapse min-w-[600px] md:min-w-0">
           <thead>
-            <tr class="text-slate-500 uppercase font-black text-[9px] tracking-widest border-b border-slate-800/40 print:text-slate-700 print:border-slate-300">
+            <tr class="text-slate-500 uppercase font-black text-[9px] tracking-widest border-b border-slate-200/75 print:text-slate-700 print:border-slate-300">
               <th class="p-4 print:py-2">No</th>
               <th class="p-4 print:py-2">Nama Pengurus</th>
               <th class="p-4 print:py-2">Jabatan</th>
               <th class="p-4 print:py-2 text-center">Status Kehadiran</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800/40 print:divide-slate-300 print:text-slate-900">
-            <tr v-for="(member, index) in filteredMembersList" :key="member.email" class="hover:bg-slate-800/10 transition-colors">
-              <td class="p-4 print:py-2">{{ index + 1 }}</td>
+          <tbody class="divide-y divide-slate-150 print:divide-slate-300 print:text-slate-900">
+            <tr v-for="(member, index) in filteredMembersList" :key="member.email" class="hover:bg-slate-50 transition-colors">
+              <td class="p-4 print:py-2 text-slate-500">{{ index + 1 }}</td>
               <td class="p-4 print:py-2 flex items-center gap-3">
-                <img :src="member.avatar" class="w-8 h-8 rounded-full object-cover border border-slate-800 flex-shrink-0 print:hidden">
+                <img :src="member.avatar" class="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 print:hidden">
                 <div>
-                  <span class="font-bold text-slate-200 print:text-slate-950">{{ member.name }}</span>
+                  <span class="font-bold text-slate-800 print:text-slate-950">{{ member.name }}</span>
                   <span class="text-[10px] text-slate-500 block print:text-slate-700">{{ member.email }}</span>
                 </div>
               </td>
-              <td class="p-4 print:py-2 text-slate-400 print:text-slate-700">{{ member.title }}</td>
+              <td class="p-4 print:py-2 text-slate-600 print:text-slate-700">{{ member.title }}</td>
               <td class="p-4 print:py-2 text-center">
                 <div class="flex justify-center gap-1.5 print:hidden">
                   <button 
                     v-for="status in ['Hadir', 'Sakit', 'Izin', 'Alfa']" 
                     :key="status" 
                     @click="setStatus(member.email, status)"
-                    :class="['px-2.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer', getStatus(member.email) === status ? (status === 'Hadir' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : status === 'Alfa' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30') : 'bg-slate-950 text-slate-600 border border-slate-900 hover:text-slate-400']"
+                    :class="['px-2.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer border', getStatus(member.email) === status ? (status === 'Hadir' ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : status === 'Alfa' ? 'bg-rose-50 text-rose-700 border-rose-300' : 'bg-amber-50 text-amber-700 border-amber-300') : 'bg-slate-50 text-slate-400 border-slate-200/60 hover:text-slate-700 hover:bg-slate-100']"
                   >
                     {{ status }}
                   </button>

@@ -330,7 +330,7 @@ const handleDeleteSocialLink = async (id) => {
       </div>
 
       <!-- Right Main Content Panel -->
-      <div class="flex-1 bg-slate-900/60 border border-slate-900 rounded-xl p-4 lg:p-8 shadow-2xl shadow-emerald-500/5">
+      <div class="flex-1 bg-slate-900/60 border border-slate-900 rounded-lg p-4 lg:p-8 shadow-2xl shadow-emerald-500/5">
         
         <!-- Tab 1: Hero & Sejarah -->
         <div v-if="activeTab === 'hero'" class="space-y-6">

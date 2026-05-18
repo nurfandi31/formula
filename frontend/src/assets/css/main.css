@@ -134,3 +134,236 @@
   background-color: rgba(16, 185, 129, 0.2) !important;
   color: #10b981 !important;
 }
+
+/* Admin Light Mode Overrides for PrimeVue */
+.min-h-screen.bg-slate-50 .p-select {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.75rem !important;
+  color: #0f172a !important;
+  padding: 0.25rem 0.5rem !important;
+}
+.min-h-screen.bg-slate-50 .p-select .p-select-label {
+  color: #1e293b !important;
+}
+.min-h-screen.bg-slate-50 .p-select-overlay {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 0.75rem !important;
+}
+.min-h-screen.bg-slate-50 .p-select-option {
+  color: #1e293b !important;
+  font-size: 0.75rem !important;
+}
+.min-h-screen.bg-slate-50 .p-select-option:hover {
+  background-color: #f1f5f9 !important;
+}
+.min-h-screen.bg-slate-50 .p-select-option.p-highlight {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #10b981 !important;
+}
+
+.min-h-screen.bg-slate-50 .p-datepicker-input {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.75rem !important;
+  color: #1e293b !important;
+  padding: 0.75rem 1rem !important;
+}
+.min-h-screen.bg-slate-50 .p-datepicker-input::placeholder {
+  color: #94a3b8 !important;
+}
+
+.min-h-screen.bg-slate-50 .p-inputnumber-input {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.75rem !important;
+  color: #1e293b !important;
+  padding: 0.75rem 1rem !important;
+}
+
+/* ==========================================================================
+   Admin Light Theme Premium Overrides
+   ========================================================================== */
+.min-h-screen.bg-slate-50 {
+  background-color: #f8fafc !important; /* Premium light neutral */
+  color: #334155 !important; /* text-slate-700 */
+
+  h1, h2, h3, h4, h5, h6, .text-white {
+    color: #0f172a !important; /* text-slate-900 */
+  }
+
+  .bg-slate-900\/60, .bg-slate-900, .bg-slate-950\/60, .bg-slate-950 {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #334155 !important;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.03) !important;
+  }
+
+  .shadow-xs {
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.03) !important;
+  }
+
+  input[type="text"], input[type="email"], input[type="number"], textarea, select {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #0f172a !important;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #94a3b8 !important;
+  }
+  input:focus, textarea:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 1px #10b981 !important;
+  }
+
+  .text-slate-250 {
+    color: #475569 !important;
+  }
+  .text-slate-200, .text-slate-300, .text-slate-400 {
+    color: #475569 !important;
+  }
+  .text-slate-500 {
+    color: #64748b !important;
+  }
+
+  .border-slate-900, .border-slate-850, .border-slate-800, .border-slate-800\/80, .border-slate-800\/60, .border-slate-800\/40, .border-slate-900\/60 {
+    border-color: #e2e8f0 !important;
+  }
+
+  .divide-slate-800\/40 > :not([hidden]) ~ :not([hidden]),
+  .divide-slate-900 > :not([hidden]) ~ :not([hidden]) {
+    border-color: #f1f5f9 !important;
+  }
+
+  .text-emerald-400 {
+    color: #059669 !important;
+  }
+  .text-teal-400 {
+    color: #0d9488 !important;
+  }
+  .text-rose-400 {
+    color: #e11d48 !important;
+  }
+  .text-amber-400 {
+    color: #d97706 !important;
+  }
+
+  .bg-rose-500\/10 {
+    background-color: #fef2f2 !important;
+    border-color: #fecaca !important;
+    color: #b91c1c !important;
+  }
+  .bg-rose-500\/10:hover {
+    background-color: #b91c1c !important;
+    color: #ffffff !important;
+    border-color: #b91c1c !important;
+  }
+
+  .bg-emerald-500\/10 {
+    background-color: #f0fdf4 !important;
+    border-color: #a7f3d0 !important;
+    color: #047857 !important;
+  }
+  .bg-emerald-500\/10:hover {
+    background-color: #047857 !important;
+    color: #ffffff !important;
+    border-color: #047857 !important;
+  }
+
+  .bg-slate-900\/60.text-slate-400 {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #64748b !important;
+  }
+  .bg-slate-900\/60.text-slate-400:hover {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  .bg-emerald-600 {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    color: #ffffff !important;
+  }
+
+  thead tr.bg-slate-950 {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+  }
+  tbody tr.hover\:bg-slate-800\/10:hover, tbody tr.hover\:bg-slate-900\/20:hover {
+    background-color: #f1f5f9 !important;
+  }
+
+  .p-select, .p-datepicker-input, .p-inputnumber-input {
+    border-color: #e2e8f0 !important;
+  }
+  
+  .bg-slate-950\/40, .bg-slate-950 {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+  }
+  
+  .print\:text-slate-950 {
+    color: #0f172a !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     Keep Sidebar 100% Dark/Black with Premium Accents
+     ------------------------------------------------------------------------ */
+  aside, aside * {
+    background-color: transparent !important;
+    color: inherit !important;
+    border-color: inherit !important;
+  }
+
+  aside {
+    background-color: #020617 !important; /* Deep black bg-slate-950 */
+    border-color: #0f172a !important; /* border-slate-900 */
+    color: #94a3b8 !important; /* text-slate-400 */
+  }
+
+  aside .text-white, aside h2, aside h4 {
+    color: #ffffff !important;
+  }
+
+  aside .text-slate-400 {
+    color: #94a3b8 !important;
+  }
+
+  aside a.router-link-active {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+    color: #34d399 !important; /* emerald-400 */
+    border-color: rgba(16, 185, 129, 0.2) !important;
+  }
+
+  aside a:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important;
+  }
+
+  aside button {
+    background-color: rgba(244, 63, 94, 0.1) !important; /* rose-500/10 */
+    border-color: rgba(244, 63, 94, 0.2) !important;
+    color: #fb7185 !important; /* rose-400 */
+  }
+
+  aside button:hover {
+    background-color: #f43f5e !important;
+    color: #ffffff !important;
+  }
+
+  aside .bg-slate-900 {
+    background-color: #0f172a !important;
+  }
+
+  aside .border-slate-800 {
+    border-color: #1e293b !important;
+  }
+}
+
+
