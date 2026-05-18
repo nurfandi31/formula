@@ -30,6 +30,7 @@ Route::prefix('api')->group(function () {
     Route::post('/landing/social-links', [LandingController::class, 'storeSocialLink']);
     Route::delete('/landing/social-links/{id}', [LandingController::class, 'destroySocialLink']);
 
+    Route::get('/kas/yearly', [KasController::class, 'yearlyReport']);
     Route::get('/kas', [KasController::class, 'index']);
     Route::post('/kas', [KasController::class, 'store']);
     Route::delete('/kas/{id}', [KasController::class, 'destroy']);

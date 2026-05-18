@@ -499,6 +499,53 @@ onMounted(() => {
       </div>
     </div>
 
+    <!-- Laporan Kas Tahunan (Yearly Financial Ledger) -->
+    <div class="mt-8 bg-white border border-slate-200/70 rounded-lg p-6 shadow-xs print:hidden">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h3 class="text-xs font-black uppercase tracking-widest text-slate-800">Laporan Akumulasi Kas Per Tahun</h3>
+          <p class="text-[10px] text-slate-500 mt-0.5">Ringkasan mutasi kas, saldo awal, dan saldo akhir tiap periode tahun secara otomatis</p>
+        </div>
+        <div class="px-2.5 py-1 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded text-[9px] font-black uppercase tracking-wider">
+          Otomatis Sinkron
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse min-w-[650px]">
+          <thead>
+            <tr class="text-slate-500 uppercase font-black text-[9px] tracking-widest border-b border-slate-200/75 bg-slate-50/20">
+              <th class="p-3 w-16">Tahun</th>
+              <th class="p-3 text-right">Saldo Awal</th>
+              <th class="p-3 text-right">Total Pemasukan</th>
+              <th class="p-3 text-right">Total Pengeluaran</th>
+              <th class="p-3 text-right">Mutasi Kas</th>
+              <th class="p-3 text-right">Saldo Akhir</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-150">
+            <tr v-for="report in socialStore.yearlyReports" :key="report.year" class="hover:bg-slate-50 transition-colors font-medium">
+              <td class="p-3">
+                <span class="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-800 rounded font-black text-[10px]">{{ report.year }}</span>
+              </td>
+              <td class="p-3 text-right text-slate-600">{{ formatRupiah(report.starting_balance) }}</td>
+              <td class="p-3 text-right text-emerald-600 font-bold">+{{ formatRupiah(report.pemasukan) }}</td>
+              <td class="p-3 text-right text-rose-600 font-bold">-{{ formatRupiah(report.pengeluaran) }}</td>
+              <td class="p-3 text-right font-black" :class="report.saldo_tahunan >= 0 ? 'text-emerald-700' : 'text-rose-700'">
+                {{ report.saldo_tahunan >= 0 ? '+' : '' }}{{ formatRupiah(report.saldo_tahunan) }}
+              </td>
+              <td class="p-3 text-right font-black text-slate-900 bg-slate-50/50">{{ formatRupiah(report.ending_balance) }}</td>
+            </tr>
+            <tr v-if="!socialStore.yearlyReports || socialStore.yearlyReports.length === 0">
+              <td colspan="6" class="p-8 text-center text-slate-400 font-bold uppercase tracking-wider text-xs">
+                Belum ada transaksi di database untuk pelaporan tahunan
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- Sleek Clickable Card for History -->
     <div 
       @click="openHistoryModal"

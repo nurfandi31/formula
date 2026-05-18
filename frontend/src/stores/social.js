@@ -16,7 +16,7 @@ export const useSocialStore = defineStore('social', () => {
 
   const { users, currentUser } = storeToRefs(authStore)
   const { posts, stories, messages } = storeToRefs(feedStore)
-  const { kasData } = storeToRefs(financialsStore)
+  const { kasData, yearlyReports } = storeToRefs(financialsStore)
   const { hasilRapat, agendaKegiatan } = storeToRefs(activitiesStore)
   const { absensi } = storeToRefs(attendanceStore)
   const {
@@ -43,6 +43,7 @@ export const useSocialStore = defineStore('social', () => {
     currentUser,
     messages,
     kasData,
+    yearlyReports,
     hasilRapat,
     agendaKegiatan,
     absensi,
@@ -68,6 +69,7 @@ export const useSocialStore = defineStore('social', () => {
     fetchLandingConfig: landingStore.fetchLandingConfig,
     saveLandingConfig: landingStore.saveLandingConfig,
     fetchKasData: financialsStore.fetchKasData,
+    fetchYearlyReports: financialsStore.fetchYearlyReports,
     addKasTransaction: financialsStore.addKasTransaction,
     deleteKasTransaction: financialsStore.deleteKasTransaction,
     fetchActivities: activitiesStore.fetchActivities,

@@ -22,6 +22,63 @@ class KasController extends Controller
         ]);
     }
 
+    public function yearlyReport()
+    {
+        $transactions = KasTransaction::orderBy('id', 'asc')->get();
+        $yearlyData = [];
+
+        foreach ($transactions as $tx) {
+            // Extract 4-digit year from 'tanggal' (e.g., '04 Mei 2026' or '2026-05-04')
+            if (preg_match('/(19|20)\d{2}/', $tx->tanggal, $matches)) {
+                $year = (int)$matches[0];
+            } else {
+                $year = (int)date('Y', strtotime($tx->tanggal));
+            }
+
+            if (!isset($yearlyData[$year])) {
+                $yearlyData[$year] = [
+                    'year' => $year,
+                    'pemasukan' => 0,
+                    'pengeluaran' => 0
+                ];
+            }
+
+            if ($tx->type === 'pemasukan') {
+                $yearlyData[$year]['pemasukan'] += $tx->nominal;
+            } else {
+                $yearlyData[$year]['pengeluaran'] += $tx->nominal;
+            }
+        }
+
+        // Sort by year ascending to compute cumulative running balances
+        ksort($yearlyData);
+
+        $reports = [];
+        $runningBalance = 0;
+
+        foreach ($yearlyData as $year => $data) {
+            $startingBalance = $runningBalance;
+            $net = $data['pemasukan'] - $data['pengeluaran'];
+            $runningBalance += $net;
+
+            $reports[] = [
+                'year' => $year,
+                'starting_balance' => (float)$startingBalance,
+                'pemasukan' => (float)$data['pemasukan'],
+                'pengeluaran' => (float)$data['pengeluaran'],
+                'saldo_tahunan' => (float)$net,
+                'ending_balance' => (float)$runningBalance
+            ];
+        }
+
+        // Sort descending for latest year reports on top
+        usort($reports, function($a, $b) {
+            return $b['year'] <=> $a['year'];
+        });
+
+        return response()->json($reports);
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([

@@ -3,22 +3,14 @@ import { ref, watch } from 'vue'
 
 export const useFinancialsStore = defineStore('financials', () => {
   const defaultKasData = {
-    saldo: 2450000,
-    pemasukan: 3500000,
-    pengeluaran: 1050000,
-    riwayat: [
-      { label: 'Konsumsi Rapat Rutin', nominal: 150000, tanggal: '03 Mei 2025' },
-      { label: 'Pembelian Atribut Organisasi', nominal: 400000, tanggal: '28 Apr 2025' },
-      { label: 'Sewa Lapangan Futsal', nominal: 200000, tanggal: '25 Apr 2025' },
-      { label: 'Santunan Warga Sakit', nominal: 300000, tanggal: '20 Apr 2025' }
-    ]
+    saldo: 0,
+    pemasukan: 0,
+    pengeluaran: 0,
+    riwayat: []
   }
 
-  const kasData = ref(JSON.parse(localStorage.getItem('formula_kas_data')) || defaultKasData)
-
-  watch(kasData, (val) => {
-    localStorage.setItem('formula_kas_data', JSON.stringify(val))
-  }, { deep: true })
+  const kasData = ref(defaultKasData)
+  const yearlyReports = ref([])
 
   const API_BASE = 'http://localhost:8000/api'
 
@@ -37,6 +29,17 @@ export const useFinancialsStore = defineStore('financials', () => {
           type: item.type,
           tanggal: item.tanggal
         }))
+        // Automatically sync yearly reports in tandem
+        await fetchYearlyReports()
+      }
+    } catch (e) {}
+  }
+
+  const fetchYearlyReports = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/kas/yearly`)
+      if (res.ok) {
+        yearlyReports.value = await res.json()
       }
     } catch (e) {}
   }
@@ -71,7 +74,9 @@ export const useFinancialsStore = defineStore('financials', () => {
 
   return {
     kasData,
+    yearlyReports,
     fetchKasData,
+    fetchYearlyReports,
     addKasTransaction,
     deleteKasTransaction
   }

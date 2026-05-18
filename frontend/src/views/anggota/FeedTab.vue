@@ -491,14 +491,16 @@ const shareWidget = (label) => {
           </div>
 
           <div v-if="kasData.showDetail" class="bg-slate-900/80 border border-slate-800/80 rounded-lg overflow-hidden animate-in fade-in duration-200">
-            <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest px-4 py-2 border-b border-slate-800/60">Riwayat Pengeluaran</p>
-            <div v-for="item in kasData.riwayat" :key="item.label" class="flex items-center gap-3 px-4 py-2.5 border-b border-slate-800/30 hover:bg-slate-800/20 transition-colors last:border-0">
-              <span class="text-lg flex-shrink-0">{{ item.icon }}</span>
+            <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest px-4 py-2 border-b border-slate-800/60">Riwayat Mutasi Dana</p>
+            <div v-for="item in kasData.riwayat" :key="item.id || item.label" class="flex items-center gap-3 px-4 py-2.5 border-b border-slate-800/30 hover:bg-slate-800/20 transition-colors last:border-0">
+              <span class="text-sm flex-shrink-0">{{ item.type === 'pemasukan' ? '📈' : '📉' }}</span>
               <div class="flex-1 min-w-0">
                 <p class="text-[12px] font-semibold text-slate-200 truncate">{{ item.label }}</p>
                 <p class="text-[10px] text-slate-500">{{ item.tanggal }}</p>
               </div>
-              <span class="text-[12px] font-black text-rose-400 flex-shrink-0">-{{ formatRupiah(item.nominal) }}</span>
+              <span class="text-[12px] font-black flex-shrink-0" :class="item.type === 'pemasukan' ? 'text-emerald-400' : 'text-rose-400'">
+                {{ item.type === 'pemasukan' ? '+' : '-' }}{{ formatRupiah(item.nominal) }}
+              </span>
             </div>
           </div>
         </div>
