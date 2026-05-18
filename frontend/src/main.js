@@ -18,13 +18,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { 
   faPlus, faTrash, faEdit, faPrint, faCheck, faChartPie, 
   faCalendar, faFileAlt, faUsers, faCogs, faSignOutAlt, faDollarSign,
-  faIndent, faOutdent, faBars
+  faIndent, faOutdent, faBars, faChevronDown, faTimes, faList, faCog,
+  faSearch, faSave, faUser
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faPlus, faTrash, faEdit, faPrint, faCheck, faChartPie, 
   faCalendar, faFileAlt, faUsers, faCogs, faSignOutAlt, faDollarSign,
-  faIndent, faOutdent, faBars
+  faIndent, faOutdent, faBars, faChevronDown, faTimes, faList, faCog,
+  faSearch, faSave, faUser
 )
 
 const app = createApp(App)
@@ -33,7 +35,10 @@ app.use(createPinia())
 app.use(router)
 app.use(PrimeVue, {
   theme: {
-    preset: Aura
+    preset: Aura,
+    options: {
+      darkModeSelector: 'none'
+    }
   }
 })
 app.use(ToastService)

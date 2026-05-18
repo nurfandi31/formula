@@ -28,7 +28,6 @@ class KasController extends Controller
             'label' => 'required',
             'nominal' => 'required|numeric',
             'type' => 'required',
-            'icon' => 'required',
             'tanggal' => 'required'
         ]);
 

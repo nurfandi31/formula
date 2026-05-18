@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('label');
             $table->decimal('nominal', 15, 2);
             $table->string('type');
-            $table->string('icon');
             $table->string('tanggal');
             $table->timestamps();
         });

@@ -61,7 +61,6 @@ class DatabaseSeeder extends Seeder
             'label' => 'Kas Mingguan Bersama',
             'nominal' => 350000,
             'type' => 'pemasukan',
-            'icon' => '🍱',
             'tanggal' => '04 Mei 2026'
         ]);
 
@@ -69,7 +68,6 @@ class DatabaseSeeder extends Seeder
             'label' => 'Konsumsi Rapat Bulanan',
             'nominal' => 120000,
             'type' => 'pengeluaran',
-            'icon' => '🍱',
             'tanggal' => '04 Mei 2026'
         ]);
 

@@ -12,5 +12,6 @@ class LandingFeature extends Model
         'icon',
         'order_index',
         'is_active',
+        'badge',
     ];
 }

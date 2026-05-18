@@ -59,7 +59,8 @@ const features = computed(() => {
         <div v-for="(feat, idx) in features" :key="idx" class="bg-white border border-slate-100/80 rounded-lg p-6 sm:p-8 shadow-xl shadow-slate-100 flex flex-col justify-between group hover:-translate-y-2 hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300">
           <div class="space-y-4 sm:space-y-6">
             <div :class="['w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-xl shadow-inner', idx === 0 ? 'bg-rose-50 text-rose-600' : idx === 1 ? 'bg-amber-50 text-amber-600' : 'bg-emerald-50 text-emerald-600']">
-              {{ feat.icon }}
+              <i v-if="feat.icon && (feat.icon.startsWith('ri-') || feat.icon.includes(' '))" :class="feat.icon"></i>
+              <span v-else>{{ feat.icon }}</span>
             </div>
             <div class="space-y-2 sm:space-y-3">
               <h4 class="text-base sm:text-lg font-black text-slate-900 leading-snug group-hover:text-emerald-600 transition-colors">{{ feat.title }}</h4>

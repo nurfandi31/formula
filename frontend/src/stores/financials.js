@@ -7,10 +7,10 @@ export const useFinancialsStore = defineStore('financials', () => {
     pemasukan: 3500000,
     pengeluaran: 1050000,
     riwayat: [
-      { label: 'Konsumsi Rapat Rutin', nominal: 150000, tanggal: '03 Mei 2025', icon: '🍱' },
-      { label: 'Pembelian Atribut Organisasi', nominal: 400000, tanggal: '28 Apr 2025', icon: '👕' },
-      { label: 'Sewa Lapangan Futsal', nominal: 200000, tanggal: '25 Apr 2025', icon: '⚽' },
-      { label: 'Santunan Warga Sakit', nominal: 300000, tanggal: '20 Apr 2025', icon: '❤️' }
+      { label: 'Konsumsi Rapat Rutin', nominal: 150000, tanggal: '03 Mei 2025' },
+      { label: 'Pembelian Atribut Organisasi', nominal: 400000, tanggal: '28 Apr 2025' },
+      { label: 'Sewa Lapangan Futsal', nominal: 200000, tanggal: '25 Apr 2025' },
+      { label: 'Santunan Warga Sakit', nominal: 300000, tanggal: '20 Apr 2025' }
     ]
   }
 
@@ -35,19 +35,18 @@ export const useFinancialsStore = defineStore('financials', () => {
           label: item.label,
           nominal: Number(item.nominal),
           type: item.type,
-          icon: item.icon,
           tanggal: item.tanggal
         }))
       }
     } catch (e) {}
   }
 
-  const addKasTransaction = async (label, nominal, type, icon, tanggal) => {
+  const addKasTransaction = async (label, nominal, type, tanggal) => {
     try {
       const res = await fetch(`${API_BASE}/kas`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ label, nominal, type, icon, tanggal })
+        body: JSON.stringify({ label, nominal, type, tanggal })
       })
       if (res.ok) {
         await fetchKasData()

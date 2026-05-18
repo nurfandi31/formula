@@ -131,35 +131,35 @@ const cancelEdit = () => {
         <div class="space-y-4">
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Nama Lengkap</label>
-            <input v-model="name" type="text" placeholder="Nama Lengkap" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="name" type="text" placeholder="Nama Lengkap" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Alamat Email</label>
-            <input v-model="email" type="email" placeholder="Alamat Email" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="email" type="email" placeholder="Alamat Email" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Jabatan / Divisi</label>
-            <input v-model="title" type="text" placeholder="Contoh: Divisi Humas" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <input v-model="title" type="text" placeholder="Contoh: Divisi Humas" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Umur</label>
-              <input v-model="age" type="text" placeholder="22 Tahun" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              <input v-model="age" type="text" placeholder="22 Tahun" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Hobi</label>
-              <input v-model="hobby" type="text" placeholder="Hobi" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              <input v-model="hobby" type="text" placeholder="Hobi" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
           </div>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Quote Pengurus</label>
-            <textarea v-model="quote" placeholder="Quote" rows="3" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none"></textarea>
+            <textarea v-model="quote" placeholder="Quote" rows="3" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none"></textarea>
           </div>
           <div class="flex gap-3">
-            <button @click="handleSave" class="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
+            <button @click="handleSave" class="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
               {{ isEditing ? 'Simpan Perubahan' : 'Daftarkan Pengurus' }}
             </button>
-            <button v-if="isEditing" @click="cancelEdit" class="px-4 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
+            <button v-if="isEditing" @click="cancelEdit" class="px-4 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 rounded-md font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
               Batal
             </button>
           </div>
@@ -169,7 +169,7 @@ const cancelEdit = () => {
       <div class="bg-white border border-slate-200/70 rounded-lg p-6 lg:col-span-2 shadow-xs">
         <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-150">
           <h3 class="text-xs font-black uppercase tracking-widest text-slate-800">Database Pengurus Aktif</h3>
-          <input v-model="searchUser" type="text" placeholder="Cari pengurus..." class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+          <input v-model="searchUser" type="text" placeholder="Cari pengurus..." class="px-4 py-2 bg-white border border-slate-200 rounded-md text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500">
         </div>
 
         <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
