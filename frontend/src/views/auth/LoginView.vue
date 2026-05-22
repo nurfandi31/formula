@@ -27,7 +27,7 @@ const handleLogin = () => {
     if (res.success) {
       // Queue toast dulu, BARU pindah halaman — toast muncul setelah sampai di halaman tujuan
       queueToast(`Selamat datang, ${res.user.name}! 👋`, 'success')
-      if (res.user.role === 'admin') {
+      if (['admin', 'bendahara', 'sekertaris'].includes(res.user.role)) {
         router.push('/admin')
       } else {
         router.push('/anggota')

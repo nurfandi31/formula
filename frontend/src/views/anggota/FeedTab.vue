@@ -268,7 +268,7 @@ const shareWidget = (label) => {
         @mouseleave="onMouseLeave"
         @mouseup="onMouseUp"
         @mousemove="onMouseMove"
-        class="bg-slate-900/40 border border-slate-850/50 rounded-lg p-4 flex gap-5 overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing scroll-smooth"
+        class="flex gap-5 overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing scroll-smooth py-2 px-1"
       >
         <div class="flex-shrink-0 text-center space-y-1.5 cursor-pointer group relative">
           <div

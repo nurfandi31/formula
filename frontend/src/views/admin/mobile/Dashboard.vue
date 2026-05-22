@@ -27,7 +27,7 @@ const unpaidMembers = computed(() => {
   const allUsers = Object.values(socialStore.users || {})
   
   allUsers.forEach((user, index) => {
-    if (user.role === 'admin') return
+    if (['admin', 'bendahara', 'sekertaris'].includes(user.role)) return
 
     if (index % 2 === 1) {
       list.push({

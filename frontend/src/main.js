@@ -19,14 +19,14 @@ import {
   faPlus, faTrash, faEdit, faPrint, faCheck, faChartPie, 
   faCalendar, faFileAlt, faUsers, faCogs, faSignOutAlt, faDollarSign,
   faIndent, faOutdent, faBars, faChevronDown, faTimes, faList, faCog,
-  faSearch, faSave, faUser
+  faSearch, faSave, faUser, faKey, faLock, faHome, faComments
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faPlus, faTrash, faEdit, faPrint, faCheck, faChartPie, 
   faCalendar, faFileAlt, faUsers, faCogs, faSignOutAlt, faDollarSign,
   faIndent, faOutdent, faBars, faChevronDown, faTimes, faList, faCog,
-  faSearch, faSave, faUser
+  faSearch, faSave, faUser, faKey, faLock, faHome, faComments
 )
 
 const app = createApp(App)

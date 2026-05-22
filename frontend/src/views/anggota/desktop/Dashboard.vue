@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSocialStore } from '../../../stores/social'
 import { useToast } from '../../../composables/useToast'
@@ -13,6 +13,8 @@ import ProfileTab from '../ProfileTab.vue'
 import EditProfileTab from '../EditProfileTab.vue'
 import StoryViewer from '../StoryViewer.vue'
 import CreateStoryModal from '../CreateStoryModal.vue'
+
+const isProfileMenuOpen = ref(false)
 
 const router = useRouter()
 const socialStore = useSocialStore()
@@ -278,23 +280,90 @@ const handleMyStoryClick = () => {
   else openCreateStory()
 }
 
+const closeProfileMenu = (e) => {
+  if (!e.target.closest('.profile-dropdown-container')) {
+    isProfileMenuOpen.value = false
+  }
+}
+
 onMounted(() => {
   if (!socialStore.currentUser) { router.push('/login'); return }
   initializeProfileForm()
+  document.addEventListener('click', closeProfileMenu)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeProfileMenu)
 })
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-950 text-slate-100 flex font-sans select-none antialiased">
+  <div class="min-h-screen bg-slate-950 text-slate-100 flex font-sans select-none antialiased overflow-hidden h-screen">
     <!-- Desktop Sidebar Left -->
     <DesktopSidebar :activeTab="activeTab" :currentUser="currentUser" @update:activeTab="activeTab = $event" @logout="handleLogout" @open-notifications="openNotifications" />
 
-    <!-- Main Content Area -->
-    <main class="flex-1 ml-72 pb-8 min-h-screen relative overflow-hidden bg-slate-950 border-l border-slate-900/60">
-      <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-[120px] rounded-full -z-10"></div>
-      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-teal-500/5 blur-[120px] rounded-full -z-10"></div>
+    <!-- Main Content Area with top Navbar -->
+    <div class="flex-1 flex flex-col min-h-screen bg-slate-950 pl-72 h-screen overflow-hidden">
+      <!-- Top Navbar (Dark themed to match bg-slate-950 but with similar premium design to admin navbar) -->
+      <header class="h-16 bg-slate-950/80 border-b border-slate-900/60 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-4">
+          <h2 class="text-xs font-black uppercase tracking-widest text-slate-400">Portal Sosial Anggota</h2>
+        </div>
+        
+        <div class="flex items-center gap-6">
+          <!-- Notification Button -->
+          <button @click="openNotifications" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-900 text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-90">
+            <span class="text-base">❤️</span>
+            <span v-if="unreadNotificationsCount > 0" class="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-rose-500 rounded-full border border-slate-950 animate-pulse"></span>
+          </button>
 
-      <div class="max-w-4xl mx-auto px-8 py-8">
+          <!-- Profile Dropdown Container -->
+          <div class="relative profile-dropdown-container">
+            <button @click="isProfileMenuOpen = !isProfileMenuOpen" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+              <div class="text-right hidden sm:block">
+                <h4 class="text-xs font-black text-slate-200 leading-tight">{{ currentUser?.name }}</h4>
+                <p class="text-[9px] font-black text-emerald-500 uppercase tracking-wider mt-0.5">{{ currentUser?.title }}</p>
+              </div>
+              <div class="w-10 h-10 rounded-lg overflow-hidden border border-slate-800 shadow-sm bg-slate-900 flex-shrink-0">
+                <img :src="currentUser?.avatar" class="w-full h-full object-cover" alt="Avatar">
+              </div>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <transition
+              enter-active-class="transition duration-200 ease-out"
+              enter-from-class="transform scale-95 opacity-0 translate-y-2"
+              enter-to-class="transform scale-100 opacity-100 translate-y-0"
+              leave-active-class="transition duration-150 ease-in"
+              leave-from-class="transform scale-100 opacity-100 translate-y-0"
+              leave-to-class="transform scale-95 opacity-0 translate-y-2"
+            >
+              <div v-if="isProfileMenuOpen" class="absolute right-0 mt-3 w-48 bg-slate-900 rounded-lg border border-slate-800 shadow-2xl overflow-hidden py-2 z-30">
+                <button @click="activeTab = 'profile'; isProfileMenuOpen = false" class="w-full text-left px-4 py-3 flex items-center gap-3 text-xs font-black uppercase tracking-wider text-slate-300 hover:text-emerald-400 hover:bg-slate-850 transition-colors cursor-pointer">
+                  <font-awesome-icon icon="user" class="text-sm w-4 h-4 text-slate-400" />
+                  <span>Profil Saya</span>
+                </button>
+                <button @click="activeTab = 'edit-profile'; isProfileMenuOpen = false" class="w-full text-left px-4 py-3 flex items-center gap-3 text-xs font-black uppercase tracking-wider text-slate-300 hover:text-emerald-400 hover:bg-slate-850 transition-colors cursor-pointer">
+                  <font-awesome-icon icon="cog" class="text-sm w-4 h-4 text-slate-400" />
+                  <span>Edit Profil</span>
+                </button>
+                <div class="h-px bg-slate-850 my-1 mx-2"></div>
+                <button @click="handleLogout" class="w-full text-left px-4 py-3 flex items-center gap-3 text-xs font-black uppercase tracking-wider text-rose-400 hover:bg-rose-950/20 transition-colors cursor-pointer">
+                  <font-awesome-icon icon="sign-out-alt" class="text-sm w-4 h-4 text-rose-400" />
+                  <span>Keluar Sesi</span>
+                </button>
+              </div>
+            </transition>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Scrollable Content Area -->
+      <main class="flex-1 pb-8 min-h-0 relative overflow-y-auto">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-[120px] rounded-full -z-10"></div>
+        <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-teal-500/5 blur-[120px] rounded-full -z-10"></div>
+
+        <div class="max-w-4xl mx-auto px-8 py-8">
         <FeedTab
           v-if="activeTab === 'feed'"
           :posts="posts"
@@ -367,8 +436,9 @@ onMounted(() => {
           @update:editAvatar="editAvatar = $event"
           @save="handleUpdateProfile"
         />
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
 
     <!-- Upload Input -->
     <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="handleImageUpload">

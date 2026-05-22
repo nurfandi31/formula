@@ -66,6 +66,12 @@ const router = createRouter({
       meta: { requiresAuth: true, role: 'admin' }
     },
     {
+      path: '/admin/akses-login',
+      name: 'admin-akses-login',
+      component: () => import('../views/admin/LoginAccessView.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
       path: '/anggota',
       name: 'anggota-dashboard',
       component: AnggotaDashboardView,
@@ -79,11 +85,17 @@ router.beforeEach((to, from, next) => {
     const store = useSocialStore()
     if (!store.currentUser) {
       next({ name: 'login' })
-    } else if (to.meta.role && store.currentUser.role !== to.meta.role) {
-      if (store.currentUser.role === 'admin') {
+    } else if (to.meta.role) {
+      const userRole = store.currentUser.role
+      const targetRole = to.meta.role
+      const isAdminLike = ['admin', 'bendahara', 'sekertaris'].includes(userRole)
+
+      if (targetRole === 'admin' && !isAdminLike) {
+        next({ name: 'anggota-dashboard' })
+      } else if (targetRole === 'anggota' && isAdminLike) {
         next({ name: 'admin' })
       } else {
-        next({ name: 'anggota-dashboard' })
+        next()
       }
     } else {
       next()

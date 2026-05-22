@@ -83,7 +83,7 @@ const navigateTo = (path) => {
 
       <button 
         @click="showMoreMenu = true" 
-        :class="['flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors cursor-pointer', (route.path === '/admin/anggota' || route.path === '/admin/landing' || showMoreMenu) ? 'text-emerald-600' : 'text-slate-400']"
+        :class="['flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors cursor-pointer', (route.path === '/admin/anggota' || route.path === '/admin/landing' || route.path === '/admin/akses-login' || showMoreMenu) ? 'text-emerald-600' : 'text-slate-400']"
       >
         <font-awesome-icon icon="bars" class="text-lg" />
         <span class="text-[8px] font-black uppercase tracking-wider">Lainnya</span>
@@ -101,21 +101,29 @@ const navigateTo = (path) => {
           <button @click="showMoreMenu = false" class="text-slate-400 hover:text-slate-600 font-bold text-sm">✕</button>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 py-2">
+        <div class="grid grid-cols-3 gap-2.5 py-2">
           <button 
             @click="navigateTo('/admin/anggota')" 
-            :class="['p-4 rounded-2xl border flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.97]', route.path === '/admin/anggota' ? 'bg-emerald-50 border-emerald-250 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100']"
+            :class="['p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 cursor-pointer transition-all active:scale-[0.97] text-center', route.path === '/admin/anggota' ? 'bg-emerald-50 border-emerald-250 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100']"
           >
-            <font-awesome-icon icon="users" class="text-xl" />
-            <span class="text-[9px] font-black uppercase tracking-wider">Kelola Pengurus</span>
+            <font-awesome-icon icon="users" class="text-lg" />
+            <span class="text-[8px] font-black uppercase tracking-wider leading-tight">Kelola Pengurus</span>
+          </button>
+
+          <button 
+            @click="navigateTo('/admin/akses-login')" 
+            :class="['p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 cursor-pointer transition-all active:scale-[0.97] text-center', route.path === '/admin/akses-login' ? 'bg-emerald-50 border-emerald-250 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100']"
+          >
+            <font-awesome-icon icon="key" class="text-lg" />
+            <span class="text-[8px] font-black uppercase tracking-wider leading-tight">Akses Login</span>
           </button>
 
           <button 
             @click="navigateTo('/admin/landing')" 
-            :class="['p-4 rounded-2xl border flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.97]', route.path === '/admin/landing' ? 'bg-emerald-50 border-emerald-250 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100']"
+            :class="['p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 cursor-pointer transition-all active:scale-[0.97] text-center', route.path === '/admin/landing' ? 'bg-emerald-50 border-emerald-250 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100']"
           >
-            <font-awesome-icon icon="cogs" class="text-xl" />
-            <span class="text-[9px] font-black uppercase tracking-wider">Landing Page</span>
+            <font-awesome-icon icon="cogs" class="text-lg" />
+            <span class="text-[8px] font-black uppercase tracking-wider leading-tight">Landing Page</span>
           </button>
         </div>
 
