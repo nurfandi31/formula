@@ -2,8 +2,10 @@
 import { ref, computed } from 'vue'
 import { useSocialStore } from '../../../stores/social'
 import Swal from 'sweetalert2'
+import { useToast } from '../../../composables/useToast'
 
 const socialStore = useSocialStore()
+const { showToast } = useToast()
 
 const searchUser = ref('')
 const name = ref('')
@@ -23,7 +25,7 @@ const filteredMembers = computed(() => {
 
 const handleSave = async () => {
   if (!name.value.trim() || !email.value.trim()) {
-    Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Nama dan email wajib diisi!', confirmButtonColor: '#10b981' })
+    showToast('Nama dan email wajib diisi!', 'warning')
     return
   }
 
@@ -36,23 +38,23 @@ const handleSave = async () => {
       if (res.success) {
         isEditing.value = false
         editingEmail.value = ''
-        Swal.fire({ icon: 'success', title: 'Diperbarui', text: 'Data pengurus berhasil diperbarui!', timer: 1500, showConfirmButton: false })
+        showToast('Data pengurus berhasil diperbarui! ✏️', 'success')
       } else {
-        Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal memperbarui data pengurus!', confirmButtonColor: '#10b981' })
+        showToast('Gagal memperbarui data pengurus!', 'error')
         return
       }
     }
   } else {
     if (socialStore.users[lowerEmail]) {
-      Swal.fire({ icon: 'error', title: 'Gagal', text: 'Email sudah terdaftar!', confirmButtonColor: '#10b981' })
+      showToast('Email sudah terdaftar di database!', 'error')
       return
     }
 
     const res = await socialStore.addMember(name.value.trim(), lowerEmail, title.value.trim())
     if (res.success) {
-      Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Pengurus baru berhasil ditambahkan!', timer: 1500, showConfirmButton: false })
+      showToast('Pengurus baru berhasil ditambahkan! 🎉', 'success')
     } else {
-      Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal menyimpan pengurus baru!', confirmButtonColor: '#10b981' })
+      showToast('Gagal menyimpan pengurus baru ke database!', 'error')
       return
     }
   }
@@ -78,14 +80,14 @@ const handleEdit = (user) => {
 
 const handleDelete = (userEmail) => {
   if (userEmail === 'admin@formula.org' || userEmail === socialStore.currentUser?.email) {
-    Swal.fire({ icon: 'error', title: 'Gagal', text: 'Anda tidak dapat menghapus administrator aktif!', confirmButtonColor: '#10b981' })
+    showToast('Tidak dapat menghapus administrator aktif!', 'error')
     return
   }
 
   const user = socialStore.users[userEmail]
   if (!user || !user.id) {
     delete socialStore.users[userEmail]
-    Swal.fire({ icon: 'success', title: 'Terhapus', text: 'Pengurus telah dihapus.', timer: 1500, showConfirmButton: false })
+    showToast('Pengurus berhasil dihapus.', 'success')
     return
   }
 
@@ -101,7 +103,9 @@ const handleDelete = (userEmail) => {
     if (result.isConfirmed) {
       const res = await socialStore.deleteMember(user.id)
       if (res.success) {
-        Swal.fire({ icon: 'success', title: 'Terhapus', text: 'Pengurus telah dihapus.', timer: 1500, showConfirmButton: false })
+        showToast('Pengurus berhasil dihapus dari database.', 'success')
+      } else {
+        showToast('Gagal menghapus pengurus dari database!', 'error')
       }
     }
   })

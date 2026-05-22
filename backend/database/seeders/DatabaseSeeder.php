@@ -22,32 +22,125 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1. Seed Pengguna (Users & Roles)
-        User::create([
-            'name' => 'Fandi Ahmad',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('adminpassword123'),
-            'role' => 'admin',
-            'title' => 'Ketua Umum',
-            'avatar' => 'https://api.dicebear.com/7.x/bottts/svg?seed=admin'
-        ]);
+        $users = [
+            [
+                'name' => 'Fandi Ahmad',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('adminpassword123'),
+                'role' => 'admin',
+                'title' => 'Ketua Umum',
+                'avatar' => 'https://api.dicebear.com/7.x/bottts/svg?seed=admin'
+            ],
+            [
+                'name' => 'Aditya Pratama',
+                'email' => 'adit@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Sekretaris I',
+                'avatar' => 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya'
+            ],
+            [
+                'name' => 'Rina Amalia',
+                'email' => 'rina@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Bendahara Umum',
+                'avatar' => 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina'
+            ],
+            [
+                'name' => 'Muhammad Rizky',
+                'email' => 'rizky@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Humas I',
+                'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Siti Aminah',
+                'email' => 'siti@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Humas II',
+                'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Budi Utomo',
+                'email' => 'budi@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Divisi Keagamaan',
+                'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Dewi Lestari',
+                'email' => 'dewi@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Divisi Sosial',
+                'avatar' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Eko Prasetyo',
+                'email' => 'eko@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Divisi Olahraga',
+                'avatar' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Fitriani',
+                'email' => 'fitri@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Divisi Seni & Budaya',
+                'avatar' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Gilang Ramadhan',
+                'email' => 'gilang@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Divisi Perlengkapan',
+                'avatar' => 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Hana Widya',
+                'email' => 'hana@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Divisi Konsumsi',
+                'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Indra Wijaya',
+                'email' => 'indra@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Keamanan',
+                'avatar' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=256&h=256&q=80'
+            ],
+            [
+                'name' => 'Joko Susilo',
+                'email' => 'joko@formula.org',
+                'password' => Hash::make('member123'),
+                'role' => 'anggota',
+                'title' => 'Anggota Aktif',
+                'avatar' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=256&h=256&q=80'
+            ]
+        ];
 
-        User::create([
-            'name' => 'Aditya Pratama',
-            'email' => 'adit@formula.org',
-            'password' => Hash::make('member123'),
-            'role' => 'anggota',
-            'title' => 'Sekretaris I',
-            'avatar' => 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya'
-        ]);
-
-        User::create([
-            'name' => 'Rina Amalia',
-            'email' => 'rina@formula.org',
-            'password' => Hash::make('member123'),
-            'role' => 'anggota',
-            'title' => 'Bendahara Umum',
-            'avatar' => 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina'
-        ]);
+        foreach ($users as $userData) {
+            User::firstOrCreate(
+                ['email' => $userData['email']],
+                [
+                    'name' => $userData['name'],
+                    'password' => $userData['password'],
+                    'role' => $userData['role'],
+                    'title' => $userData['title'],
+                    'avatar' => $userData['avatar']
+                ]
+            );
+        }
 
         // 2. Seed Legacy Landing Config (Untuk kecocokan dengan Controller lama)
         LandingConfig::create([

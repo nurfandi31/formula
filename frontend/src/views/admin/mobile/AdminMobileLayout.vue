@@ -2,16 +2,21 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useSocialStore } from '../../../stores/social'
+import { useToast } from '../../../composables/useToast'
 
 const router = useRouter()
 const route = useRoute()
 const socialStore = useSocialStore()
+const { queueToast } = useToast()
 
 const showMoreMenu = ref(false)
 
 const handleLogout = () => {
+  const name = socialStore.currentUser?.name || 'Admin'
   socialStore.logout()
+  queueToast(`Sampai jumpa, ${name}! Anda telah keluar. 👋`, 'info')
   router.push('/login')
+  showMoreMenu.value = false
 }
 
 const navigateTo = (path) => {

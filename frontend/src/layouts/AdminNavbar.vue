@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSocialStore } from '../stores/social'
+import { useToast } from '../composables/useToast'
 
 defineProps({
   isCollapsed: Boolean
@@ -11,12 +12,16 @@ const emit = defineEmits(['toggleCollapse', 'toggleMobile'])
 
 const router = useRouter()
 const socialStore = useSocialStore()
+const { queueToast } = useToast()
 
 const currentUser = computed(() => socialStore.currentUser)
 const isProfileMenuOpen = ref(false)
 
 const handleLogout = () => {
+  const name = currentUser.value?.name || 'Admin'
   socialStore.logout()
+  // Queue toast dulu, BARU navigate ke /login
+  queueToast(`Sampai jumpa, ${name}! Anda telah keluar. 👋`, 'info')
   router.push('/login')
 }
 

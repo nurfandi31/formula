@@ -3,8 +3,10 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { useSocialStore } from '../../../stores/social'
 import Select from 'primevue/select'
 import Swal from 'sweetalert2'
+import { useToast } from '../../../composables/useToast'
 
 const socialStore = useSocialStore()
+const { showToast } = useToast()
 
 const activityOptions = computed(() => {
   const list = []
@@ -110,7 +112,7 @@ const setStatus = (email, status) => {
 
 const saveAttendance = async () => {
   if (!currentActivity.value) {
-    Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Tidak ada kegiatan yang aktif!' })
+    showToast('Tidak ada kegiatan yang dipilih!', 'warning')
     return
   }
   const current = currentActivity.value
@@ -121,9 +123,9 @@ const saveAttendance = async () => {
   })
   const res = await socialStore.saveAttendance(current, map)
   if (res.success) {
-    Swal.fire({ icon: 'success', title: 'Berhasil Disimpan', text: `Presensi untuk ${current} berhasil disimpan ke database!`, timer: 1500, showConfirmButton: false })
+    showToast(`Presensi “${current}” berhasil disimpan! ✅`, 'success')
   } else {
-    Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal menyimpan absensi ke database!' })
+    showToast('Gagal menyimpan absensi ke database!', 'error')
   }
 }
 

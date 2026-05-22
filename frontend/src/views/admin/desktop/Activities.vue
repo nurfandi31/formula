@@ -4,8 +4,10 @@ import { useSocialStore } from '../../../stores/social'
 import DatePicker from 'primevue/datepicker'
 import Select from 'primevue/select'
 import Swal from 'sweetalert2'
+import { useToast } from '../../../composables/useToast'
 
 const socialStore = useSocialStore()
+const { showToast } = useToast()
 const activeTab = ref('agenda')
 
 const agendaJudul = ref('')
@@ -46,7 +48,7 @@ const removeKeputusanInput = (index) => {
 
 const addAgenda = async () => {
   if (!agendaJudul.value.trim() || !agendaTanggal.value || !agendaJam.value.trim() || !agendaLokasi.value.trim()) {
-    Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Silakan isi seluruh formulir agenda!', confirmButtonColor: '#10b981' })
+    showToast('Silakan isi seluruh formulir agenda!', 'warning')
     return
   }
 
@@ -65,9 +67,9 @@ const addAgenda = async () => {
     agendaTanggal.value = null
     agendaJam.value = ''
     agendaLokasi.value = ''
-    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Agenda kegiatan berhasil diterbitkan!', timer: 1500, showConfirmButton: false })
+    showToast('Agenda kegiatan berhasil diterbitkan! 📅', 'success')
   } else {
-    Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal menyimpan agenda!', confirmButtonColor: '#10b981' })
+    showToast('Gagal menyimpan agenda ke database!', 'error')
   }
 }
 
@@ -75,7 +77,7 @@ const publishRapat = async () => {
   const filteredKeputusan = rapatKeputusanList.value.filter(k => k.trim() !== '')
 
   if (!rapatJudul.value.trim() || !rapatTanggal.value || filteredKeputusan.length === 0) {
-    Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Silakan isi judul, tanggal, dan minimal satu keputusan rapat!', confirmButtonColor: '#10b981' })
+    showToast('Isi judul, tanggal, dan minimal satu keputusan rapat!', 'warning')
     return
   }
 
@@ -94,9 +96,9 @@ const publishRapat = async () => {
     rapatTanggal.value = null
     rapatPesertaCount.value = 15
     rapatKeputusanList.value = ['']
-    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Hasil keputusan rapat berhasil dipublikasi!', timer: 1500, showConfirmButton: false })
+    showToast('Hasil keputusan rapat berhasil dipublikasi! 📋', 'success')
   } else {
-    Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal menyimpan hasil rapat!', confirmButtonColor: '#10b981' })
+    showToast('Gagal menyimpan hasil rapat ke database!', 'error')
   }
 }
 
@@ -114,7 +116,9 @@ const deleteAgenda = (id) => {
     if (result.isConfirmed) {
       const res = await socialStore.deleteActivity(id)
       if (res.success) {
-        Swal.fire({ icon: 'success', title: 'Terhapus', text: 'Agenda berhasil dihapus.', timer: 1500, showConfirmButton: false })
+        showToast('Agenda berhasil dihapus.', 'success')
+      } else {
+        showToast('Gagal menghapus agenda!', 'error')
       }
     }
   })
@@ -134,7 +138,9 @@ const deleteRapat = (id) => {
     if (result.isConfirmed) {
       const res = await socialStore.deleteActivity(id)
       if (res.success) {
-        Swal.fire({ icon: 'success', title: 'Terhapus', text: 'Hasil rapat berhasil dihapus.', timer: 1500, showConfirmButton: false })
+        showToast('Hasil rapat berhasil dihapus.', 'success')
+      } else {
+        showToast('Gagal menghapus hasil rapat!', 'error')
       }
     }
   })

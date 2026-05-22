@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSocialStore } from '../../stores/social'
 import AuthLayout from '../../layouts/AuthLayout.vue'
+import { useToast } from '../../composables/useToast'
 
 const email = ref('')
 const password = ref('')
@@ -13,6 +14,7 @@ const errorMessage = ref('')
 
 const router = useRouter()
 const socialStore = useSocialStore()
+const { queueToast } = useToast()
 
 const handleLogin = () => {
   if (!email.value || !password.value) return
@@ -23,6 +25,8 @@ const handleLogin = () => {
     const res = await socialStore.login(email.value, password.value)
     isSubmitting.value = false
     if (res.success) {
+      // Queue toast dulu, BARU pindah halaman — toast muncul setelah sampai di halaman tujuan
+      queueToast(`Selamat datang, ${res.user.name}! 👋`, 'success')
       if (res.user.role === 'admin') {
         router.push('/admin')
       } else {

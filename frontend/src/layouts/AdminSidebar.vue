@@ -16,6 +16,7 @@ const menuItems = [
   { name: 'Agenda & Rapat', path: '/admin/kegiatan', icon: 'calendar' },
   { name: 'Absensi Anggota', path: '/admin/absensi', icon: 'file-alt' },
   { name: 'Kelola Pengurus', path: '/admin/anggota', icon: 'users' },
+  { name: 'Akses Login', path: '/admin/akses-login', icon: 'key' },
   { name: 'Landing Page', path: '/admin/landing', icon: 'cogs' }
 ]
 </script>

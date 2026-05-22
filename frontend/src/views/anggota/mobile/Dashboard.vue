@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSocialStore } from '../../../stores/social'
+import { useToast } from '../../../composables/useToast'
 
 import MobileBottomNav from '../MobileBottomNav.vue'
 import FeedTab from '../FeedTab.vue'
@@ -15,6 +16,7 @@ import CreateStoryModal from '../CreateStoryModal.vue'
 
 const router = useRouter()
 const socialStore = useSocialStore()
+const { queueToast } = useToast()
 
 const activeTab = ref('feed')
 const selectedImage = ref('/formula_youth_landing_hero_1777344117635.png')
@@ -123,7 +125,9 @@ const triggerToast = (msg) => {
 }
 
 const handleLogout = () => {
+  const name = currentUser.value?.name || 'Anggota'
   socialStore.logout()
+  queueToast(`Sampai jumpa, ${name}! Anda telah keluar. 👋`, 'info')
   router.push('/login')
 }
 

@@ -2,8 +2,10 @@
 import { ref, computed, onMounted } from 'vue'
 import { useSocialStore } from '../../../stores/social'
 import Swal from 'sweetalert2'
+import { useToast } from '../../../composables/useToast'
 
 const socialStore = useSocialStore()
+const { showToast } = useToast()
 
 const transactionLabel = ref('')
 const transactionNominal = ref(0)
@@ -97,12 +99,7 @@ const printSingleTransaction = (item) => {
 
 const printSelectedTransactions = () => {
   if (selectedTransactions.value.length === 0) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Centang Terlebih Dahulu',
-      text: 'Silakan pilih minimal satu transaksi di sebelah kiri dengan mencentang kotaknya!',
-      confirmButtonColor: '#10b981'
-    })
+    showToast('Centang minimal satu transaksi terlebih dahulu!', 'warning')
     return
   }
 
@@ -242,7 +239,7 @@ const updateChart = () => {
 
 const addTransaction = async () => {
   if (!transactionLabel.value.trim() || !transactionNominal.value) {
-    Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Silakan isi keterangan dan nominal transaksi!', confirmButtonColor: '#10b981' })
+    showToast('Isi keterangan dan nominal transaksi terlebih dahulu!', 'warning')
     return
   }
 
@@ -261,9 +258,9 @@ const addTransaction = async () => {
     transactionNominal.value = 0
     transactionDate.value = new Date()
     updateChart()
-    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Transaksi berhasil diinput!', timer: 1500, showConfirmButton: false })
+    showToast('Transaksi berhasil diinput ke database! 💰', 'success')
   } else {
-    Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal menyimpan transaksi ke database!', confirmButtonColor: '#10b981' })
+    showToast('Gagal menyimpan transaksi ke database!', 'error')
   }
 }
 
@@ -296,9 +293,9 @@ const deleteTransaction = (index) => {
       const res = await socialStore.deleteKasTransaction(item.id)
       if (res.success) {
         updateChart()
-        Swal.fire({ icon: 'success', title: 'Terhapus', text: 'Transaksi telah berhasil dihapus.', timer: 1500, showConfirmButton: false })
+        showToast('Transaksi berhasil dihapus dari database.', 'success')
       } else {
-        Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal menghapus transaksi dari database!', confirmButtonColor: '#10b981' })
+        showToast('Gagal menghapus transaksi dari database!', 'error')
       }
     }
   })

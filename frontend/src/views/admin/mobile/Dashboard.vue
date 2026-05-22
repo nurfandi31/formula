@@ -155,7 +155,7 @@ const totalPages = computed(() => {
         </div>
       </div>
 
-      <div v-slot:pagination v-if="totalPages > 1" class="flex justify-between items-center pt-2 text-[9px] font-black uppercase text-slate-500">
+      <div v-if="totalPages > 1" class="flex justify-between items-center pt-2 text-[9px] font-black uppercase text-slate-500">
         <span>Hal. {{ currentPage }} dari {{ totalPages }}</span>
         <div class="flex gap-2">
           <button 

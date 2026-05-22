@@ -60,6 +60,12 @@ const router = createRouter({
       meta: { requiresAuth: true, role: 'admin' }
     },
     {
+      path: '/admin/profil',
+      name: 'admin-profil',
+      component: () => import('../views/admin/ProfileView.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
       path: '/anggota',
       name: 'anggota-dashboard',
       component: AnggotaDashboardView,
