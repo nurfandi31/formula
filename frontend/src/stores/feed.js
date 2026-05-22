@@ -3,81 +3,11 @@ import { ref, watch } from 'vue'
 import { useAuthStore } from './auth'
 
 export const useFeedStore = defineStore('feed', () => {
-  const defaultPosts = [
-    {
-      id: 1,
-      user: 'Fandi Ahmad',
-      role: 'Ketua Umum',
-      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
-      image: '/formula_youth_landing_hero_1777344117635.png',
-      caption: 'Semangat muda Ngampon! Rapat persiapan kegiatan Ramadhan tahun ini berjalan lancar. Siapkan ide terbaik kalian! ✨ #RamadhanDiNgampon #MudaBerprestasi',
-      likes: 120,
-      hasLiked: false,
-      commentsList: [
-        { user: 'Aditya', text: 'Keren banget, Kak Fandi! Semangat!' },
-        { user: 'Rina', text: 'Mantap, siap mendukung kegiatan Ramadhan!' }
-      ],
-      showComments: false,
-      newCommentText: '',
-      time: '2 jam yang lalu'
-    },
-    {
-      id: 2,
-      user: 'Aditya Pratama',
-      role: 'Sekretaris I',
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
-      image: '/ngampon_village_vibes_1777344139732.png',
-      caption: 'Keseruan kegiatan akhir pekan lalu di Bakti Sosial Dusun Ngampon. Bangga bisa berkontribusi langsung untuk warga! 🚀 #NgamponCerdas #FormulaBeraksi',
-      likes: 85,
-      hasLiked: false,
-      commentsList: [
-        { user: 'Rina', text: 'Alhamdulillah sangat bermanfaat bagi sesama.' },
-        { user: 'Fandi', text: 'Maju terus pemuda Ngampon!' }
-      ],
-      showComments: false,
-      newCommentText: '',
-      time: '5 jam yang lalu'
-    }
-  ]
+  const defaultPosts = []
 
-  const defaultStories = [
-    { 
-      id: 1, 
-      name: 'Fandi', 
-      image: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
-      slides: [
-        { id: 101, image: '/formula_youth_landing_hero_1777344117635.png', caption: 'Persiapan baksos pemuda dusun Ngampon pagi ini! 🧹🌿 #SinergiMuda' },
-        { id: 102, image: '/ngampon_village_vibes_1777344139732.png', caption: 'Ayo mampir, kopi hangat sudah siap di balai dusun! ☕ #GuyubRukun' }
-      ]
-    },
-    { 
-      id: 2, 
-      name: 'Aditya', 
-      image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
-      slides: [
-        { id: 201, image: '/ngampon_village_vibes_1777344139732.png', caption: 'Mengerjakan proposal kegiatan baksos akhir tahun 💻✨ #TertibAdministrasi' }
-      ]
-    },
-    { 
-      id: 3, 
-      name: 'Rina', 
-      image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina',
-      slides: [
-        { id: 301, image: '/formula_youth_landing_hero_1777344117635.png', caption: 'Pendaftaran turnamen futsal antar RT resmi dibuka! ⚽🏆 #MudaSehat' }
-      ]
-    }
-  ]
+  const defaultStories = []
 
-  const defaultMessages = {
-    'adit@formula.org': [
-      { id: 1, sender: 'them', text: 'Halo! Ada koordinasi rapat nanti malam jam 19.30 di balai dusun ya. 👍', time: '10:14' },
-      { id: 2, sender: 'me', text: 'Siap Adit! Saya akan datang tepat waktu.', time: '10:15' }
-    ],
-    'rina@formula.org': [
-      { id: 1, sender: 'them', text: 'Format laporan kas bulanan sudah saya kirim ke email ya.', time: 'Kemarin' },
-      { id: 2, sender: 'me', text: 'Oke baik Mbak Rina, akan segera saya rekap.', time: 'Kemarin' }
-    ]
-  }
+  const defaultMessages = {}
 
   const posts = ref(JSON.parse(localStorage.getItem('formula_posts')) || defaultPosts)
   const stories = ref(JSON.parse(localStorage.getItem('formula_stories')) || defaultStories)

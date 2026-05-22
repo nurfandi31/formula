@@ -3,9 +3,9 @@ import { ref, watch } from 'vue'
 
 export const useLandingStore = defineStore('landing', () => {
   const defaultLandingConfig = {
-    heroTitle: 'Wadah Sinergi & Pengabdian Pemuda Ngampon',
-    heroSubtitle: 'Bersama FORMULA, berkontribusi aktif melahirkan kegunaan konkret bagi dusun tercinta.',
-    sejarah: 'FORMULA (Forum Pemuda Pemudi Ngampon) didirikan sebagai wadah sinergi aksi nyata pemuda...'
+    heroTitle: '',
+    heroSubtitle: '',
+    sejarah: ''
   }
 
   const landingConfig = ref(JSON.parse(localStorage.getItem('formula_landing_config')) || defaultLandingConfig)

@@ -28,7 +28,6 @@ class KasController extends Controller
         $yearlyData = [];
 
         foreach ($transactions as $tx) {
-            // Extract 4-digit year from 'tanggal' (e.g., '04 Mei 2026' or '2026-05-04')
             if (preg_match('/(19|20)\d{2}/', $tx->tanggal, $matches)) {
                 $year = (int)$matches[0];
             } else {
@@ -50,7 +49,6 @@ class KasController extends Controller
             }
         }
 
-        // Sort by year ascending to compute cumulative running balances
         ksort($yearlyData);
 
         $reports = [];
@@ -71,7 +69,6 @@ class KasController extends Controller
             ];
         }
 
-        // Sort descending for latest year reports on top
         usort($reports, function($a, $b) {
             return $b['year'] <=> $a['year'];
         });

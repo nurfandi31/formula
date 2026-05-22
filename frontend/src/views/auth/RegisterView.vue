@@ -27,8 +27,8 @@ const handleRegister = () => {
   isSubmitting.value = true
   errorMessage.value = ''
 
-  setTimeout(() => {
-    const res = socialStore.register(name.value, email.value, password.value)
+  setTimeout(async () => {
+    const res = await socialStore.register(name.value, email.value, password.value)
     isSubmitting.value = false
     if (res.success) {
       router.push('/anggota')

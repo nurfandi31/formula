@@ -19,8 +19,8 @@ const handleLogin = () => {
   isSubmitting.value = true
   errorMessage.value = ''
 
-  setTimeout(() => {
-    const res = socialStore.login(email.value, password.value)
+  setTimeout(async () => {
+    const res = await socialStore.login(email.value, password.value)
     isSubmitting.value = false
     if (res.success) {
       if (res.user.role === 'admin') {

@@ -15,12 +15,8 @@ use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
-    /**
-     * Get the full, dynamic landing page data directly from the database.
-     */
     public function show()
     {
-        // 1. Ambil data CMS dinamis
         $sections = LandingSection::orderBy('order_index')->get();
         $settings = LandingSetting::all();
         $navbars = LandingNavbar::orderBy('order_index')->where('is_active', true)->get();
@@ -30,22 +26,20 @@ class LandingController extends Controller
         $faqs = Faq::orderBy('order_index')->get();
         $socialLinks = SocialLink::where('is_active', true)->get();
 
-        // 2. Ambil data legacy config untuk fallback kompatibilitas lama
         $config = LandingConfig::first();
         if (!$config) {
             $config = LandingConfig::create([
                 'hero_title' => 'Mengabdi untuk Agama, Bangsa & Masyarakat Ngampon',
                 'hero_subtitle' => 'Organisasi Kepemudaan & Keagamaan Resmi Dusun Ngampon, menggerakkan kepedulian sosial demi kemajuan bersama.',
-                'sejarah' => 'FORMULA diinisiasi pada akhir tahun 2016 oleh sekelompok pemuda visioner didukung penuh oleh sesepuh dan tokoh agama Dusun Ngampon. Berbekal semangat swadaya, organisasi ini didirikan untuk mempersatukan potensi kepemudaan, menyebarkan syiar Islam moderat, serta melayani masyarakat melalui aksi kemানুsiaan.'
+                'sejarah' => 'FORMULA diinisiasi pada akhir tahun 2016 oleh sekelompok pemuda visioner didukung penuh oleh sesepuh dan tokoh agama Dusun Ngampon. Berbekal semangat swadaya, organisasi ini didirikan untuk mempersatukan potensi kepemudaan, menyebarkan syiar Islam moderat, serta melayani masyarakat melalui aksi kemanuisiaan.'
             ]);
         }
 
-        // 3. Kembalikan response JSON utuh untuk dikonsumsi frontend
         return response()->json([
             'hero_title' => $config->hero_title,
             'hero_subtitle' => $config->hero_subtitle,
             'sejarah' => $config->sejarah,
-            'config' => $config, // legacy compatibility
+            'config' => $config,
             'sections' => $sections,
             'settings' => $settings,
             'navbars' => $navbars,
@@ -57,9 +51,6 @@ class LandingController extends Controller
         ]);
     }
 
-    /**
-     * Update the legacy landing config (for dashboard compatibility).
-     */
     public function update(Request $request)
     {
         $config = LandingConfig::first();
@@ -78,9 +69,6 @@ class LandingController extends Controller
         ]);
     }
 
-    /**
-     * Save/update a specific section's JSON content.
-     */
     public function saveSection(Request $request, $key)
     {
         $section = LandingSection::where('key', $key)->first();
@@ -98,9 +86,6 @@ class LandingController extends Controller
         return response()->json(['success' => true, 'section' => $section]);
     }
 
-    /**
-     * Save/update brand and other global key-value settings.
-     */
     public function saveSettings(Request $request)
     {
         $settings = $request->input('settings', []);
@@ -114,9 +99,6 @@ class LandingController extends Controller
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Add or update a landing feature/activity card.
-     */
     public function storeFeature(Request $request)
     {
         $id = $request->input('id');
@@ -137,18 +119,12 @@ class LandingController extends Controller
         return response()->json(['success' => true, 'feature' => $feature]);
     }
 
-    /**
-     * Delete a landing feature.
-     */
     public function destroyFeature($id)
     {
         LandingFeature::destroy($id);
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Add or update a gallery picture.
-     */
     public function storeGallery(Request $request)
     {
         $id = $request->input('id');
@@ -168,18 +144,12 @@ class LandingController extends Controller
         return response()->json(['success' => true, 'gallery_item' => $item]);
     }
 
-    /**
-     * Delete a gallery photo.
-     */
     public function destroyGallery($id)
     {
         GalleryItem::destroy($id);
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Add or update a FAQ question-answer.
-     */
     public function storeFaq(Request $request)
     {
         $id = $request->input('id');
@@ -197,18 +167,12 @@ class LandingController extends Controller
         return response()->json(['success' => true, 'faq' => $faq]);
     }
 
-    /**
-     * Delete a FAQ.
-     */
     public function destroyFaq($id)
     {
         Faq::destroy($id);
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Add or update a social media footer link.
-     */
     public function storeSocialLink(Request $request)
     {
         $id = $request->input('id');
@@ -226,9 +190,6 @@ class LandingController extends Controller
         return response()->json(['success' => true, 'social_link' => $link]);
     }
 
-    /**
-     * Delete a social link.
-     */
     public function destroySocialLink($id)
     {
         SocialLink::destroy($id);

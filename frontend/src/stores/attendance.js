@@ -2,14 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 
 export const useAttendanceStore = defineStore('attendance', () => {
-  const defaultAbsensi = {
-    'Rapat Kerja 04 Mei': {
-      'ahmad@formula.org': 'Hadir',
-      'siti@formula.org': 'Hadir',
-      'andi@formula.org': 'Izin',
-      'laila@formula.org': 'Hadir'
-    }
-  }
+  const defaultAbsensi = {}
 
   const absensi = ref(JSON.parse(localStorage.getItem('formula_absensi')) || defaultAbsensi)
 

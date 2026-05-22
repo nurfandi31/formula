@@ -2,36 +2,9 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 
 export const useActivitiesStore = defineStore('activities', () => {
-  const defaultHasilRapat = [
-    {
-      id: 1,
-      judul: 'Rencana Kerja & Pembagian Divisi Humas',
-      tanggal: '04 Mei',
-      peserta: 18,
-      keputusan: [
-        'Penyusunan jadwal kegiatan bulanan bakti sosial.',
-        'Pembagian penanggung jawab dokumentasi & sosial media.',
-        'Penetapan iuran wajib anggota disepakati Rp 10.000 per iuran.'
-      ]
-    },
-    {
-      id: 2,
-      judul: 'Persiapan Pengadaan Kas & Atribut Anggota',
-      tanggal: '27 Apr',
-      peserta: 15,
-      keputusan: [
-        'Pemesanan kaos seragam FORMULA disepakati warna hijau botol.',
-        'Pendataan ukuran baju wajib diselesaikan maksimal tanggal 10 Mei.',
-        'Alokasi anggaran kas awal disetujui sebesar Rp 500.000.'
-      ]
-    }
-  ]
+  const defaultHasilRapat = []
 
-  const defaultAgendaKegiatan = [
-    { id: 1, judul: 'Bakti Sosial & Kerja Bakti Dusun Ngampon', tanggal: 'Sabtu, 10 Mei 2025', jam: '07:30 - Selesai', lokasi: 'Balai Dusun Ngampon', kategori: 'Sosial', warna: 'emerald' },
-    { id: 2, judul: 'Rapat Rutin Pengurus Harian FORMULA', tanggal: 'Minggu, 11 Mei 2025', jam: '19:30 - Selesai', lokasi: 'Rumah Ketua Fauzi', kategori: 'Rapat', warna: 'teal' },
-    { id: 3, judul: 'Latihan Futsal Bersama Antar RT Dusun', tanggal: 'Selasa, 13 Mei 2025', jam: '16:00 - 18:00', lokasi: 'Ngampon Sport Center', kategori: 'Olahraga', warna: 'emerald' }
-  ]
+  const defaultAgendaKegiatan = []
 
   const hasilRapat = ref(JSON.parse(localStorage.getItem('formula_hasil_rapat')) || defaultHasilRapat)
   const agendaKegiatan = ref(JSON.parse(localStorage.getItem('formula_agenda_kegiatan')) || defaultAgendaKegiatan)

@@ -3,50 +3,7 @@ import { ref, watch } from 'vue'
 import { useFeedStore } from './feed'
 
 export const useAuthStore = defineStore('auth', () => {
-  const defaultUsers = {
-    'admin@gmail.com': {
-      email: 'admin@gmail.com',
-      role: 'admin',
-      name: 'Fandi Ahmad',
-      nickname: 'Fandi',
-      title: 'Ketua Umum',
-      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
-      age: '25 Tahun',
-      hobby: 'Organisasi & Teknologi',
-      quote: 'Keep the system clean and performant.',
-      education: 'S1 Ilmu Komputer',
-      instagram: '@fandi_ngampon',
-      joinedSince: '2021'
-    },
-    'adit@formula.org': {
-      email: 'adit@formula.org',
-      role: 'anggota',
-      name: 'Aditya Pratama',
-      nickname: 'Aditya',
-      title: 'Sekretaris I',
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
-      age: '22 Tahun',
-      hobby: 'Membaca',
-      quote: 'Tertib administrasi untuk kesuksesan bersama.',
-      education: 'D3 Administrasi',
-      instagram: '@aditya_ngampon',
-      joinedSince: '2023'
-    },
-    'rina@formula.org': {
-      email: 'rina@formula.org',
-      role: 'anggota',
-      name: 'Rina Amalia',
-      nickname: 'Rina',
-      title: 'Bendahara Umum',
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina',
-      age: '23 Tahun',
-      hobby: 'Memasak',
-      quote: 'Transparansi keuangan adalah kunci kepercayaan.',
-      education: 'S1 Akuntansi',
-      instagram: '@rina_ngampon',
-      joinedSince: '2022'
-    }
-  }
+  const defaultUsers = {}
 
   const users = ref(defaultUsers)
   const currentUser = ref(JSON.parse(localStorage.getItem('formula_current_user')) || null)

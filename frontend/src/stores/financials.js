@@ -29,7 +29,6 @@ export const useFinancialsStore = defineStore('financials', () => {
           type: item.type,
           tanggal: item.tanggal
         }))
-        // Automatically sync yearly reports in tandem
         await fetchYearlyReports()
       }
     } catch (e) {}
