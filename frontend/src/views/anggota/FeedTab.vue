@@ -25,8 +25,89 @@ const permitReason = ref('')
 const permitFileName = ref('')
 const permitFilePreview = ref('')
 
-const correctPin = '1234' // Default youth organizer PIN
 const checkInError = ref('')
+
+const checkInMethod = ref('pin')
+const qrScannerActive = ref(false)
+let html5QrScanner = null
+
+const startQrScanner = async () => {
+  checkInMethod.value = 'qr'
+  qrScannerActive.value = true
+  checkInError.value = ''
+  
+  try {
+    const Html5Qrcode = await loadHtml5Qrcode()
+    
+    if (html5QrScanner) {
+      try {
+        await html5QrScanner.stop()
+      } catch (e) {}
+    }
+    
+    setTimeout(() => {
+      html5QrScanner = new Html5Qrcode("qr-reader")
+      const config = { fps: 10, qrbox: { width: 220, height: 220 } }
+      
+      html5QrScanner.start(
+        { facingMode: "environment" },
+        config,
+        async (decodedText) => {
+          if (decodedText.startsWith('FORMULA_ABSENSI:')) {
+            const parts = decodedText.split(':')
+            const activityTitle = parts[1]
+            const pin = parts[2]
+            
+            activeAttendanceActivity.value = activityTitle
+            inputPin.value = pin
+            
+            await stopQrScanner()
+            submitCheckIn()
+          } else {
+            checkInError.value = 'QR Code tidak valid untuk absensi FORMULA.'
+          }
+        },
+        (errorMessage) => {}
+      ).catch((err) => {
+        checkInError.value = 'Gagal mengakses kamera. Pastikan izin kamera aktif.'
+      })
+    }, 100)
+    
+  } catch (e) {
+    checkInError.value = 'Gagal memuat library scanner QR.'
+  }
+}
+
+const stopQrScanner = async () => {
+  qrScannerActive.value = false
+  if (html5QrScanner) {
+    try {
+      await html5QrScanner.stop()
+    } catch (e) {}
+    html5QrScanner = null
+  }
+}
+
+const loadHtml5Qrcode = () => {
+  return new Promise((resolve, reject) => {
+    if (window.Html5Qrcode) {
+      resolve(window.Html5Qrcode)
+      return
+    }
+    const script = document.createElement('script')
+    script.src = 'https://unpkg.com/html5-qrcode'
+    script.onload = () => resolve(window.Html5Qrcode)
+    script.onerror = reject
+    document.head.appendChild(script)
+  })
+}
+
+watch(isCheckingIn, (val) => {
+  if (!val) {
+    stopQrScanner()
+    checkInMethod.value = 'pin'
+  }
+})
 
 const activitiesList = computed(() => {
   const list = []
@@ -101,7 +182,17 @@ const detectGps = () => {
 
 const submitCheckIn = async () => {
   checkInError.value = ''
-  if (inputPin.value !== correctPin) {
+  
+  // Find selected activity passcode
+  const activityTitle = activeAttendanceActivity.value
+  let targetActivity = socialStore.agendaKegiatan?.find(a => a.judul === activityTitle)
+  if (!targetActivity) {
+    targetActivity = socialStore.hasilRapat?.find(r => r.judul === activityTitle)
+  }
+  
+  const expectedPin = targetActivity?.passcode || '1234'
+  
+  if (inputPin.value !== expectedPin) {
     checkInError.value = 'PIN Absensi salah! Silakan tanyakan ke Admin.'
     return
   }
@@ -394,25 +485,61 @@ const shareWidget = (label) => {
             </button>
           </div>
 
-          <!-- PIN Input -->
-          <div class="space-y-1.5">
-            <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Masukkan PIN Rapat / Agenda (Tanyakan Pengurus)</label>
-            <input 
-              v-model="inputPin" 
-              type="text" 
-              placeholder="PIN 4-Digit (e.g. 1234)" 
-              maxlength="4" 
-              class="w-full px-4 py-3 bg-slate-950 border border-slate-850 rounded-xl text-center text-xs font-mono font-black text-white focus:outline-hidden focus:ring-1 focus:ring-emerald-500 tracking-widest"
+          <!-- Pilihan Metode Check-In -->
+          <div class="grid grid-cols-2 gap-2 p-1 bg-slate-950/80 border border-slate-900 rounded-xl">
+            <button 
+              @click="stopQrScanner(); checkInMethod = 'pin'" 
+              type="button"
+              :class="['py-2 text-center rounded-lg text-[9px] font-black uppercase tracking-widest transition-all cursor-pointer', checkInMethod === 'pin' ? 'bg-slate-900 text-emerald-400 border border-slate-800' : 'text-slate-500']"
             >
+              🔑 Input PIN
+            </button>
+            <button 
+              @click="startQrScanner" 
+              type="button"
+              :class="['py-2 text-center rounded-lg text-[9px] font-black uppercase tracking-widest transition-all cursor-pointer', checkInMethod === 'qr' ? 'bg-slate-900 text-emerald-400 border border-slate-800' : 'text-slate-500']"
+            >
+              📷 Scan QR Code
+            </button>
           </div>
 
-          <p v-if="checkInError" class="text-[10px] text-rose-500 font-bold text-center uppercase tracking-wider">
-            ⚠️ {{ checkInError }}
-          </p>
+          <!-- PIN Input -->
+          <div v-if="checkInMethod === 'pin'" class="space-y-4">
+            <div class="space-y-1.5">
+              <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Masukkan PIN Rapat / Agenda (Tanyakan Pengurus)</label>
+              <input 
+                v-model="inputPin" 
+                type="text" 
+                placeholder="PIN 4-Digit (e.g. 1234)" 
+                maxlength="4" 
+                class="w-full px-4 py-3 bg-slate-950 border border-slate-850 rounded-xl text-center text-xs font-mono font-black text-white focus:outline-hidden focus:ring-1 focus:ring-emerald-500 tracking-widest"
+              >
+            </div>
 
-          <button @click="submitCheckIn" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
-            Kirim Kehadiran (Hadir)
-          </button>
+            <p v-if="checkInError" class="text-[10px] text-rose-500 font-bold text-center uppercase tracking-wider">
+              ⚠️ {{ checkInError }}
+            </p>
+
+            <button @click="submitCheckIn" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer">
+              Kirim Kehadiran (Hadir)
+            </button>
+          </div>
+
+          <!-- QR Reader Container -->
+          <div v-if="checkInMethod === 'qr'" class="space-y-3">
+            <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest block text-center">Posisikan QR Code Absensi di dalam kamera</label>
+            <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-950 relative w-full aspect-square max-w-64 mx-auto flex items-center justify-center">
+              <div id="qr-reader" class="w-full h-full"></div>
+            </div>
+            
+            <p v-if="checkInError" class="text-[10px] text-rose-500 font-bold text-center uppercase tracking-wider mt-2">
+              ⚠️ {{ checkInError }}
+            </p>
+
+            <button @click="stopQrScanner(); checkInMethod = 'pin'" type="button" class="w-full py-3 bg-slate-900 hover:bg-slate-850 text-slate-400 rounded-xl text-[9px] font-black uppercase tracking-wider border border-slate-850 cursor-pointer">
+              Kembali ke Input PIN
+            </button>
+          </div>
         </div>
 
         <!-- Requesting Permission Panel -->

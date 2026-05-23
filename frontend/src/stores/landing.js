@@ -13,13 +13,25 @@ export const useLandingStore = defineStore('landing', () => {
   const landingSections = ref([])
   const landingFaqs = ref([])
   const landingFeatures = ref([])
-  const landingNavbars = ref([])
+  const landingNavbars = ref(JSON.parse(localStorage.getItem('formula_landing_navbars')) || [])
   const landingTestimonials = ref([])
-  const landingSettings = ref([])
-  const landingSocialLinks = ref([])
+  const landingSettings = ref(JSON.parse(localStorage.getItem('formula_landing_settings')) || [])
+  const landingSocialLinks = ref(JSON.parse(localStorage.getItem('formula_landing_social_links')) || [])
 
   watch(landingConfig, (val) => {
     localStorage.setItem('formula_landing_config', JSON.stringify(val))
+  }, { deep: true })
+
+  watch(landingNavbars, (val) => {
+    localStorage.setItem('formula_landing_navbars', JSON.stringify(val))
+  }, { deep: true })
+
+  watch(landingSettings, (val) => {
+    localStorage.setItem('formula_landing_settings', JSON.stringify(val))
+  }, { deep: true })
+
+  watch(landingSocialLinks, (val) => {
+    localStorage.setItem('formula_landing_social_links', JSON.stringify(val))
   }, { deep: true })
 
   const API_BASE = 'http://localhost:8000/api'

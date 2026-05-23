@@ -18,8 +18,17 @@ class ActivityController extends Controller
             'title' => 'required',
             'date' => 'required',
             'type' => 'required',
-            'decisions' => 'nullable|array'
+            'decisions' => 'nullable|array',
+            'passcode' => 'nullable|string|max:6',
+            'status' => 'nullable|string'
         ]);
+
+        if (empty($data['passcode'])) {
+            $data['passcode'] = strval(rand(1000, 9999));
+        }
+        if (empty($data['status'])) {
+            $data['status'] = 'active';
+        }
 
         $activity = Activity::create($data);
 

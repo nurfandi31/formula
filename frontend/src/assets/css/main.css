@@ -448,36 +448,52 @@ body .p-select-filter {
    Shadow Card System — Border diganti dengan Shadow Aktif
    ========================================================================== */
 
-/* Admin light mode — card shadows */
-.min-h-screen.bg-slate-50 .border.border-slate-200,
-.min-h-screen.bg-slate-50 .border.border-slate-100,
-.min-h-screen.bg-slate-50 .border.border-slate-200\/80,
-.min-h-screen.bg-slate-50 .border.border-slate-100\/80 {
+/* Card Containers (Light Mode & Auth cards) - Excluding inputs/controls */
+.bg-white.border:not(input):not(textarea):not(select):not(button),
+.bg-slate-50\/50.border:not(input):not(textarea):not(select):not(button),
+.border.rounded-2xl:not(input):not(textarea):not(select):not(button),
+.border.rounded-xl:not(input):not(textarea):not(select):not(button),
+.border.rounded-3xl:not(input):not(textarea):not(select):not(button),
+.border.rounded-\[2rem\]:not(input):not(textarea):not(select):not(button) {
   border-color: transparent !important;
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.06),
-    0 4px 16px rgba(0, 0, 0, 0.07),
-    0 8px 32px rgba(0, 0, 0, 0.04) !important;
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    0 16px 36px -4px rgba(0, 0, 0, 0.13),
+    0 8px 16px -4px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Admin cards hover — shadow lebih terang */
-.min-h-screen.bg-slate-50 .border.border-slate-200:hover,
-.min-h-screen.bg-slate-50 .border.border-slate-100:hover {
+/* Card Containers Hover */
+.bg-white.border:not(input):not(textarea):not(select):not(button):hover,
+.border.rounded-2xl:not(input):not(textarea):not(select):not(button):hover,
+.border.rounded-xl:not(input):not(textarea):not(select):not(button):hover,
+.border.rounded-3xl:not(input):not(textarea):not(select):not(button):hover,
+.border.rounded-\[2rem\]:not(input):not(textarea):not(select):not(button):hover {
   box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.07),
-    0 8px 24px rgba(0, 0, 0, 0.10),
-    0 16px 48px rgba(0, 0, 0, 0.05) !important;
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 24px 48px -6px rgba(0, 0, 0, 0.22),
+    0 12px 24px -6px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* Anggota dark mode — card shadows */
-.bg-slate-950 .border.border-slate-900,
-.bg-slate-950 .border.border-slate-800,
-.bg-slate-950 .border.border-slate-850 {
+/* Dark Mode Cards (Anggota view) */
+.bg-slate-900.border:not(input):not(textarea):not(select):not(button),
+.bg-slate-950.border:not(input):not(textarea):not(select):not(button),
+.bg-slate-950 .border.border-slate-900:not(input):not(textarea):not(select):not(button),
+.bg-slate-950 .border.border-slate-800:not(input):not(textarea):not(select):not(button),
+.bg-slate-950 .border.border-slate-850:not(input):not(textarea):not(select):not(button) {
   border-color: transparent !important;
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.3),
-    0 4px 16px rgba(0, 0, 0, 0.25),
-    0 8px 32px rgba(0, 0, 0, 0.15) !important;
+    0 2px 10px rgba(0, 0, 0, 0.45),
+    0 20px 48px -4px rgba(0, 0, 0, 0.65),
+    0 10px 20px -4px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Dark Mode Card Hovers */
+.bg-slate-900.border:not(input):not(textarea):not(select):not(button):hover,
+.bg-slate-950.border:not(input):not(textarea):not(select):not(button):hover {
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.55),
+    0 32px 64px -4px rgba(0, 0, 0, 0.8),
+    0 16px 32px -4px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* Toast notification — shadow juga */

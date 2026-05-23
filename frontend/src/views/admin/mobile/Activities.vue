@@ -8,6 +8,19 @@ import Swal from 'sweetalert2'
 const socialStore = useSocialStore()
 const activeTab = ref('agenda')
 
+const selectedActivityForQr = ref(null)
+const isQrModalOpen = ref(false)
+
+const openQrModal = (activity) => {
+  selectedActivityForQr.value = activity
+  isQrModalOpen.value = true
+}
+
+const closeQrModal = () => {
+  isQrModalOpen.value = false
+  selectedActivityForQr.value = null
+}
+
 const agendaJudul = ref('')
 const agendaTanggal = ref(null)
 const agendaJam = ref('')
@@ -137,7 +150,7 @@ const deleteRapat = (id) => {
 </script>
 
 <template>
-  <div class="space-y-6">
+  <div class="space-y-4">
     <div class="p-1 bg-slate-200/60 rounded-2xl flex">
       <button 
         @click="activeTab = 'agenda'"
@@ -154,7 +167,7 @@ const deleteRapat = (id) => {
     </div>
 
     <div v-if="activeTab === 'agenda'" class="space-y-4">
-      <button @click="isAddAgendaOpen = true" class="w-full py-4 bg-emerald-600 active:bg-emerald-700 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-md flex items-center justify-center gap-2">
+      <button @click="isAddAgendaOpen = true" class="w-full py-3 bg-emerald-600 active:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-md flex items-center justify-center gap-2">
         <font-awesome-icon icon="plus" /> Buat Agenda Baru
       </button>
 
@@ -162,16 +175,21 @@ const deleteRapat = (id) => {
         <div 
           v-for="agenda in socialStore.agendaKegiatan" 
           :key="agenda.id"
-          class="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between gap-4 shadow-xs"
+          class="bg-white border border-slate-200/80 rounded-2xl p-3.5 flex flex-col justify-between gap-3 shadow-xs"
         >
           <div class="flex justify-between items-start gap-4">
             <div class="space-y-1">
               <h4 class="text-xs font-black text-slate-800 leading-snug uppercase">{{ agenda.judul }}</h4>
               <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{{ agenda.kategori || 'Umum' }}</p>
             </div>
-            <button @click="deleteAgenda(agenda.id)" class="w-7 h-7 bg-rose-50 text-rose-600 rounded-lg flex items-center justify-center">
-              <font-awesome-icon icon="trash" class="text-[10px]" />
-            </button>
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <button @click="openQrModal(agenda)" class="w-7 h-7 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center">
+                <font-awesome-icon icon="qrcode" class="text-[10px]" />
+              </button>
+              <button @click="deleteAgenda(agenda.id)" class="w-7 h-7 bg-rose-50 text-rose-600 rounded-lg flex items-center justify-center">
+                <font-awesome-icon icon="trash" class="text-[10px]" />
+              </button>
+            </div>
           </div>
 
           <div class="grid grid-cols-2 gap-2 pt-3 border-t border-slate-100 text-[9px] text-slate-500 font-semibold uppercase tracking-wider">
@@ -180,6 +198,9 @@ const deleteRapat = (id) => {
             </div>
             <div class="flex items-center gap-1.5">
               <span>🕐</span> <span>{{ agenda.jam || '08:00' }}</span>
+            </div>
+            <div class="flex items-center gap-1.5 col-span-2 mt-1.5 pt-1.5 border-t border-dashed border-slate-100">
+              <span>🔑 PIN:</span> <span class="font-mono font-black text-slate-800 text-[10px]">{{ agenda.passcode || '1234' }}</span>
             </div>
           </div>
         </div>
@@ -191,7 +212,7 @@ const deleteRapat = (id) => {
     </div>
 
     <div v-if="activeTab === 'rapat'" class="space-y-4">
-      <button @click="isAddRapatOpen = true" class="w-full py-4 bg-teal-600 active:bg-teal-700 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-md flex items-center justify-center gap-2">
+      <button @click="isAddRapatOpen = true" class="w-full py-3 bg-teal-600 active:bg-teal-700 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-md flex items-center justify-center gap-2">
         <font-awesome-icon icon="plus" /> Input Hasil Rapat
       </button>
 
@@ -199,19 +220,25 @@ const deleteRapat = (id) => {
         <div 
           v-for="rapat in socialStore.hasilRapat" 
           :key="rapat.id"
-          class="bg-white border border-slate-200/80 rounded-2xl p-5 flex flex-col gap-4 shadow-xs"
+          class="bg-white border border-slate-200/80 rounded-2xl p-3.5 flex flex-col gap-3 shadow-xs"
         >
           <div class="flex justify-between items-start gap-4">
             <div class="space-y-1">
               <h4 class="text-xs font-black text-slate-800 leading-snug uppercase">{{ rapat.judul }}</h4>
-              <div class="flex gap-3 text-[8px] text-slate-400 font-bold uppercase tracking-wider mt-1">
+              <div class="flex flex-wrap gap-x-3 gap-y-1 text-[8px] text-slate-400 font-bold uppercase tracking-wider mt-1">
                 <span>📅 {{ rapat.tanggal }}</span>
                 <span>👥 {{ rapat.peserta || 15 }} Peserta</span>
+                <span class="text-slate-500 flex items-center gap-0.5">🔑 PIN: <strong class="text-slate-700 font-black font-mono">{{ rapat.passcode || '1234' }}</strong></span>
               </div>
             </div>
-            <button @click="deleteRapat(rapat.id)" class="w-7 h-7 bg-rose-50 text-rose-600 rounded-lg flex items-center justify-center mt-0.5">
-              <font-awesome-icon icon="trash" class="text-[10px]" />
-            </button>
+            <div class="flex items-center gap-1.5 flex-shrink-0 mt-0.5">
+              <button @click="openQrModal(rapat)" class="w-7 h-7 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center">
+                <font-awesome-icon icon="qrcode" class="text-[10px]" />
+              </button>
+              <button @click="deleteRapat(rapat.id)" class="w-7 h-7 bg-rose-50 text-rose-600 rounded-lg flex items-center justify-center">
+                <font-awesome-icon icon="trash" class="text-[10px]" />
+              </button>
+            </div>
           </div>
 
           <div class="pt-3 border-t border-slate-100">
@@ -325,6 +352,38 @@ const deleteRapat = (id) => {
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal QR Code -->
+  <div v-if="isQrModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div class="bg-white border border-slate-200/80 rounded-2xl p-6 max-w-sm w-full shadow-2xl relative flex flex-col items-center">
+      <button @click="closeQrModal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-650 cursor-pointer">
+        <font-awesome-icon icon="times" />
+      </button>
+      
+      <div class="text-center w-full mb-4">
+        <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest leading-tight">QR Code Absensi Mandiri</h4>
+        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1">{{ selectedActivityForQr?.judul }}</p>
+      </div>
+
+      <!-- QR Code Image -->
+      <div class="bg-slate-50 p-4 border border-slate-100 rounded-xl flex items-center justify-center shadow-inner mb-4">
+        <img 
+          :src="`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=FORMULA_ABSENSI:${selectedActivityForQr?.judul}:${selectedActivityForQr?.passcode || '1234'}`" 
+          alt="QR Code Absensi" 
+          class="w-48 h-48"
+        />
+      </div>
+
+      <div class="text-center bg-slate-100 border border-slate-200 rounded-xl px-4 py-2 w-full mb-5">
+        <span class="text-[10px] text-slate-500 font-black uppercase tracking-wider block">PIN Kegiatan</span>
+        <strong class="text-lg font-mono font-black text-emerald-600 tracking-widest">{{ selectedActivityForQr?.passcode || '1234' }}</strong>
+      </div>
+
+      <button @click="closeQrModal" class="w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-black text-xs uppercase tracking-widest cursor-pointer transition-all active:scale-95">
+        Tutup
+      </button>
     </div>
   </div>
 </template>

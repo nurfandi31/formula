@@ -3,9 +3,47 @@ import { ref, watch } from 'vue'
 import { useAuthStore } from './auth'
 
 export const useFeedStore = defineStore('feed', () => {
-  const defaultPosts = []
+  const defaultPosts = [
+    {
+      id: 1,
+      user: 'Fandi Ahmad',
+      role: 'Ketua Umum',
+      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
+      image: '/formula_youth_landing_hero_1777344117635.png',
+      caption: 'Alhamdulillah rapat koordinasi kepengurusan FORMULA Generasi 18 berjalan lancar dan penuh semangat! Kita bahas program kerja Ramadhan, bakti sosial, dan digitalisasi dusun. Semangat terus pemuda Ngampon! 🌿',
+      likes: 47,
+      hasLiked: false,
+      commentsList: [
+        { user: 'Aditya Pratama', text: 'Siap ketua! Kita gaspol bareng 💪' },
+        { user: 'Rina Amalia', text: 'Semangat FORMULA! Generasi 18 terbaik 🌟' }
+      ],
+      showComments: false,
+      newCommentText: '',
+      time: '2 jam lalu'
+    },
+    {
+      id: 2,
+      user: 'Aditya Pratama',
+      role: 'Sekretaris I',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
+      image: '/ngampon_village_vibes_1777344139732.png',
+      caption: 'Pagi yang indah di Dusun Ngampon 🌅 Udara segar, tetangga ramah, dan semangat gotong royong yang tak pernah pudar. Ini yang bikin kita bangga jadi bagian dari FORMULA Ngampon!',
+      likes: 32,
+      hasLiked: false,
+      commentsList: [
+        { user: 'Fandi Ahmad', text: 'Indah banget desanya, masya Allah!' }
+      ],
+      showComments: false,
+      newCommentText: '',
+      time: '5 jam lalu'
+    }
+  ]
 
-  const defaultStories = []
+  const defaultStories = [
+    { id: 1, name: 'Fandi', image: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin' },
+    { id: 2, name: 'Aditya', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya' },
+    { id: 3, name: 'Rina', image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina' }
+  ]
 
   const defaultMessages = {}
 

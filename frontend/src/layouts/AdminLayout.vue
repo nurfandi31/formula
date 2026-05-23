@@ -29,7 +29,7 @@ const isMobileOpen = ref(false)
         class="flex-shrink-0"
       />
 
-      <div class="flex-1 overflow-y-auto px-6 py-8 flex flex-col justify-between">
+      <div class="flex-1 overflow-y-auto px-6 py-6 flex flex-col justify-between">
         <div>
           <slot />
         </div>

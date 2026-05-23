@@ -30,6 +30,18 @@ const router = createRouter({
       meta: { requiresAuth: true, role: 'admin' }
     },
     {
+      path: '/admin/basis-data/registrasi',
+      name: 'admin-registrasi-anggota',
+      component: () => import('../views/admin/RegistrasiAnggotaView.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
+      path: '/admin/basis-data/daftar',
+      name: 'admin-daftar-anggota',
+      component: () => import('../views/admin/DaftarAnggotaView.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
       path: '/admin/keuangan',
       name: 'admin-keuangan',
       component: () => import('../views/admin/FinancialsView.vue'),

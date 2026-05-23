@@ -105,6 +105,8 @@ const filteredTransactions = computed(() => {
   return list.slice(0, perPage.value)
 })
 
+const isSavingBalance = ref(false)
+
 const addTransaction = async () => {
   if (!transactionLabel.value.trim() || !transactionNominal.value) {
     Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Silakan isi keterangan dan nominal transaksi!', confirmButtonColor: '#10b981' })
@@ -156,6 +158,38 @@ const deleteTransaction = (index) => {
 const formatRupiah = (val) => {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(val)
 }
+
+const rekapSaldo = async () => {
+  isSavingBalance.value = true
+  
+  const labelTx = `Rekapitulasi Saldo Kas (Otomatis)`
+  const nominalAdjust = 0
+  const typeTx = 'pemasukan'
+  
+  const now = new Date()
+  const dateStr = `${now.getDate()} ${now.toLocaleString('id-ID', { month: 'short' })} ${now.getFullYear()}`
+
+  setTimeout(async () => {
+    const res = await socialStore.addKasTransaction(
+      labelTx,
+      nominalAdjust,
+      typeTx,
+      dateStr
+    )
+
+    isSavingBalance.value = false
+
+    if (res.success) {
+      Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Rekapitulasi saldo kas berhasil di-generate! 💰', timer: 2000, showConfirmButton: false })
+    } else {
+      Swal.fire({ icon: 'error', title: 'Gagal', text: 'Gagal melakukan rekapitulasi saldo!', confirmButtonColor: '#10b981' })
+    }
+  }, 1000)
+}
+
+onMounted(async () => {
+  await socialStore.fetchKasData()
+})
 </script>
 
 <template>
@@ -168,15 +202,20 @@ const formatRupiah = (val) => {
         <h2 class="text-3xl font-black mt-1 text-emerald-400">{{ formatRupiah(socialStore.kasData.saldo) }}</h2>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-800/80">
-        <div>
-          <span class="text-[8px] font-black uppercase tracking-wider text-slate-500 block">Pemasukan</span>
-          <span class="text-sm font-black text-emerald-500 mt-1 block">{{ formatRupiah(socialStore.kasData.pemasukan) }}</span>
+      <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+        <div class="grid grid-cols-2 gap-4 flex-grow">
+          <div>
+            <span class="text-[8px] font-black uppercase tracking-wider text-slate-500 block">Pemasukan</span>
+            <span class="text-sm font-black text-emerald-500 mt-1 block">{{ formatRupiah(socialStore.kasData.pemasukan) }}</span>
+          </div>
+          <div>
+            <span class="text-[8px] font-black uppercase tracking-wider text-slate-500 block">Pengeluaran</span>
+            <span class="text-sm font-black text-rose-500 mt-1 block">{{ formatRupiah(socialStore.kasData.pengeluaran) }}</span>
+          </div>
         </div>
-        <div>
-          <span class="text-[8px] font-black uppercase tracking-wider text-slate-500 block">Pengeluaran</span>
-          <span class="text-sm font-black text-rose-500 mt-1 block">{{ formatRupiah(socialStore.kasData.pengeluaran) }}</span>
-        </div>
+        <button @click="rekapSaldo" class="ml-4 py-2 px-3 bg-white/10 hover:bg-white/20 active:scale-95 transition-all text-white border border-white/15 rounded-xl text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5 cursor-pointer">
+          <font-awesome-icon icon="save" /> Rekap
+        </button>
       </div>
     </div>
 
@@ -327,6 +366,24 @@ const formatRupiah = (val) => {
         <div class="p-5 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-[8px] font-black uppercase text-slate-500">
           <span>{{ filteredTransactions.length }} Catatan</span>
           <button @click="closeHistoryModal" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold">Tutup</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fullscreen Blurred Loading Overlay for Rekap Saldo (Notification Style) -->
+    <div v-if="isSavingBalance" class="fixed inset-0 bg-slate-950/30 backdrop-blur-md z-50 flex items-center justify-center p-5 animate-in fade-in duration-300">
+      <div class="bg-white/95 border border-slate-200/60 rounded-3xl p-6 max-w-[280px] w-full shadow-2xl flex flex-col items-center text-center space-y-4 backdrop-blur-xl animate-in zoom-in-95 duration-300">
+        <div class="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-inner">
+          <div class="animate-spin rounded-full h-6 w-6 border-2 border-emerald-500 border-t-transparent"></div>
+        </div>
+        <div class="space-y-1.5">
+          <h3 class="text-xs font-black uppercase tracking-wider text-slate-800">Rekapitulasi Saldo</h3>
+          <p class="text-[9px] text-slate-500 leading-relaxed">
+            Menyinkronkan seluruh riwayat kas, menghitung ulang mutasi dana masuk & keluar, serta memperbarui akumulasi laporan tahunan agar balance.
+          </p>
+        </div>
+        <div class="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
+          <div class="bg-emerald-500 h-full w-2/3 animate-[pulse_1.5s_infinite] rounded-full"></div>
         </div>
       </div>
     </div>

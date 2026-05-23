@@ -152,6 +152,7 @@ const printAttendance = () => {
             filter 
             filterPlaceholder="Cari kegiatan..." 
             class="w-72 text-xs rounded-md" 
+            inputClass="!text-xs"
           />
           <button 
             @click="printAttendance" 
@@ -329,3 +330,12 @@ const printAttendance = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+:deep(.p-select-label),
+:deep(.p-select-option),
+:deep(.p-select-filter),
+:deep(.p-select-filter-input) {
+  font-size: 12px !important;
+}
+</style>

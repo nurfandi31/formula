@@ -32,46 +32,7 @@ const closeRegisterModal = () => {
 }
 
 const handleRegisterSuccess = (data) => {
-  handleToast(`Selamat bergabung, ${data.name}! Pendaftaran Anda berhasil dikirim. Pengurus akan menghubungi Anda via WhatsApp. 🌿`)
-}
-
-const memberProfiles = {
-  'fandi': {
-    name: 'Fandi Ahmad',
-    nickname: 'Fandi',
-    role: 'Ketua Umum',
-    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=admin',
-    age: '25 Tahun',
-    hobby: 'Organisasi & Teknologi',
-    quote: 'Keep the system clean and performant.',
-    education: 'S1 Ilmu Komputer',
-    instagram: '@fandi_ngampon',
-    joinedSince: '2021'
-  },
-  'aditya': {
-    name: 'Aditya Pratama',
-    nickname: 'Aditya',
-    role: 'Sekretaris I',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aditya',
-    age: '22 Tahun',
-    hobby: 'Membaca',
-    quote: 'Tertib administrasi untuk kesuksesan bersama.',
-    education: 'D3 Administrasi',
-    instagram: '@aditya_ngampon',
-    joinedSince: '2023'
-  },
-  'rina': {
-    name: 'Rina Amalia',
-    nickname: 'Rina',
-    role: 'Bendahara Umum',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rina',
-    age: '23 Tahun',
-    hobby: 'Memasak',
-    quote: 'Transparansi keuangan adalah kunci kepercayaan.',
-    education: 'S1 Akuntansi',
-    instagram: '@rina_ngampon',
-    joinedSince: '2022'
-  }
+  handleToast(`Selamat bergabung, ${data.name}! Pendaftaran berhasil dikirim. Pengurus akan menghubungi via WhatsApp. 🌿`)
 }
 
 const openGalleryModal = (item) => {
@@ -88,7 +49,7 @@ const openMemberProfile = (nameOrPost) => {
   let name = ''
   let avatar = '/member_portrait_1_1777344189794.png'
   let role = 'Anggota FORMULA'
-  
+
   if (typeof nameOrPost === 'string') {
     name = nameOrPost
   } else if (nameOrPost && nameOrPost.user) {
@@ -98,11 +59,9 @@ const openMemberProfile = (nameOrPost) => {
   }
 
   const firstWord = name.split(' ')[0].toLowerCase()
-
-  // Dynamic lookup in socialStore.users
-  const foundUser = Object.values(socialStore.users).find(u => 
-    u.name.toLowerCase() === name.toLowerCase() || 
-    u.nickname.toLowerCase() === firstWord
+  const foundUser = Object.values(socialStore.users).find(u =>
+    u.name.toLowerCase() === name.toLowerCase() ||
+    u.nickname?.toLowerCase() === firstWord
   )
 
   if (foundUser) {
@@ -120,10 +79,10 @@ const openMemberProfile = (nameOrPost) => {
     }
   } else {
     activeMemberProfile.value = {
-      name: name,
+      name,
       nickname: name.split(' ')[0],
-      role: role,
-      avatar: avatar,
+      role,
+      avatar,
       age: '22 Tahun',
       hobby: 'Organisasi & Musik',
       quote: 'Bersama FORMULA, berkontribusi aktif melahirkan kegunaan konkret bagi dusun tercinta.',
@@ -143,9 +102,7 @@ const closeMemberProfile = () => {
 const handleToast = (message) => {
   toastMessage.value = message
   showToast.value = true
-  setTimeout(() => {
-    showToast.value = false
-  }, 3000)
+  setTimeout(() => { showToast.value = false }, 4000)
 }
 </script>
 
@@ -153,105 +110,66 @@ const handleToast = (message) => {
   <LandingLayout>
     <HeroSection @open-profile="openMemberProfile" @open-register="openRegisterModal" />
 
-    <div class="bg-white py-4">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        <div class="h-[2px] w-full bg-linear-to-r from-transparent via-emerald-200/50 to-transparent relative flex justify-center">
-          <div class="absolute -top-3.5 px-4 py-1.5 bg-emerald-50 border border-emerald-100/50 rounded-full text-[9px] font-black text-emerald-700 uppercase tracking-[0.2em] shadow-md flex items-center gap-1.5">
-            <span>🌿</span> TENTANG KAMI
-          </div>
-        </div>
-      </div>
-    </div>
-
     <AboutSection />
-
-    <div class="bg-white py-4">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        <div class="h-[2px] w-full bg-linear-to-r from-transparent via-emerald-200/50 to-transparent relative flex justify-center">
-          <div class="absolute -top-3.5 px-4 py-1.5 bg-emerald-50 border border-emerald-100/50 rounded-full text-[9px] font-black text-emerald-700 uppercase tracking-[0.2em] shadow-md flex items-center gap-1.5">
-            <span>📜</span> SEJARAH & SILSILAH
-          </div>
-        </div>
-      </div>
-    </div>
-
     <SejarahSection />
-
-    <div class="bg-white py-4">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        <div class="h-[2px] w-full bg-linear-to-r from-transparent via-emerald-200/50 to-transparent relative flex justify-center">
-          <div class="absolute -top-3.5 px-4 py-1.5 bg-emerald-50 border border-emerald-100/50 rounded-full text-[9px] font-black text-emerald-700 uppercase tracking-[0.2em] shadow-md flex items-center gap-1.5">
-            <span>⚡</span> KEGIATAN KAMI
-          </div>
-        </div>
-      </div>
-    </div>
-
     <KegiatanSection />
-
-    <div class="bg-white py-4">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        <div class="h-[2px] w-full bg-linear-to-r from-transparent via-emerald-200/50 to-transparent relative flex justify-center">
-          <div class="absolute -top-3.5 px-4 py-1.5 bg-emerald-50 border border-emerald-100/50 rounded-full text-[9px] font-black text-emerald-700 uppercase tracking-[0.2em] shadow-md flex items-center gap-1.5">
-            <span>📸</span> DOKUMENTASI & LANSA
-          </div>
-        </div>
-      </div>
-    </div>
-
     <GaleriSection @open-gallery="openGalleryModal" />
-
-    <div class="bg-white py-4">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        <div class="h-[2px] w-full bg-linear-to-r from-transparent via-emerald-200/50 to-transparent relative flex justify-center">
-          <div class="absolute -top-3.5 px-4 py-1.5 bg-emerald-50 border border-emerald-100/50 rounded-full text-[9px] font-black text-emerald-700 uppercase tracking-[0.2em] shadow-md flex items-center gap-1.5">
-            <span>💬</span> SOSIAL & FEED
-          </div>
-        </div>
-      </div>
-    </div>
-
     <SosialSection @open-profile="openMemberProfile" @toast="handleToast" />
-
-    <div class="bg-white py-4">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        <div class="h-[2px] w-full bg-linear-to-r from-transparent via-emerald-200/50 to-transparent relative flex justify-center">
-          <div class="absolute -top-3.5 px-4 py-1.5 bg-emerald-50 border border-emerald-100/50 rounded-full text-[9px] font-black text-emerald-700 uppercase tracking-[0.2em] shadow-md flex items-center gap-1.5">
-            <span>🤝</span> ANGGOTA & TIM
-          </div>
-        </div>
-      </div>
-    </div>
-
     <AnggotaSection @open-profile="openMemberProfile" />
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-8 pb-16 sm:pb-32 pt-8 sm:pt-16 bg-white">
-      <div class="relative border border-slate-100/80 rounded-lg overflow-hidden bg-white p-8 sm:p-16 lg:p-24 text-center group shadow-xl shadow-slate-100">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-200 blur-[150px] rounded-full opacity-30 -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-1000"></div>
-        <div class="relative z-10 space-y-6 sm:space-y-10">
-          <h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-tight">Muda, Beriman, <br/><span class="text-emerald-600 italic">Berprestasi.</span></h2>
-          <p class="text-xs sm:text-sm md:text-base lg:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium">
-            Mari bergabung dalam pergerakan pemuda Dusun Ngampon yang lebih cerdas dan berdaya.
-          </p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4 sm:pt-6 w-full">
-            <button @click="openRegisterModal" class="px-6 sm:px-12 py-4 sm:py-5 bg-emerald-600 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-emerald-600/10 hover:scale-105 transition-transform cursor-pointer w-full sm:w-auto">
-              DAFTAR SEKARANG
-            </button>
-            <button class="px-6 sm:px-12 py-4 sm:py-5 bg-white border border-emerald-200 text-emerald-700 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-emerald-50/50 transition-all shadow-sm cursor-pointer w-full sm:w-auto">
-              HUBUNGI KAMI
-            </button>
+    <section class="relative overflow-hidden bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 p-8 sm:p-12 lg:p-20 text-center shadow-2xl shadow-slate-900/40">
+          <div class="absolute top-0 right-0 w-80 h-80 sm:w-[500px] sm:h-[500px] bg-emerald-500/10 blur-[120px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+          <div class="absolute bottom-0 left-0 w-80 h-80 bg-green-500/10 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+
+          <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+          <div class="relative z-10 space-y-6 sm:space-y-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-[10px] sm:text-xs font-black text-emerald-400 uppercase tracking-[0.2em]">Bergabunglah Sekarang</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-white leading-tight">
+              Muda, Beriman,<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">Berprestasi.</span>
+            </h2>
+
+            <p class="text-sm sm:text-base lg:text-lg text-white/60 max-w-xl sm:max-w-2xl mx-auto leading-relaxed font-medium">
+              Mari bergabung dalam pergerakan pemuda Dusun Ngampon yang lebih cerdas, religius, dan berdaya saing secara global.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-2">
+              <button
+                @click="openRegisterModal"
+                class="group relative px-8 sm:px-12 py-4 sm:py-5 bg-emerald-500 hover:bg-emerald-400 text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest shadow-xl shadow-emerald-500/25 hover:-translate-y-0.5 active:scale-95 transition-all overflow-hidden cursor-pointer"
+              >
+                <span class="relative">DAFTAR SEKARANG</span>
+              </button>
+              <button
+                class="px-8 sm:px-12 py-4 sm:py-5 bg-white/10 border border-white/20 hover:bg-white/20 text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer"
+              >
+                HUBUNGI KAMI
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <transition name="fade-slide">
-      <div v-if="showToast" class="fixed bottom-8 right-4 left-4 sm:left-auto sm:right-8 z-50 px-6 py-4 bg-emerald-600 text-white rounded-2xl shadow-2xl shadow-emerald-500/20 flex items-center justify-between gap-4 font-black text-xs uppercase tracking-widest border border-emerald-500/30">
-        <div class="flex items-center gap-3">
-          <span class="flex h-2 w-2 rounded-full bg-white animate-pulse"></span>
-          <span>{{ toastMessage }}</span>
+    <transition name="toast">
+      <div
+        v-if="showToast"
+        class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 sm:max-w-sm z-50 px-5 py-4 bg-slate-900 border border-emerald-500/30 text-white rounded-2xl shadow-2xl shadow-slate-900/40 flex items-start gap-3"
+      >
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0 mt-1"></span>
+        <div class="flex-grow min-w-0">
+          <p class="text-xs sm:text-sm font-bold leading-relaxed">{{ toastMessage }}</p>
         </div>
-        <button @click="showToast = false" class="text-white hover:text-emerald-200 transition-colors cursor-pointer text-[10px] font-bold">TUTUP</button>
+        <button @click="showToast = false" class="text-white/40 hover:text-white transition-colors cursor-pointer flex-shrink-0 ml-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
       </div>
     </transition>
 
@@ -260,3 +178,10 @@ const handleToast = (message) => {
     <RegisterModal :is-open="isRegisterOpen" @close="closeRegisterModal" @submit-success="handleRegisterSuccess" />
   </LandingLayout>
 </template>
+
+<style scoped>
+.toast-enter-active { transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.toast-leave-active { transition: all 0.2s ease-in; }
+.toast-enter-from { opacity: 0; transform: translateY(20px) scale(0.95); }
+.toast-leave-to { opacity: 0; transform: translateY(10px); }
+</style>

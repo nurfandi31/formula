@@ -28,7 +28,8 @@ export const useActivitiesStore = defineStore('activities', () => {
           id: a.id,
           judul: a.title,
           tanggal: a.date,
-          keputusan: a.decisions || []
+          keputusan: a.decisions || [],
+          passcode: a.passcode
         }))
         agendaKegiatan.value = data.filter(a => a.type === 'agenda').map(a => ({
           id: a.id,
@@ -37,7 +38,8 @@ export const useActivitiesStore = defineStore('activities', () => {
           jam: '08:00 - Selesai',
           lokasi: 'Balai Dusun Ngampon',
           kategori: 'Umum',
-          warna: 'emerald'
+          warna: 'emerald',
+          passcode: a.passcode
         }))
       }
     } catch (e) {}

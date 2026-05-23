@@ -242,8 +242,10 @@ export const useAuthStore = defineStore('auth', () => {
     return { success: false }
   }
 
-  const updateMember = async (id, name, email, title, role = 'anggota') => {
+  const updateMember = async (id, name, email, title, role = null) => {
     try {
+      const existingUser = Object.values(users.value).find(u => u.id === id)
+      const finalRole = role || (existingUser ? existingUser.role : 'anggota')
       const res = await fetch(`${API_BASE}/members/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -251,7 +253,7 @@ export const useAuthStore = defineStore('auth', () => {
           name,
           email,
           title,
-          role
+          role: finalRole
         })
       })
       if (res.ok) {

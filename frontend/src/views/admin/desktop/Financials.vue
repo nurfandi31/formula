@@ -202,6 +202,7 @@ const filteredTransactions = computed(() => {
   return list.slice(0, perPage.value)
 })
 
+const isSavingBalance = ref(false)
 const chartData = ref({})
 const chartOptions = ref({})
 
@@ -220,19 +221,10 @@ const updateChart = () => {
   chartOptions.value = {
     plugins: {
       legend: {
-        position: 'right',
-        labels: {
-          color: '#64748b',
-          font: { 
-            family: 'Inter, sans-serif',
-            weight: 'bold',
-            size: 10
-          },
-          boxWidth: 12,
-          padding: 10
-        }
+        display: false
       }
     },
+    cutout: '72%',
     maintainAspectRatio: false
   }
 }
@@ -309,7 +301,37 @@ const printReport = () => {
   window.print()
 }
 
-onMounted(() => {
+const rekapSaldo = async () => {
+  isSavingBalance.value = true
+  
+  const labelTx = `Rekapitulasi Saldo Kas (Otomatis)`
+  const nominalAdjust = 0
+  const typeTx = 'pemasukan'
+  
+  const now = new Date()
+  const dateStr = `${now.getDate()} ${now.toLocaleString('id-ID', { month: 'short' })} ${now.getFullYear()}`
+
+  setTimeout(async () => {
+    const res = await socialStore.addKasTransaction(
+      labelTx,
+      nominalAdjust,
+      typeTx,
+      dateStr
+    )
+
+    isSavingBalance.value = false
+
+    if (res.success) {
+      updateChart()
+      showToast('Rekapitulasi saldo kas berhasil di-generate! 💰', 'success')
+    } else {
+      showToast('Gagal melakukan rekapitulasi saldo!', 'error')
+    }
+  }, 1000)
+}
+
+onMounted(async () => {
+  await socialStore.fetchKasData()
   updateChart()
 })
 </script>
@@ -327,7 +349,7 @@ onMounted(() => {
             </div>
             <div>
               <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Jenis Transaksi</label>
-              <Select v-model="transactionType" :options="typeOptions" optionLabel="label" optionValue="value" placeholder="Pilih Jenis" filter filterPlaceholder="Cari jenis..." class="w-full text-xs rounded-md" />
+              <Select v-model="transactionType" :options="typeOptions" optionLabel="label" optionValue="value" placeholder="Pilih Jenis" filter filterPlaceholder="Cari jenis..." class="w-full text-xs rounded-md" inputClass="!text-xs" />
             </div>
           </div>
           
@@ -350,24 +372,37 @@ onMounted(() => {
       <div class="bg-white border border-slate-200/70 rounded-2xl p-6 flex flex-col justify-between shadow-xs">
         <div>
           <h3 class="text-xs font-black uppercase tracking-widest text-slate-800 mb-4">Struktur Kas</h3>
-          <div class="w-full flex items-center justify-center py-2">
-            <Chart type="doughnut" :data="chartData" :options="chartOptions" class="w-64 h-36" />
+          <div class="w-full flex items-center justify-center py-2 relative">
+            <Chart type="doughnut" :data="chartData" :options="chartOptions" class="w-64 h-36 relative z-10" />
+            <div class="absolute flex flex-col items-center justify-center text-center pointer-events-none z-0">
+              <span class="text-[8px] font-black uppercase tracking-wider text-slate-400">Total Saldo</span>
+              <span class="text-[11px] font-black text-slate-800 mt-0.5">{{ formatRupiah(socialStore.kasData.saldo) }}</span>
+            </div>
           </div>
         </div>
         
         <div class="mt-6 border-t border-slate-150 pt-4 space-y-2">
-          <div class="flex justify-between text-xs">
-            <span class="text-slate-500">Pemasukan:</span>
+          <div class="flex justify-between text-xs items-center">
+            <span class="text-slate-500 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/20 border border-emerald-500 flex-shrink-0"></span>
+              Pemasukan:
+            </span>
             <span class="text-emerald-600 font-bold">{{ formatRupiah(socialStore.kasData.pemasukan) }}</span>
           </div>
-          <div class="flex justify-between text-xs">
-            <span class="text-slate-500">Pengeluaran:</span>
+          <div class="flex justify-between text-xs items-center">
+            <span class="text-slate-500 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/20 border border-rose-500 flex-shrink-0"></span>
+              Pengeluaran:
+            </span>
             <span class="text-rose-600 font-bold">{{ formatRupiah(socialStore.kasData.pengeluaran) }}</span>
           </div>
-          <div class="flex justify-between text-xs border-t border-slate-150 pt-2 font-bold">
+          <div class="flex justify-between text-xs border-t border-slate-150 pt-2 font-bold items-center">
             <span class="text-slate-650">Saldo Akhir:</span>
             <span class="text-slate-900">{{ formatRupiah(socialStore.kasData.saldo) }}</span>
           </div>
+          <button @click="rekapSaldo" class="mt-4 w-full py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-2xs">
+            <font-awesome-icon icon="save" /> Simpan & Rekap Saldo
+          </button>
         </div>
       </div>
     </div>
@@ -601,5 +636,32 @@ onMounted(() => {
         </div>
       </div>
     </div>
+    
+    <!-- Fullscreen Blurred Loading Overlay for Rekap Saldo (Notification Style) -->
+    <div v-if="isSavingBalance" class="fixed inset-0 bg-slate-950/30 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+      <div class="bg-white/95 border border-slate-200/60 rounded-3xl p-7 max-w-sm w-full shadow-2xl flex flex-col items-center text-center space-y-4 backdrop-blur-xl animate-in zoom-in-95 duration-300">
+        <div class="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-inner">
+          <div class="animate-spin rounded-full h-7 w-7 border-2 border-emerald-500 border-t-transparent"></div>
+        </div>
+        <div class="space-y-1.5">
+          <h3 class="text-sm font-black uppercase tracking-wider text-slate-800">Rekapitulasi Saldo Kas</h3>
+          <p class="text-[10px] text-slate-500 leading-relaxed">
+            Sistem sedang menyinkronkan seluruh riwayat kas, menghitung ulang mutasi dana masuk & keluar, serta memperbarui akumulasi laporan tahunan agar balance sesuai.
+          </p>
+        </div>
+        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+          <div class="bg-emerald-500 h-full w-2/3 animate-[pulse_1.5s_infinite] rounded-full"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+:deep(.p-select-label),
+:deep(.p-select-option),
+:deep(.p-select-filter),
+:deep(.p-select-filter-input) {
+  font-size: 12px !important;
+}
+</style>
