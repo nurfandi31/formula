@@ -7,6 +7,7 @@ use App\Http\Controllers\KasController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\GenerationController;
 
 Route::get('/', function () {
     return response()->json(['message' => 'FORMULA Backend API']);
@@ -46,4 +47,8 @@ Route::prefix('api')->group(function () {
     Route::post('/members', [MemberController::class, 'store']);
     Route::put('/members/{id}', [MemberController::class, 'update']);
     Route::delete('/members/{id}', [MemberController::class, 'destroy']);
+
+    Route::get('/generations', [GenerationController::class, 'index']);
+    Route::post('/generations', [GenerationController::class, 'store']);
+    Route::delete('/generations/{id}', [GenerationController::class, 'destroy']);
 });

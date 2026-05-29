@@ -28,7 +28,9 @@ export const useSocialStore = defineStore('social', () => {
     landingNavbars,
     landingTestimonials,
     landingSettings,
-    landingSocialLinks
+    landingSocialLinks,
+    landingStats,
+    landingGenerations
   } = storeToRefs(landingStore)
 
   landingStore.fetchLandingConfig()
@@ -56,6 +58,8 @@ export const useSocialStore = defineStore('social', () => {
     landingTestimonials,
     landingSettings,
     landingSocialLinks,
+    landingStats,
+    landingGenerations,
     login: authStore.login,
     register: authStore.register,
     logout: authStore.logout,
@@ -89,6 +93,8 @@ export const useSocialStore = defineStore('social', () => {
     deleteFaq: landingStore.deleteFaq,
     saveSocialLink: landingStore.saveSocialLink,
     deleteSocialLink: landingStore.deleteSocialLink,
+    saveGeneration: landingStore.saveGeneration,
+    deleteGeneration: landingStore.deleteGeneration,
     fetchAttendance: attendanceStore.fetchAttendance,
     saveAttendance: attendanceStore.saveAttendance
   }

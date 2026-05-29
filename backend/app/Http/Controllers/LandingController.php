@@ -47,7 +47,12 @@ class LandingController extends Controller
             'testimonials' => $testimonials,
             'gallery' => $gallery,
             'faqs' => $faqs,
-            'social_links' => $socialLinks
+            'social_links' => $socialLinks,
+            'stats' => [
+                'anggota' => \App\Models\User::count(),
+                'generasi' => date('Y') - 2016,
+                'aksi_sosial' => \App\Models\GalleryItem::count()
+            ]
         ]);
     }
 

@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useSocialStore } from '../../stores/social'
 
 const socialStore = useSocialStore()
 
-const activeGenIndex = ref(9)
+const activeGenIndex = ref(0)
 
-const generations = [
+const fallbackGenerations = [
   {
     num: 1, year: '2017', leader: 'M. Yusuf Efendi', secretary: 'Dwi Setyawan', treasurer: 'Agustina Rahayu',
     activeMembers: ['Bambang', 'Wawan', 'Lilis', 'Indah', 'Catur', 'Edi', 'Hendra', 'Nurul'],
@@ -58,6 +58,29 @@ const generations = [
     story: 'Mencapai era puncak sinergitas aktif, meluncurkan portal interaktif FORMULA untuk menyatukan rekam jejak kepemudaan.'
   }
 ]
+
+const generations = computed(() => {
+  const source = (socialStore.landingGenerations && socialStore.landingGenerations.length > 0)
+    ? socialStore.landingGenerations
+    : fallbackGenerations
+  
+  return source.map(g => ({
+    id: g.id,
+    num: g.num,
+    year: g.year,
+    leader: g.leader,
+    secretary: g.secretary,
+    treasurer: g.treasurer,
+    activeMembers: g.active_members || g.activeMembers || [],
+    story: g.story
+  }))
+})
+
+watch(generations, (newGens) => {
+  if (newGens && newGens.length > 0) {
+    activeGenIndex.value = newGens.length - 1
+  }
+}, { immediate: true })
 </script>
 
 <template>

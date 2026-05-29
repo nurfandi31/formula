@@ -14,6 +14,7 @@ use App\Models\Testimonial;
 use App\Models\GalleryItem;
 use App\Models\Faq;
 use App\Models\SocialLink;
+use App\Models\Generation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -236,6 +237,36 @@ class DatabaseSeeder extends Seeder
         ]);
 
         LandingSection::create([
+            'key' => 'highlights',
+            'title' => 'Seksi Highlight Fitur Platform',
+            'subtitle' => 'Keunggulan fitur digital FORMULA',
+            'order_index' => 3,
+            'is_active' => true,
+            'content' => [
+                'section_title' => 'Aksi Nyata & Kiprah Kepemudaan',
+                'section_subtitle' => 'Kami senantiasa berikhtiar menciptakan pergerakan nyata yang membawa manfaat positif secara kontinu bagi segenap warga Dusun Ngampon.',
+                'items' => [
+                    [
+                        'icon' => '💰',
+                        'title' => 'Transparansi Kas',
+                        'desc' => 'Laporan keuangan kas masuk dan keluar di-update secara real-time demi menjaga keterbukaan.'
+                    ],
+                    [
+                        'icon' => '📱',
+                        'title' => 'Presensi QR & PIN',
+                        'desc' => 'Kemudahan melakukan absensi rapat mandiri secara digital tanpa antrean kertas.'
+                    ],
+                    [
+                        'icon' => '🤝',
+                        'title' => 'Kolaborasi Positif',
+                        'desc' => 'Wadah berkumpulnya pemuda Ngampon untuk menggagas aksi kemanusiaan dan bakti sosial.'
+                    ]
+                ]
+            ],
+            'style_configs' => []
+        ]);
+
+        LandingSection::create([
             'key' => 'kas_summary',
             'title' => 'Seksi Transparansi Kas Keuangan',
             'subtitle' => 'Grafik dan ringkasan kas masuk & keluar',
@@ -423,5 +454,73 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://wa.me/628123456789',
             'icon' => 'ri-whatsapp-line'
         ]);
+
+        // 13. Seed Generations (Historical Track Record)
+        $generations = [
+            [
+                'num' => 1, 'year' => '2017', 'leader' => 'M. Yusuf Efendi', 'secretary' => 'Dwi Setyawan', 'treasurer' => 'Agustina Rahayu',
+                'active_members' => ['Bambang', 'Wawan', 'Lilis', 'Indah', 'Catur', 'Edi', 'Hendra', 'Nurul'],
+                'story' => 'Awal mula berdirinya FORMULA dengan merintis pilar kepemudaan sosial serta pembagian kepanitiaan Ramadhan perdana.'
+            ],
+            [
+                'num' => 2, 'year' => '2018', 'leader' => 'Aris Munandar', 'secretary' => 'Novita Sari', 'treasurer' => 'Fajar Shodiq',
+                'active_members' => ['Lukman', 'Fitri', 'Eko', 'Rini', 'Doni', 'Susi', 'Dian', 'Teguh'],
+                'story' => 'Mengembangkan sayap kepemudaan di bidang olahraga dan menginisiasi kegiatan Ngampon Futsal Cup pertama kali.'
+            ],
+            [
+                'num' => 3, 'year' => '2019', 'leader' => 'Tri Utomo', 'secretary' => 'Mega Lestari', 'treasurer' => 'Irfan Hakim',
+                'active_members' => ['Angga', 'Rina', 'Bayu', 'Sari', 'Dewi', 'Rudi', 'Gita', 'Agus'],
+                'story' => 'Fokus meluncurkan program bimbingan belajar mingguan "Ngampon Cerdas" untuk memajukan pendidikan adik-adik dusun.'
+            ],
+            [
+                'num' => 4, 'year' => '2020', 'leader' => 'Heri Prasetyo', 'secretary' => 'Alya Rohali', 'treasurer' => 'Hadi Wijaya',
+                'active_members' => ['Fandi', 'Mila', 'Rizal', 'Putri', 'Toni', 'Nita', 'Yanto', 'Hana'],
+                'story' => 'Menghadapi tantangan pandemi global dengan fokus penuh pada aksi tanggap darurat, sterilisasi dusun, dan bakti sosial.'
+            ],
+            [
+                'num' => 5, 'year' => '2021', 'leader' => 'Bagus Setyawan', 'secretary' => 'Tri Wahyuni', 'treasurer' => 'Aditya Pratama',
+                'active_members' => ['Agung', 'Restu', 'Nanda', 'Dila', 'Sony', 'Rere', 'Dicky', 'Mia'],
+                'story' => 'Membangun kembali program kegiatan Ramadhan secara adaptif dan mulai merintis aset digitalisasi dusun.'
+            ],
+            [
+                'num' => 6, 'year' => '2022', 'leader' => 'Wahyu Nugroho', 'secretary' => 'Intan Permata', 'treasurer' => 'Deny Kurniawan',
+                'active_members' => ['Dodo', 'Lina', 'Yoga', 'Eka', 'Arie', 'Beti', 'Ghani', 'Sonia'],
+                'story' => 'Mendorong modernisasi struktur keorganisasian dengan peluncuran wadah kreatifitas seni budaya rebana hadrah.'
+            ],
+            [
+                'num' => 7, 'year' => '2023', 'leader' => 'Rian Hidayat', 'secretary' => 'Dina Marlina', 'treasurer' => 'Slamet Riyadi',
+                'active_members' => ['Ivan', 'Ayu', 'Rendi', 'Kiki', 'Hana', 'Dodo', 'Gani', 'Yanti'],
+                'story' => 'Menghidupkan kembali kegiatan takbir keliling akbar pasca-pandemi dan festival lomba anak saleh tingkat kecamatan.'
+            ],
+            [
+                'num' => 8, 'year' => '2024', 'leader' => 'Eko Prasetyo', 'secretary' => 'Nanda Lestari', 'treasurer' => 'Farhan Azis',
+                'active_members' => ['Fahri', 'Mila', 'Zidan', 'Novi', 'Ferry', 'Zaskia', 'Wandi', 'Ina'],
+                'story' => 'Sukses besar memperingati milad ke-8 FORMULA dengan menyelenggarakan tabligh akbar mendatangkan mubaligh kondang.'
+            ],
+            [
+                'num' => 9, 'year' => '2025', 'leader' => 'Fajar Ramadhan', 'secretary' => 'Zahra Amelia', 'treasurer' => 'Roni Wijaya',
+                'active_members' => ['Umar', 'Aisyah', 'Hamzah', 'Aulia', 'Thariq', 'Rania', 'Faris', 'Nisa'],
+                'story' => 'Memulai digitalisasi sistem donasi kas pemuda serta memperluas relasi bakti sosial mencakup luar lingkungan dusun.'
+            ],
+            [
+                'num' => 10, 'year' => '2026', 'leader' => 'Fandi Ahmad', 'secretary' => 'Aditya Pratama', 'treasurer' => 'Rina Amalia',
+                'active_members' => ['Muhammad Yusuf', 'Budi Santoso', 'Sari Puspita', 'Zaki Mubarak', 'Heri Prasetyo', 'Wahyu Nugroho', 'Eko Prasetyo'],
+                'story' => 'Mencapai era puncak sinergitas aktif, meluncurkan portal interaktif FORMULA untuk menyatukan rekam jejak kepemudaan.'
+            ]
+        ];
+
+        foreach ($generations as $gen) {
+            Generation::firstOrCreate(
+                ['num' => $gen['num']],
+                [
+                    'year' => $gen['year'],
+                    'leader' => $gen['leader'],
+                    'secretary' => $gen['secretary'],
+                    'treasurer' => $gen['treasurer'],
+                    'active_members' => $gen['active_members'],
+                    'story' => $gen['story'],
+                ]
+            );
+        }
     }
 }

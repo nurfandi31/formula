@@ -15,6 +15,13 @@ const visiText = ref('')
 const misiList = ref([])
 const newMisiInput = ref('')
 
+const aboutDescText = ref('')
+const semboyanText = ref('')
+const valuesList = ref([])
+const newValueEmoji = ref('🌱')
+const newValueTitle = ref('')
+const newValueDesc = ref('')
+
 const brandName = ref('')
 const primaryColor = ref('')
 const secondaryColor = ref('')
@@ -32,11 +39,42 @@ const initConfig = () => {
     }
     visiText.value = parsed.visi || ''
     misiList.value = parsed.misi || []
+    aboutDescText.value = parsed.about_desc || ''
+    semboyanText.value = parsed.semboyan || ''
+    valuesList.value = parsed.values || []
+  } else {
+    aboutDescText.value = 'FORMULA (Forum Muda Mudi Islam Ngampon) adalah organisasi kepemudaan aktif di bidang sosial, religius, edukasi, dan kreatif untuk melahirkan pemuda yang tangguh dan berakhlak.'
+    semboyanText.value = 'Muda, Beriman, Berprestasi — Bersama Membangun Dusun yang Lebih Baik.'
+    visiText.value = 'Terwujudnya pemuda Ngampon yang unggul, agamis, kolaboratif, dan berdampak sosial nyata.'
+    misiList.value = [
+      'Membina keimanan dan kreativitas pemuda secara berkesinambungan.',
+      'Menyelenggarakan bakti sosial kemasyarakatan yang swadaya.',
+      'Mengembangkan transparansi keuangan dan kolaborasi organisasi.'
+    ]
+    valuesList.value = [
+      { emoji: '🌱', title: 'Muda', desc: 'Bersemangat, energik, berani mengambil langkah kreatif, serta tangguh menghadapi tantangan.' },
+      { emoji: '🕌', title: 'Beriman', desc: 'Mendasarkan segala perbuatan dan kegiatan pada ajaran suci agama Islam.' },
+      { emoji: '🏆', title: 'Berprestasi', desc: 'Berkomitmen melahirkan prestasi serta mendatangkan kegunaan konkret bagi dusun.' },
+      { emoji: '🤝', title: 'Sinergitas', desc: 'Melangkah beriringan bersama masyarakat, pengurus RT, serta sesepuh dusun.' }
+    ]
   }
 
   brandName.value = socialStore.landingSettings?.find(s => s.key === 'brand_name')?.value || 'FORMULA'
   primaryColor.value = socialStore.landingSettings?.find(s => s.key === 'primary_color')?.value || '#10b981'
   secondaryColor.value = socialStore.landingSettings?.find(s => s.key === 'secondary_color')?.value || '#047857'
+
+  const highlightSec = socialStore.landingSections?.find(s => s.key === 'highlights')
+  if (highlightSec && highlightSec.content) {
+    let hc = highlightSec.content
+    if (typeof hc === 'string') { try { hc = JSON.parse(hc) } catch (e) { hc = {} } }
+    highlightTitle.value = hc.section_title || 'Aksi Nyata & Kiprah Kepemudaan'
+    highlightSubtitle.value = hc.section_subtitle || ''
+    highlightItems.value = hc.items || defaultHighlightItems()
+  } else {
+    highlightTitle.value = 'Aksi Nyata & Kiprah Kepemudaan'
+    highlightSubtitle.value = 'Kami senantiasa berikhtiar menciptakan pergerakan nyata yang membawa manfaat positif secara kontinu bagi segenap warga Dusun Ngampon.'
+    highlightItems.value = defaultHighlightItems()
+  }
 }
 
 onMounted(() => {
@@ -65,14 +103,77 @@ const removeMisi = (index) => {
   misiList.value.splice(index, 1)
 }
 
+const addValue = () => {
+  if (newValueTitle.value.trim() && newValueDesc.value.trim()) {
+    valuesList.value.push({
+      emoji: newValueEmoji.value,
+      title: newValueTitle.value.trim(),
+      desc: newValueDesc.value.trim()
+    })
+    newValueEmoji.value = '🌱'
+    newValueTitle.value = ''
+    newValueDesc.value = ''
+  }
+}
+
+const removeValue = (index) => {
+  valuesList.value.splice(index, 1)
+}
+
+// --- Highlights Section ---
+const defaultHighlightItems = () => [
+  { icon: '💰', title: 'Transparansi Kas', desc: 'Laporan keuangan kas masuk dan keluar di-update secara real-time demi menjaga keterbukaan.' },
+  { icon: '📱', title: 'Presensi QR & PIN', desc: 'Kemudahan melakukan absensi rapat mandiri secara digital tanpa antrean kertas.' },
+  { icon: '🤝', title: 'Kolaborasi Positif', desc: 'Wadah berkumpulnya pemuda Ngampon untuk menggagas aksi kemanusiaan dan bakti sosial.' }
+]
+
+const highlightTitle = ref('')
+const highlightSubtitle = ref('')
+const highlightItems = ref([])
+const newHlIcon = ref('✨')
+const newHlTitle = ref('')
+const newHlDesc = ref('')
+
+const addHighlightItem = () => {
+  if (newHlTitle.value.trim() && newHlDesc.value.trim()) {
+    highlightItems.value.push({
+      icon: newHlIcon.value || '✨',
+      title: newHlTitle.value.trim(),
+      desc: newHlDesc.value.trim()
+    })
+    newHlIcon.value = '✨'
+    newHlTitle.value = ''
+    newHlDesc.value = ''
+  }
+}
+
+const removeHighlightItem = (index) => {
+  highlightItems.value.splice(index, 1)
+}
+
+const handleSaveHighlights = async () => {
+  const payload = {
+    section_title: highlightTitle.value.trim(),
+    section_subtitle: highlightSubtitle.value.trim(),
+    items: highlightItems.value
+  }
+  const res = await socialStore.saveSection('highlights', payload)
+  if (res.success) {
+    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Highlights disimpan!', timer: 1500, showConfirmButton: false })
+  }
+}
+
 const handleSaveAbout = async () => {
   const payload = {
+    about_desc: aboutDescText.value.trim(),
     visi: visiText.value.trim(),
-    misi: misiList.value
+    misi: misiList.value,
+    semboyan: semboyanText.value.trim(),
+    values: valuesList.value
   }
   const res = await socialStore.saveSection('about', payload)
   if (res.success) {
-    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Visi & Misi disimpan!', timer: 1500, showConfirmButton: false })
+    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Visi, Misi & Nilai Perjuangan disimpan!', timer: 1500, showConfirmButton: false })
   }
 }
 
@@ -234,6 +335,73 @@ const handleDeleteSocialLink = async (id) => {
     }
   }
 }
+
+const generationForm = ref({ id: null, num: 1, year: '', leader: '', secretary: '', treasurer: '', active_members_raw: '', story: '' })
+const isEditingGeneration = ref(false)
+
+const resetGenerationForm = () => {
+  const nextNum = socialStore.landingGenerations && socialStore.landingGenerations.length > 0 
+    ? Math.max(...socialStore.landingGenerations.map(g => g.num)) + 1 
+    : 1
+  generationForm.value = { id: null, num: nextNum, year: '', leader: '', secretary: '', treasurer: '', active_members_raw: '', story: '' }
+  isEditingGeneration.value = false
+}
+
+const editGeneration = (gen) => {
+  generationForm.value = {
+    id: gen.id,
+    num: gen.num,
+    year: gen.year,
+    leader: gen.leader,
+    secretary: gen.secretary,
+    treasurer: gen.treasurer,
+    active_members_raw: Array.isArray(gen.active_members) ? gen.active_members.join(', ') : '',
+    story: gen.story
+  }
+  isEditingGeneration.value = true
+}
+
+const handleSaveGeneration = async () => {
+  if (!generationForm.value.num || !generationForm.value.year || !generationForm.value.leader || !generationForm.value.story) return
+
+  const activeMembersArr = generationForm.value.active_members_raw
+    ? generationForm.value.active_members_raw.split(',').map(m => m.trim()).filter(m => m.length > 0)
+    : []
+
+  const payload = {
+    id: generationForm.value.id,
+    num: parseInt(generationForm.value.num),
+    year: generationForm.value.year.toString().trim(),
+    leader: generationForm.value.leader.trim(),
+    secretary: generationForm.value.secretary.trim(),
+    treasurer: generationForm.value.treasurer.trim(),
+    active_members: activeMembersArr,
+    story: generationForm.value.story.trim()
+  }
+
+  const res = await socialStore.saveGeneration(payload)
+  if (res.success) {
+    resetGenerationForm()
+    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Data Generasi disimpan!', timer: 1500, showConfirmButton: false })
+  } else {
+    Swal.fire({ icon: 'error', title: 'Gagal', text: 'Nomor Generasi sudah ada atau data tidak valid!' })
+  }
+}
+
+const handleDeleteGeneration = async (id) => {
+  const confirm = await Swal.fire({
+    title: 'Hapus Data Generasi?',
+    text: 'Aksi ini tidak bisa dibatalkan!',
+    icon: 'warning',
+    showCancelButton: true
+  })
+  if (confirm.isConfirmed) {
+    const res = await socialStore.deleteGeneration(id)
+    if (res.success) {
+      Swal.fire({ icon: 'success', title: 'Dihapus', text: 'Generasi dihapus!', timer: 1500, showConfirmButton: false })
+    }
+  }
+}
 </script>
 
 <template>
@@ -248,7 +416,9 @@ const handleDeleteSocialLink = async (id) => {
             { id: 'features', name: 'Kegiatan / Fitur', emoji: '⚡' },
             { id: 'gallery', name: 'Galeri Dokumentasi', emoji: '📸' },
             { id: 'faqs', name: 'FAQ Tanya Jawab', emoji: '❓' },
-            { id: 'social', name: 'Tautan Medsos', emoji: '🔗' }
+            { id: 'social', name: 'Tautan Medsos', emoji: '🔗' },
+            { id: 'highlights', name: 'Highlight Fitur', emoji: '⚡' },
+            { id: 'generations', name: 'Rekam Jejak Generasi', emoji: '👥' }
           ]" 
           :key="tab.id"
           @click="activeTab = tab.id"
@@ -588,6 +758,159 @@ const handleDeleteSocialLink = async (id) => {
           </table>
         </div>
       </div>
+
+      <div v-if="activeTab === 'generations'" class="space-y-6">
+        <div class="border-b border-slate-150 pb-4 flex justify-between items-center">
+          <h3 class="text-xs font-black uppercase tracking-widest text-slate-800">Kelola Rekam Jejak 10 Generasi</h3>
+          <button v-if="isEditingGeneration" @click="resetGenerationForm" class="px-4 py-2 border border-slate-200 text-slate-550 rounded-xl font-black text-[10px] uppercase tracking-wider">Batal Edit</button>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 p-6 rounded-2xl space-y-4 shadow-2xs">
+          <div class="grid grid-cols-4 gap-4">
+            <div>
+              <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1.5">No. Generasi</label>
+              <input v-model.number="generationForm.num" type="number" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-bold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Tahun Bakti</label>
+              <input v-model="generationForm.year" type="text" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-bold focus:outline-none" placeholder="2026">
+            </div>
+            <div class="col-span-2">
+              <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Ketua Generasi</label>
+              <input v-model="generationForm.leader" type="text" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-bold focus:outline-none" placeholder="Nama Ketua">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Sekretaris</label>
+              <input v-model="generationForm.secretary" type="text" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-bold focus:outline-none" placeholder="Nama Sekretaris">
+            </div>
+            <div>
+              <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Bendahara</label>
+              <input v-model="generationForm.treasurer" type="text" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-bold focus:outline-none" placeholder="Nama Bendahara">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Anggota Aktif (Pisahkan dengan koma)</label>
+            <input v-model="generationForm.active_members_raw" type="text" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-medium focus:outline-none" placeholder="Contoh: Bambang, Lilis, Indah">
+          </div>
+
+          <div>
+            <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Sejarah Singkat / Kisah Sukses Generasi</label>
+            <textarea v-model="generationForm.story" rows="3" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-medium resize-none" placeholder="Tuliskan pencapaian penting generasi ini..."></textarea>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button v-if="isEditingGeneration" @click="resetGenerationForm" class="px-6 py-3 border border-slate-200 text-slate-600 rounded-md font-black text-[10px] uppercase tracking-widest cursor-pointer active:scale-95">Batal</button>
+            <button @click="handleSaveGeneration" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-black text-[10px] uppercase tracking-widest cursor-pointer active:scale-95">
+              {{ isEditingGeneration ? 'Simpan Edit' : 'Tambah Generasi' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 bg-white rounded-2xl shadow-2xs">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 text-[9px] font-black uppercase tracking-widest">
+                <th class="p-4 w-16 text-center">Gen</th>
+                <th class="p-4 w-24">Tahun</th>
+                <th class="p-4">Struktur Inti</th>
+                <th class="p-4">Anggota Aktif</th>
+                <th class="p-4 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-150 text-xs font-bold text-slate-700">
+              <tr v-if="!socialStore.landingGenerations || socialStore.landingGenerations.length === 0">
+                <td colspan="5" class="p-8 text-center text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  Belum ada data generasi di database. Halaman Beranda menggunakan fallback data default.
+                </td>
+              </tr>
+              <tr v-for="gen in socialStore.landingGenerations" :key="gen.id" class="hover:bg-slate-50/50 transition-colors">
+                <td class="p-4 text-center text-emerald-600 font-black">G-{{ gen.num }}</td>
+                <td class="p-4 font-black">{{ gen.year }}</td>
+                <td class="p-4 space-y-1">
+                  <div><span class="text-[9px] font-black text-slate-400 uppercase">Ketua:</span> {{ gen.leader }}</div>
+                  <div><span class="text-[9px] font-black text-slate-400 uppercase">Sekretaris:</span> {{ gen.secretary }}</div>
+                  <div><span class="text-[9px] font-black text-slate-400 uppercase">Bendahara:</span> {{ gen.treasurer }}</div>
+                </td>
+                <td class="p-4">
+                  <div class="flex flex-wrap gap-1 max-w-md">
+                    <span v-for="m in gen.active_members" :key="m" class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[8px] font-black uppercase rounded">
+                      {{ m }}
+                    </span>
+                  </div>
+                </td>
+                <td class="p-4 text-center space-x-3.5">
+                  <button @click="editGeneration(gen)" class="text-emerald-600 hover:text-emerald-700 font-black uppercase text-[10px] cursor-pointer">Edit</button>
+                  <button @click="handleDeleteGeneration(gen.id)" class="text-rose-600 hover:text-rose-700 font-black uppercase text-[10px] cursor-pointer">Hapus</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div v-if="activeTab === 'highlights'" class="space-y-6">
+        <div class="border-b border-slate-150 pb-4">
+          <h3 class="text-xs font-black uppercase tracking-widest text-slate-800">Kelola Seksi Highlight Fitur Platform</h3>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Judul Seksi</label>
+            <input v-model="highlightTitle" type="text" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500" placeholder="Aksi Nyata & Kiprah Kepemudaan">
+          </div>
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Sub-judul Seksi</label>
+            <textarea v-model="highlightSubtitle" rows="2" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-md text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none" placeholder="Deskripsi singkat bagian ini..."></textarea>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500">Kartu Highlight (tambah / hapus)</label>
+          <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3">
+            <div class="grid grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[9px] font-black uppercase tracking-wider text-slate-400 mb-1">Emoji/Ikon</label>
+                <input v-model="newHlIcon" type="text" maxlength="4" class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm font-bold text-center focus:outline-none" placeholder="💰">
+              </div>
+              <div class="col-span-3">
+                <label class="block text-[9px] font-black uppercase tracking-wider text-slate-400 mb-1">Judul Fitur</label>
+                <input v-model="newHlTitle" type="text" class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-bold focus:outline-none" placeholder="Transparansi Kas">
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <input v-model="newHlDesc" type="text" @keyup.enter="addHighlightItem" class="flex-1 px-3 py-2.5 bg-white border border-slate-200 rounded-md text-xs font-medium focus:outline-none" placeholder="Deskripsi fitur highlight ini...">
+              <button @click="addHighlightItem" class="px-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-black text-[10px] uppercase tracking-widest cursor-pointer active:scale-95">Tambah</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div v-if="highlightItems.length === 0" class="sm:col-span-3 p-6 text-center text-xs font-bold text-slate-400 uppercase tracking-wider border border-dashed border-slate-200 rounded-2xl">
+              Belum ada kartu highlight. Tambahkan di atas.
+            </div>
+            <div v-for="(item, idx) in highlightItems" :key="idx" class="bg-white border border-slate-200 p-5 rounded-2xl flex flex-col gap-3 group hover:border-emerald-200 transition-colors">
+              <div class="flex items-start justify-between">
+                <span class="text-2xl">{{ item.icon }}</span>
+                <button @click="removeHighlightItem(idx)" class="text-rose-500 hover:text-rose-600 font-black text-[10px] uppercase tracking-wider cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">Hapus</button>
+              </div>
+              <div>
+                <h5 class="text-xs font-black text-slate-800 uppercase">{{ item.title }}</h5>
+                <p class="text-[10px] text-slate-500 font-medium leading-relaxed mt-1">{{ item.desc }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4">
+          <button @click="handleSaveHighlights" class="px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-black text-xs uppercase tracking-widest transition-all cursor-pointer shadow-md active:scale-95">
+            Simpan Highlights
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>

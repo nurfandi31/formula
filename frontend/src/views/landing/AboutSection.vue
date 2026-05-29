@@ -6,32 +6,44 @@ const socialStore = useSocialStore()
 
 const aboutData = computed(() => {
   const aboutSection = socialStore.landingSections.find(s => s.key === 'about')
+  
+  const defaultDesc = 'FORMULA (Forum Muda Mudi Islam Ngampon) adalah organisasi kepemudaan aktif di bidang sosial, religius, edukasi, dan kreatif untuk melahirkan pemuda yang tangguh dan berakhlak.'
+  const defaultVisi = 'Terwujudnya pemuda Ngampon yang unggul, agamis, kolaboratif, dan berdampak sosial nyata.'
+  const defaultMisi = [
+    'Membina keimanan dan kreativitas pemuda secara berkesinambungan.',
+    'Menyelenggarakan bakti sosial kemasyarakatan yang swadaya.',
+    'Mengembangkan transparansi keuangan dan kolaborasi organisasi.'
+  ]
+  const defaultValues = [
+    { emoji: '🌱', title: 'Muda', desc: 'Bersemangat, energik, berani mengambil langkah kreatif, serta tangguh menghadapi tantangan.' },
+    { emoji: '🕌', title: 'Beriman', desc: 'Mendasarkan segala perbuatan dan kegiatan pada ajaran suci agama Islam.' },
+    { emoji: '🏆', title: 'Berprestasi', desc: 'Berkomitmen melahirkan prestasi serta mendatangkan kegunaan konkret bagi dusun.' },
+    { emoji: '🤝', title: 'Sinergitas', desc: 'Melangkah beriringan bersama masyarakat, pengurus RT, serta sesepuh dusun.' }
+  ]
+  const defaultSemboyan = 'Muda, Beriman, Berprestasi — Bersama Membangun Dusun yang Lebih Baik.'
+
   if (aboutSection && aboutSection.content) {
+    let content = aboutSection.content
+    if (typeof content === 'string') {
+      try { content = JSON.parse(content) } catch (e) { content = {} }
+    }
     return {
-      visi: aboutSection.content.visi || 'Mewujudkan generasi muda Dusun Ngampon yang berkarakter islami, berintegritas tinggi, kreatif, inovatif, dan berdaya saing secara global demi kemaslahatan bersama.',
-      misi: aboutSection.content.misi || [
-        'Membina kepribadian yang mulia, religius, dan berakhlakul karimah lewat kajian serta kepanitiaan hari besar Islam.',
-        'Mendorong peningkatan skill pemuda di bidang teknologi informasi, seni, kebudayaan, serta minat kewirausahaan dusun.',
-        'Menumbuhkan kepekaan sosial serta kebersamaan melalui bakti kemanusiaan rutin demi melayani sesama warga dusun.'
-      ]
+      aboutDesc: content.about_desc || defaultDesc,
+      visi: content.visi || defaultVisi,
+      misi: content.misi || defaultMisi,
+      values: content.values || defaultValues,
+      semboyan: content.semboyan || defaultSemboyan
     }
   }
+
   return {
-    visi: 'Mewujudkan generasi muda Dusun Ngampon yang berkarakter islami, berintegritas tinggi, kreatif, inovatif, dan berdaya saing secara global demi kemaslahatan bersama.',
-    misi: [
-      'Membina kepribadian yang mulia, religius, dan berakhlakul karimah lewat kajian serta kepanitiaan hari besar Islam.',
-      'Mendorong peningkatan skill pemuda di bidang teknologi informasi, seni, kebudayaan, serta minat kewirausahaan dusun.',
-      'Menumbuhkan kepekaan sosial serta kebersamaan melalui bakti kemanusiaan rutin demi melayani sesama warga dusun.'
-    ]
+    aboutDesc: defaultDesc,
+    visi: defaultVisi,
+    misi: defaultMisi,
+    values: defaultValues,
+    semboyan: defaultSemboyan
   }
 })
-
-const values = [
-  { emoji: '🌱', title: 'Muda', desc: 'Bersemangat, energik, berani mengambil langkah kreatif, serta tangguh menghadapi tantangan.' },
-  { emoji: '🕌', title: 'Beriman', desc: 'Mendasarkan segala perbuatan dan kegiatan pada ajaran suci agama Islam.' },
-  { emoji: '🏆', title: 'Berprestasi', desc: 'Berkomitmen melahirkan prestasi serta mendatangkan kegunaan konkret bagi dusun.' },
-  { emoji: '🤝', title: 'Sinergitas', desc: 'Melangkah beriringan bersama masyarakat, pengurus RT, serta sesepuh dusun.' }
-]
 </script>
 
 <template>
@@ -52,7 +64,7 @@ const values = [
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500">Membangun Ngampon</span>
         </h2>
         <p class="text-slate-500 font-medium text-sm sm:text-base lg:text-lg leading-relaxed">
-          FORMULA (Forum Muda Mudi Islam Ngampon) adalah organisasi kepemudaan aktif di bidang sosial, religius, edukasi, dan kreatif untuk melahirkan pemuda yang tangguh dan berakhlak.
+          {{ aboutData.aboutDesc }}
         </p>
       </div>
 
@@ -96,7 +108,7 @@ const values = [
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 flex-grow">
             <div
-              v-for="v in values"
+              v-for="v in aboutData.values"
               :key="v.title"
               class="bg-white border border-slate-100 rounded-2xl p-5 sm:p-6 shadow-lg shadow-slate-100/80 hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-200/50 hover:-translate-y-1 transition-all duration-300 flex flex-col gap-3"
             >
@@ -110,7 +122,7 @@ const values = [
 
           <div class="bg-gradient-to-r from-emerald-600 to-green-600 rounded-2xl p-5 sm:p-6 text-white shadow-xl shadow-emerald-600/20">
             <p class="text-[10px] font-black uppercase tracking-widest text-emerald-200 mb-2">Semboyan FORMULA</p>
-            <p class="text-sm sm:text-base font-bold leading-relaxed italic">"Muda, Beriman, Berprestasi — Bersama Membangun Dusun yang Lebih Baik."</p>
+            <p class="text-sm sm:text-base font-bold leading-relaxed italic">"{{ aboutData.semboyan }}"</p>
           </div>
         </div>
       </div>

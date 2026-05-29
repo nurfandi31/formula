@@ -6,6 +6,7 @@ import HeroSection from './HeroSection.vue'
 import AboutSection from './AboutSection.vue'
 import SejarahSection from './SejarahSection.vue'
 import KegiatanSection from './KegiatanSection.vue'
+import HighlightsSection from './HighlightsSection.vue'
 import GaleriSection from './GaleriSection.vue'
 import SosialSection from './SosialSection.vue'
 import AnggotaSection from './AnggotaSection.vue'
@@ -113,6 +114,7 @@ const handleToast = (message) => {
     <AboutSection />
     <SejarahSection />
     <KegiatanSection />
+    <HighlightsSection />
     <GaleriSection @open-gallery="openGalleryModal" />
     <SosialSection @open-profile="openMemberProfile" @toast="handleToast" />
     <AnggotaSection @open-profile="openMemberProfile" />

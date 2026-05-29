@@ -17,6 +17,8 @@ export const useLandingStore = defineStore('landing', () => {
   const landingTestimonials = ref([])
   const landingSettings = ref(JSON.parse(localStorage.getItem('formula_landing_settings')) || [])
   const landingSocialLinks = ref(JSON.parse(localStorage.getItem('formula_landing_social_links')) || [])
+  const landingStats = ref({ anggota: 0, generasi: 0, aksi_sosial: 0 })
+  const landingGenerations = ref([])
 
   watch(landingConfig, (val) => {
     localStorage.setItem('formula_landing_config', JSON.stringify(val))
@@ -53,6 +55,8 @@ export const useLandingStore = defineStore('landing', () => {
         landingTestimonials.value = data.testimonials || []
         landingSettings.value = data.settings || []
         landingSocialLinks.value = data.social_links || []
+        landingStats.value = data.stats || { anggota: 0, generasi: 0, aksi_sosial: 0 }
+        await fetchGenerations()
       }
     } catch (e) {}
   }
@@ -214,6 +218,43 @@ export const useLandingStore = defineStore('landing', () => {
     return { success: false }
   }
 
+  const fetchGenerations = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/generations`)
+      if (res.ok) {
+        landingGenerations.value = await res.json()
+      }
+    } catch (e) {}
+  }
+
+  const saveGeneration = async (gen) => {
+    try {
+      const res = await fetch(`${API_BASE}/generations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(gen)
+      })
+      if (res.ok) {
+        await fetchGenerations()
+        return { success: true }
+      }
+    } catch (e) {}
+    return { success: false }
+  }
+
+  const deleteGeneration = async (id) => {
+    try {
+      const res = await fetch(`${API_BASE}/generations/${id}`, {
+        method: 'DELETE'
+      })
+      if (res.ok) {
+        await fetchGenerations()
+        return { success: true }
+      }
+    } catch (e) {}
+    return { success: false }
+  }
+
   return {
     landingConfig,
     landingGallery,
@@ -224,6 +265,8 @@ export const useLandingStore = defineStore('landing', () => {
     landingTestimonials,
     landingSettings,
     landingSocialLinks,
+    landingStats,
+    landingGenerations,
     fetchLandingConfig,
     saveLandingConfig,
     saveSection,
@@ -235,6 +278,9 @@ export const useLandingStore = defineStore('landing', () => {
     saveFaq,
     deleteFaq,
     saveSocialLink,
-    deleteSocialLink
+    deleteSocialLink,
+    fetchGenerations,
+    saveGeneration,
+    deleteGeneration
   }
 })

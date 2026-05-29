@@ -98,7 +98,7 @@ onUnmounted(() => {
 
           <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200/60 rounded-full shadow-sm">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span class="text-[10px] sm:text-xs font-black text-emerald-700 uppercase tracking-[0.2em]">Generasi 18 · 2026</span>
+            <span class="text-[10px] sm:text-xs font-black text-emerald-700 uppercase tracking-[0.2em]">Generasi {{ socialStore.landingStats?.generasi || 10 }} · {{ new Date().getFullYear() }}</span>
           </div>
 
           <div class="space-y-3">
@@ -179,17 +179,17 @@ onUnmounted(() => {
 
           <div class="flex items-center gap-6 sm:gap-8 pt-2 w-full max-w-lg justify-center lg:justify-start">
             <div class="text-center">
-              <p class="text-xl sm:text-2xl font-black text-slate-900">150+</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900">{{ socialStore.landingStats?.anggota || 0 }}+</p>
               <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Anggota</p>
             </div>
             <div class="w-px h-8 bg-slate-200"></div>
             <div class="text-center">
-              <p class="text-xl sm:text-2xl font-black text-slate-900">10</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900">{{ socialStore.landingStats?.generasi || 0 }}</p>
               <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Generasi</p>
             </div>
             <div class="w-px h-8 bg-slate-200"></div>
             <div class="text-center">
-              <p class="text-xl sm:text-2xl font-black text-slate-900">48+</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900">{{ socialStore.landingStats?.aksi_sosial || 0 }}+</p>
               <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Aksi Sosial</p>
             </div>
           </div>
